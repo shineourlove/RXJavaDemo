@@ -1,14 +1,12 @@
 package com.anjile.shineourlove.rxjavaapplication.activity;
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
-import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentFish;
+import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentOne;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentFour;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentThree;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentTwo;
@@ -18,7 +16,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
     private BottomNavigationBar mBottomNavigationBar;
-    private FragmentFish fragmentFish;
+    private FragmentOne fragmentFish;
     private FragmentTwo fragmentTwo;
     private FragmentThree fragmentThree;
     private FragmentFour fragmentFour;
@@ -68,7 +66,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private void setDefaultFragment() {
         FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
         if (fragmentFish == null)
-            fragmentFish = new FragmentFish();
+            fragmentFish = new FragmentOne();
         transaction.replace(R.id.ll_content, fragmentFish).commit();
     }
 
@@ -78,7 +76,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         switch (position) {
             case 0:
                 if (fragmentFish == null)
-                    fragmentFish = new FragmentFish();
+                    fragmentFish = new FragmentOne();
                 transaction.replace(R.id.ll_content, fragmentFish);
                 break;
             case 1:
@@ -98,7 +96,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 break;
             default:
                 if (fragmentFish == null)
-                    fragmentFish = new FragmentFish();
+                    fragmentFish = new FragmentOne();
                 transaction.replace(R.id.ll_content, fragmentFish);
         }
         transaction.commit();

@@ -4,4 +4,5 @@
     <string name="tab_two">Fly</string>
     <string name="tab_three">Bird</string>
     <string name="tab_four">Coffee</string>
+    <string name="search_hint">搜索企业/资质/人员/业绩</string>
 </resources>

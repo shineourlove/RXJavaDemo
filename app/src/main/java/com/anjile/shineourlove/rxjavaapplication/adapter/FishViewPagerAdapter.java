@@ -70,7 +70,7 @@ public class FishViewPagerAdapter extends PagerAdapter {
         return arg0 == arg1;//官方提示这样写
     }
 
-    public class Holder {
+    private class Holder {
         ImageView imageView;
         TextView txt1;
     }

@@ -353,10 +353,10 @@
                 android:layout_height="wrap_content"
                 android:focusable="false" />
 
-            <android.support.v4.view.ViewPager
+            <com.anjile.shineourlove.rxjavaapplication.view.AutoFitViewpager
                 android:id="@+id/vp_fragment_home_details"
                 android:layout_width="match_parent"
-                android:layout_height="600dp" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </RelativeLayout>
 </ScrollView>

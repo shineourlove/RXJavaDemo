@@ -20,6 +20,7 @@ import com.anjile.shineourlove.rxjavaapplication.entity.CompanyDetails;
 import com.anjile.shineourlove.rxjavaapplication.holder.NetImageHolder;
 import com.anjile.shineourlove.rxjavaapplication.manager.FullyLinearLayoutManager;
 import com.anjile.shineourlove.rxjavaapplication.utils.DividerItemDecoration;
+import com.anjile.shineourlove.rxjavaapplication.view.AutoFitViewpager;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
@@ -36,7 +37,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     TextView txtHot1, txtHot2;
     TextView txtArea;
     RecyclerView rcvCompany;
-    ViewPager pagerDetails;
+    AutoFitViewpager pagerDetails;
 
     @Override
     public void onAttach(Context context) {

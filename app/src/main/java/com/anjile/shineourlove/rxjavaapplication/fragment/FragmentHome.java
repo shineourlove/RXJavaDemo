@@ -5,13 +5,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.adapter.ArchitectureRecycleAdapter;
+import com.anjile.shineourlove.rxjavaapplication.adapter.DetailsPagerAdapter;
+import com.anjile.shineourlove.rxjavaapplication.entity.CompanyDetails;
 import com.anjile.shineourlove.rxjavaapplication.holder.NetImageHolder;
+import com.anjile.shineourlove.rxjavaapplication.manager.FullyLinearLayoutManager;
+import com.anjile.shineourlove.rxjavaapplication.utils.DividerItemDecoration;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
@@ -25,6 +33,10 @@ import java.util.ArrayList;
 public class FragmentHome extends Fragment implements AdapterView.OnItemClickListener, ViewPager.OnPageChangeListener, OnItemClickListener {
     ConvenientBanner banner;
     ArrayList<String> photos;
+    TextView txtHot1, txtHot2;
+    TextView txtArea;
+    RecyclerView rcvCompany;
+    ViewPager pagerDetails;
 
     @Override
     public void onAttach(Context context) {
@@ -36,6 +48,11 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_layout, container, false);
         banner = view.findViewById(R.id.cb_fragment_home);
+        txtHot1 = view.findViewById(R.id.txt_fragment_home_hot_one);
+        txtHot2 = view.findViewById(R.id.txt_fragment_home_hot_two);
+        txtArea = view.findViewById(R.id.txt_fragment_home_area);
+        rcvCompany = view.findViewById(R.id.rcv_fragment_home_details);
+        pagerDetails = view.findViewById(R.id.vp_fragment_home_details);
         return view;
     }
 
@@ -43,6 +60,9 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initCB();
+        initHotPoint();
+        initArchitecture();
+        initPager(savedInstanceState);
     }
 
     public void initCB() {
@@ -60,6 +80,50 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         banner.setOnItemClickListener(this);
         banner.setOnPageChangeListener(this);
         banner.startTurning(5000);
+    }
+
+    public void initHotPoint() {
+        txtHot1.setText("市政公用工程施工总承包三级资质申请通过审查");
+        txtHot2.setText("建筑装修装饰工程专业承包二级资质申请通过审查");
+        txtArea.setText("重庆");
+    }
+
+    public void initArchitecture() {
+        rcvCompany.setFocusable(false);
+        ArrayList<CompanyDetails> companyDetailses = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            companyDetailses.add(new CompanyDetails("红旗渠建设集团有限公司", 1506787200000l + 24 * 60 * 60 * 1000 * i));
+        }
+        ArchitectureRecycleAdapter architectureAdapter = new ArchitectureRecycleAdapter(companyDetailses, getContext());
+        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(getContext());
+        rcvCompany.setNestedScrollingEnabled(false);
+        rcvCompany.setLayoutManager(linearLayoutManager);
+        rcvCompany.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL_LIST));
+        rcvCompany.setAdapter(architectureAdapter);
+        architectureAdapter.notifyDataSetChanged();
+        architectureAdapter.setOnItemClickListener(new ArchitectureRecycleAdapter.MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.i("recycle_view_click", "onItemClick: " + position);
+            }
+        });
+    }
+
+    public void initPager(Bundle savedInstanceState) {
+        LayoutInflater lf = getLayoutInflater(savedInstanceState);
+        View view1, view2, view3;
+        view1 = lf.inflate(R.layout.details_pager_layout, null);
+        view2 = lf.inflate(R.layout.details_pager_layout, null);
+        view3 = lf.inflate(R.layout.details_pager_layout, null);
+
+        ArrayList<View> viewList = new ArrayList<>();
+        viewList.add(view1);
+        viewList.add(view2);
+        viewList.add(view3);
+
+        DetailsPagerAdapter adapter = new DetailsPagerAdapter(viewList);
+        pagerDetails.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

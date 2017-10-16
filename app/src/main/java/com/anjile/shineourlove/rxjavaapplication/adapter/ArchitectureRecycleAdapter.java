@@ -51,6 +51,9 @@ public class ArchitectureRecycleAdapter extends RecyclerView.Adapter<Architectur
         holder.txtName.setText(companyList.get(position).getName());
         holder.txtDate.setText("最近中标: " + DateFormatTime.getTimeDataForYearsToDate(companyList.get(position).getDate()));
         holder.imgHint.setImageResource(R.drawable.ssdk_oks_classic_email);
+        holder.txtAptitude.setText(companyList.get(position).getAptitude() + "");
+        holder.txtManage.setText(companyList.get(position).getManage() + "");
+        holder.txtHonor.setText(companyList.get(position).getHonor() + "");
     }
 
 
@@ -65,6 +68,7 @@ public class ArchitectureRecycleAdapter extends RecyclerView.Adapter<Architectur
         private TextView txtName;
         private TextView txtDate;
         private ImageView imgHint;
+        private TextView txtAptitude, txtManage, txtHonor;
 
         public ArchitectureHolder(View itemView, MyItemClickListener mListener, MyItemLongClickListener mLongClickListener) {
             super(itemView);
@@ -73,6 +77,9 @@ public class ArchitectureRecycleAdapter extends RecyclerView.Adapter<Architectur
             txtName = itemView.findViewById(R.id.txt_architecture_item_company);
             txtDate = itemView.findViewById(R.id.txt_architecture_item_date);
             imgHint = itemView.findViewById(R.id.img_architecture_item_hint);
+            txtAptitude = itemView.findViewById(R.id.txt_architecture_item_aptitude);
+            txtManage = itemView.findViewById(R.id.txt_architecture_item_manage);
+            txtHonor = itemView.findViewById(R.id.txt_architecture_item_honor);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }

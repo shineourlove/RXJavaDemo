@@ -31,13 +31,14 @@ import java.util.ArrayList;
  * Created by Administrator on 2017/10/10.
  */
 
-public class FragmentHome extends Fragment implements AdapterView.OnItemClickListener, ViewPager.OnPageChangeListener, OnItemClickListener {
+public class FragmentHome extends Fragment implements AdapterView.OnItemClickListener, ViewPager.OnPageChangeListener, OnItemClickListener, View.OnClickListener {
     ConvenientBanner banner;
     ArrayList<String> photos;
     TextView txtHot1, txtHot2;
     TextView txtArea;
-    RecyclerView rcvCompany;
+    RecyclerView rcvCompany;//已注释
     AutoFitViewpager pagerDetails;
+    TextView txtCompany, txtCompanyLine, txtInfo, txtInfoLine, txtBuilder, txtBuilderLine;
 
     @Override
     public void onAttach(Context context) {
@@ -52,8 +53,14 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtHot1 = view.findViewById(R.id.txt_fragment_home_hot_one);
         txtHot2 = view.findViewById(R.id.txt_fragment_home_hot_two);
         txtArea = view.findViewById(R.id.txt_fragment_home_area);
-        rcvCompany = view.findViewById(R.id.rcv_fragment_home_details);
+        //rcvCompany = view.findViewById(R.id.rcv_fragment_home_details);
         pagerDetails = view.findViewById(R.id.vp_fragment_home_details);
+        txtCompany = view.findViewById(R.id.txt_fragment_home_company);
+        txtCompanyLine = view.findViewById(R.id.txt_fragment_home_company_line);
+        txtInfo = view.findViewById(R.id.txt_fragment_home_info);
+        txtInfoLine = view.findViewById(R.id.txt_fragment_home_info_line);
+        txtBuilder = view.findViewById(R.id.txt_fragment_home_builder);
+        txtBuilderLine = view.findViewById(R.id.txt_fragment_home_builder_line);
         return view;
     }
 
@@ -62,8 +69,9 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         super.onActivityCreated(savedInstanceState);
         initCB();
         initHotPoint();
-        initArchitecture();
+        //initArchitecture();
         initPager(savedInstanceState);
+        initDetails();
     }
 
     public void initCB() {
@@ -93,7 +101,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         rcvCompany.setFocusable(false);
         ArrayList<CompanyDetails> companyDetailses = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            companyDetailses.add(new CompanyDetails("红旗渠建设集团有限公司", 1506787200000l + 24 * 60 * 60 * 1000 * i));
+            companyDetailses.add(new CompanyDetails("红旗渠建设集团有限公司", 1506787200000l + 24 * 60 * 60 * 1000 * i, 1, 2, 3));
         }
         ArchitectureRecycleAdapter architectureAdapter = new ArchitectureRecycleAdapter(companyDetailses, getContext());
         FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(getContext());
@@ -125,11 +133,53 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         DetailsPagerAdapter adapter = new DetailsPagerAdapter(viewList);
         pagerDetails.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        pagerDetails.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.i("view_pager_select", "onPageSelected: " + position);
+                switch (position) {
+                    case 0:
+                        clickCompany();
+                        break;
+                    case 1:
+                        clickInfo();
+                        break;
+                    case 2:
+                        clickBuilder();
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    public void initDetails() {
+        txtCompany.setOnClickListener(this);
+        txtCompanyLine.setOnClickListener(this);
+        txtInfo.setOnClickListener(this);
+        txtInfoLine.setOnClickListener(this);
+        txtBuilder.setOnClickListener(this);
+        txtBuilderLine.setOnClickListener(this);
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        txtCompany.setTextColor(getResources().getColor(R.color.blue_word));
+        txtInfo.setTextColor(getResources().getColor(R.color.gray_word));
+        txtBuilder.setTextColor(getResources().getColor(R.color.gray_word));
+        txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
+        txtInfoLine.setBackgroundColor(getResources().getColor(R.color.white));
+        txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.white));
+        pagerDetails.setCurrentItem(0);
     }
 
     @Override
@@ -139,7 +189,6 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
     @Override
@@ -150,5 +199,50 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.txt_fragment_home_company:
+                clickCompany();
+                break;
+            case R.id.txt_fragment_home_info:
+                clickInfo();
+                break;
+            case R.id.txt_fragment_home_builder:
+                clickBuilder();
+                break;
+        }
+    }
+
+    public void clickCompany() {
+        txtCompany.setTextColor(getResources().getColor(R.color.blue_word));
+        txtInfo.setTextColor(getResources().getColor(R.color.gray_word));
+        txtBuilder.setTextColor(getResources().getColor(R.color.gray_word));
+        txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
+        txtInfoLine.setBackgroundColor(getResources().getColor(R.color.white));
+        txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.white));
+        pagerDetails.setCurrentItem(0);
+    }
+
+    public void clickInfo() {
+        txtCompany.setTextColor(getResources().getColor(R.color.gray_word));
+        txtInfo.setTextColor(getResources().getColor(R.color.blue_word));
+        txtBuilder.setTextColor(getResources().getColor(R.color.gray_word));
+        txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.white));
+        txtInfoLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
+        txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.white));
+        pagerDetails.setCurrentItem(1);
+    }
+
+    public void clickBuilder() {
+        txtCompany.setTextColor(getResources().getColor(R.color.gray_word));
+        txtInfo.setTextColor(getResources().getColor(R.color.gray_word));
+        txtBuilder.setTextColor(getResources().getColor(R.color.blue_word));
+        txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.white));
+        txtInfoLine.setBackgroundColor(getResources().getColor(R.color.white));
+        txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
+        pagerDetails.setCurrentItem(2);
     }
 }

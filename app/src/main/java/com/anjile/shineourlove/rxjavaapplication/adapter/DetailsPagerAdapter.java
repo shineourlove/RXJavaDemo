@@ -71,13 +71,11 @@ public class DetailsPagerAdapter extends PagerAdapter {
                 holder.rcvBuilder.setVisibility(View.VISIBLE);
                 break;
             default:
-                initArchitecture(holder.rcvCompany, container.getContext(), "红旗渠建设集团有限公司");
+/*                initArchitecture(holder.rcvCompany, container.getContext(), "红旗渠建设集团有限公司");
                 holder.rcvCompany.setVisibility(View.VISIBLE);
                 holder.rcvInformation.setVisibility(View.GONE);
-                holder.rcvBuilder.setVisibility(View.GONE);
+                holder.rcvBuilder.setVisibility(View.GONE);*/
         }
-
-
         container.addView(convertView, 0);//添加页卡
         return convertView;
     }
@@ -86,7 +84,7 @@ public class DetailsPagerAdapter extends PagerAdapter {
         view.setFocusable(false);
         ArrayList<CompanyDetails> companyDetailses = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            companyDetailses.add(new CompanyDetails(s, 1506787200000l + 24 * 60 * 60 * 1000 * i));
+            companyDetailses.add(new CompanyDetails(s, 1506787200000l + 24 * 60 * 60 * 1000 * i, 3, 2, 1));
         }
         ArchitectureRecycleAdapter architectureAdapter = new ArchitectureRecycleAdapter(companyDetailses, context);
         FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(context);

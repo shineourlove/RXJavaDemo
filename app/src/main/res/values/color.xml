@@ -10,4 +10,7 @@
     <color name="glass_green">#acffac</color>
     <color name="uranus">#d3f9fa</color>
     <color name="neptune">#6cb1fd</color>
+    <color name="blue_line">#009cff</color>
+    <color name="blue_word">#009cff</color>
+    <color name="gray_word">#656565</color>
 </resources>

@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="style_main_big">
+        <item name="android:textSize">40sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="style_login_gray">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/gray_word_hint</item>
+    </style>
+
+    <style name="style_login_blue">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/blue_word</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 </resources>

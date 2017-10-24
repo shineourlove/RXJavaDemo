@@ -13,4 +13,8 @@
     <color name="blue_line">#009cff</color>
     <color name="blue_word">#009cff</color>
     <color name="gray_word">#656565</color>
+    <color name="gray_line">#EEEEEE</color>
+    <color name="white_side">#DFE7FE</color>
+    <color name="black_wold">#282828</color>
+    <color name="gray_word_hint">#989898</color>
 </resources>

@@ -20,7 +20,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //禁用横屏
-        ButterKnife.bind(this);
         initBasic();
     }
 
@@ -29,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         viewClick(view);
     }
 
-    public abstract void viewClick(View v);
-
     public abstract void initBasic();
+
+    public abstract void viewClick(View v);
 }

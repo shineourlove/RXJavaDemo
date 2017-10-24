@@ -1,6 +1,7 @@
 package com.anjile.shineourlove.rxjavaapplication.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,9 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.activity.QueryActivity;
 import com.anjile.shineourlove.rxjavaapplication.adapter.ArchitectureRecycleAdapter;
 import com.anjile.shineourlove.rxjavaapplication.adapter.DetailsPagerAdapter;
 import com.anjile.shineourlove.rxjavaapplication.entity.CompanyDetails;
@@ -39,6 +42,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     RecyclerView rcvCompany;//已注释
     AutoFitViewpager pagerDetails;
     TextView txtCompany, txtCompanyLine, txtInfo, txtInfoLine, txtBuilder, txtBuilderLine;
+    RelativeLayout rlSearch;
 
     @Override
     public void onAttach(Context context) {
@@ -61,17 +65,23 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtInfoLine = view.findViewById(R.id.txt_fragment_home_info_line);
         txtBuilder = view.findViewById(R.id.txt_fragment_home_builder);
         txtBuilderLine = view.findViewById(R.id.txt_fragment_home_builder_line);
+        rlSearch = view.findViewById(R.id.rl_fragment_home_search);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initBasic();
         initCB();
         initHotPoint();
         //initArchitecture();
         initPager(savedInstanceState);
         initDetails();
+    }
+
+    public void initBasic() {
+        rlSearch.setOnClickListener(this);
     }
 
     public void initCB() {
@@ -212,6 +222,10 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
                 break;
             case R.id.txt_fragment_home_builder:
                 clickBuilder();
+                break;
+            case R.id.rl_fragment_home_search:
+                Intent intent = new Intent(getContext(), QueryActivity.class);
+                startActivity(intent);
                 break;
         }
     }

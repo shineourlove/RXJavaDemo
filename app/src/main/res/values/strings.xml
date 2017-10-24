@@ -5,4 +5,7 @@
     <string name="tab_three">Bird</string>
     <string name="tab_four">Coffee</string>
     <string name="search_hint">搜索企业/资质/人员/业绩</string>
+    <string name="service_phone_number">客服电话：123 456 7890</string>
+    <string name="title_activity_talent_pool">TalentPoolActivity</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
 </resources>

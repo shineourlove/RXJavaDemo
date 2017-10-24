@@ -10,8 +10,8 @@ import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.api.Api;
 import com.anjile.shineourlove.rxjavaapplication.entity.Retrofit2EntrtyTest1;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentHome;
-import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentOne;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentFour;
+import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentPerson;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentThree;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentTwo;
 import com.ashokvarma.bottomnavigation.BadgeItem;
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private BottomNavigationBar mBottomNavigationBar;
     private FragmentHome fragmentHome;
     private FragmentTwo fragmentTwo;
-    private FragmentThree fragmentThree;
+    private FragmentPerson fragmentPerson;
     private FragmentFour fragmentFour;
     private BadgeItem badgeItem;
 
@@ -111,9 +111,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 transaction.replace(R.id.ll_content, fragmentTwo);
                 break;
             case 2:
-                if (fragmentThree == null)
-                    fragmentThree = new FragmentThree();
-                transaction.replace(R.id.ll_content, fragmentThree);
+                if (fragmentPerson == null)
+                    fragmentPerson = new FragmentPerson();
+                transaction.replace(R.id.ll_content, fragmentPerson);
                 break;
             case 3:
                 if (fragmentFour == null)

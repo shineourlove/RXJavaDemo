@@ -10,10 +10,8 @@ import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.api.Api;
 import com.anjile.shineourlove.rxjavaapplication.entity.Retrofit2EntrtyTest1;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentHome;
-import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentFour;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentPerson;
-import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentThree;
-import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentTwo;
+import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentMessage;
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -41,9 +39,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener {
     private BottomNavigationBar mBottomNavigationBar;
     private FragmentHome fragmentHome;
-    private FragmentTwo fragmentTwo;
+    private FragmentMessage fragmentTwo;
     private FragmentPerson fragmentPerson;
-    private FragmentFour fragmentFour;
     private BadgeItem badgeItem;
 
     @Override
@@ -77,7 +74,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.icon_one, R.string.tab_one).setActiveColorResource(R.color.green).setBadgeItem(badgeItem))
                 .addItem(new BottomNavigationItem(R.drawable.icon_two, R.string.tab_two).setActiveColorResource(R.color.orange))
                 .addItem(new BottomNavigationItem(R.drawable.icon_three, R.string.tab_three).setActiveColorResource(R.color.lime))
-                .addItem(new BottomNavigationItem(R.drawable.icon_four, R.string.tab_four).setActiveColorResource(R.color.glass_green))
                 .setFirstSelectedPosition(0)
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(MainActivity.this);
@@ -107,18 +103,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 break;
             case 1:
                 if (fragmentTwo == null)
-                    fragmentTwo = new FragmentTwo();
+                    fragmentTwo = new FragmentMessage();
                 transaction.replace(R.id.ll_content, fragmentTwo);
                 break;
             case 2:
                 if (fragmentPerson == null)
                     fragmentPerson = new FragmentPerson();
                 transaction.replace(R.id.ll_content, fragmentPerson);
-                break;
-            case 3:
-                if (fragmentFour == null)
-                    fragmentFour = new FragmentFour();
-                transaction.replace(R.id.ll_content, fragmentFour);
                 break;
             default:
                 if (fragmentHome == null)

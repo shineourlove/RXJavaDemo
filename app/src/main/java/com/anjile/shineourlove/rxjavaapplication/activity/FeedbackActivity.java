@@ -27,7 +27,6 @@ public class FeedbackActivity extends BaseActivity {
 
     @Override
     public void viewClick(View v) {
-
+        
     }
-
 }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.activity.QueryActivity;
 import com.anjile.shineourlove.rxjavaapplication.adapter.ArchitectureRecycleAdapter;
 import com.anjile.shineourlove.rxjavaapplication.adapter.DetailsPagerAdapter;
+import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
 import com.anjile.shineourlove.rxjavaapplication.entity.CompanyDetails;
 import com.anjile.shineourlove.rxjavaapplication.holder.NetImageHolder;
 import com.anjile.shineourlove.rxjavaapplication.manager.FullyLinearLayoutManager;
@@ -30,6 +32,10 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by Administrator on 2017/10/10.
  */
@@ -38,11 +44,15 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     ConvenientBanner banner;
     ArrayList<String> photos;
     TextView txtHot1, txtHot2;
-    TextView txtArea;
     RecyclerView rcvCompany;//已注释
-    AutoFitViewpager pagerDetails;
+    AutoFitViewpager pagerDetails;//已注释
     TextView txtCompany, txtCompanyLine, txtInfo, txtInfoLine, txtBuilder, txtBuilderLine;
     RelativeLayout rlSearch;
+    @BindView(R.id.txt_fragment_home_area)
+    TextView txtFragmentHomeArea;
+    @BindView(R.id.img_fragment_home_area)
+    ImageView imgFragmentHomeArea;
+    Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -53,12 +63,12 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_layout, container, false);
+        ButterKnife.bind(getActivity());
         banner = view.findViewById(R.id.cb_fragment_home);
         txtHot1 = view.findViewById(R.id.txt_fragment_home_hot_one);
         txtHot2 = view.findViewById(R.id.txt_fragment_home_hot_two);
-        txtArea = view.findViewById(R.id.txt_fragment_home_area);
         //rcvCompany = view.findViewById(R.id.rcv_fragment_home_details);
-        pagerDetails = view.findViewById(R.id.vp_fragment_home_details);
+        //pagerDetails = view.findViewById(R.id.vp_fragment_home_details);
         txtCompany = view.findViewById(R.id.txt_fragment_home_company);
         txtCompanyLine = view.findViewById(R.id.txt_fragment_home_company_line);
         txtInfo = view.findViewById(R.id.txt_fragment_home_info);
@@ -66,6 +76,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtBuilder = view.findViewById(R.id.txt_fragment_home_builder);
         txtBuilderLine = view.findViewById(R.id.txt_fragment_home_builder_line);
         rlSearch = view.findViewById(R.id.rl_fragment_home_search);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -76,8 +87,9 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         initCB();
         initHotPoint();
         //initArchitecture();
-        initPager(savedInstanceState);
+        //initPager(savedInstanceState);
         initDetails();
+        initArea();
     }
 
     public void initBasic() {
@@ -104,7 +116,6 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     public void initHotPoint() {
         txtHot1.setText("市政公用工程施工总承包三级资质申请通过审查");
         txtHot2.setText("建筑装修装饰工程专业承包二级资质申请通过审查");
-        txtArea.setText("重庆");
     }
 
     public void initArchitecture() {
@@ -189,7 +200,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
         txtInfoLine.setBackgroundColor(getResources().getColor(R.color.white));
         txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.white));
-        pagerDetails.setCurrentItem(0);
+        //pagerDetails.setCurrentItem(0);
     }
 
     @Override
@@ -227,6 +238,12 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
                 Intent intent = new Intent(getContext(), QueryActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.txt_fragment_home_area:
+                areaClick();
+                break;
+            case R.id.img_fragment_home_area:
+                areaClick();
+                break;
         }
     }
 
@@ -237,7 +254,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
         txtInfoLine.setBackgroundColor(getResources().getColor(R.color.white));
         txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.white));
-        pagerDetails.setCurrentItem(0);
+        //pagerDetails.setCurrentItem(0);
     }
 
     public void clickInfo() {
@@ -247,7 +264,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.white));
         txtInfoLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
         txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.white));
-        pagerDetails.setCurrentItem(1);
+        //pagerDetails.setCurrentItem(1);
     }
 
     public void clickBuilder() {
@@ -257,6 +274,22 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtCompanyLine.setBackgroundColor(getResources().getColor(R.color.white));
         txtInfoLine.setBackgroundColor(getResources().getColor(R.color.white));
         txtBuilderLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
-        pagerDetails.setCurrentItem(2);
+        //pagerDetails.setCurrentItem(2);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    public void initArea() {
+        txtFragmentHomeArea.setText("重庆");
+        txtFragmentHomeArea.setOnClickListener(this);
+        imgFragmentHomeArea.setOnClickListener(this);
+    }
+
+    public void areaClick() {
+        startActivityForResult(new Intent(getContext(), QueryActivity.class), RequestCode.HOME_AREA_REQUEST);
     }
 }

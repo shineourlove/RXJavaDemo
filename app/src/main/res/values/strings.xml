@@ -1,11 +1,21 @@
 <resources>
     <string name="app_name">RXJavaApplication</string>
-    <string name="tab_one">Fish</string>
-    <string name="tab_two">Fly</string>
-    <string name="tab_three">Bird</string>
+    <string name="tab_one">首页</string>
+    <string name="tab_two">消息</string>
+    <string name="tab_three">个人</string>
     <string name="tab_four">Coffee</string>
     <string name="search_hint">搜索企业/资质/人员/业绩</string>
     <string name="service_phone_number">客服电话：123 456 7890</string>
     <string name="title_activity_talent_pool">TalentPoolActivity</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
+    <string name="title_activity_project_select">ProjectSelectActivity</string>
+    <string name="order_form">订单</string>
+    <string name="order_receiving">接单</string>
+    <string name="integral">积分</string>
+    <string name="collect">收藏</string>
+    <string name="login">登录</string>
+    <string name="open_login">点击开启登录吧！</string>
+    <string name="message_notification">开启消息通知，可及时接受信息！</string>
+    <string name="open">开启</string>
+    <string name="chat">聊天</string>
 </resources>

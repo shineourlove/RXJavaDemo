@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_item">
+        <item>Item中的横竖菜单</item>
+        <item>Item的拖拽和侧滑删除</item>
+        <item>添加Header和Footer</item>
+        <item>下拉刷新和加载更多</item>
+        <item>和滑动布局嵌套使用</item>
+        <item>Sticky分组效果</item>
+    </string-array>
+</resources>

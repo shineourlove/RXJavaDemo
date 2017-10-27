@@ -58,7 +58,6 @@ public class QueryActivity extends BaseActivity {
                 txtQueryCompanyQueryLine.setBackgroundColor(getResources().getColor(R.color.white));
                 txtQueryPerformanceQueryLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
                 break;
-
         }
     }
 }

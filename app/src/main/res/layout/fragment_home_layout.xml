@@ -13,8 +13,8 @@
         <RelativeLayout
             android:id="@+id/rl_fragment_home_top"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="20dp">
+            android:layout_height="40dp"
+            android:background="@drawable/gradient_blue_to_blue">
 
             <TextView
                 android:id="@+id/txt_fragment_home_area"
@@ -23,25 +23,30 @@
                 android:layout_centerVertical="true"
                 android:paddingEnd="0dp"
                 android:paddingStart="16dp"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:text="重庆" />
 
             <ImageView
                 android:id="@+id/img_fragment_home_area"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/txt_fragment_home_area"
-                android:src="@drawable/ssdk_oks_classic_pocket" />
+                android:src="@drawable/arrow_down" />
 
             <RelativeLayout
                 android:id="@+id/rl_fragment_home_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="6dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
                 android:layout_toEndOf="@+id/img_fragment_home_area"
-                android:background="@drawable/redus_10_stroke_gray_width_1"
+                android:background="@drawable/radius_4_solid_white_30"
                 android:gravity="center_vertical"
                 android:paddingEnd="6dp"
                 android:paddingStart="6dp">
@@ -50,17 +55,21 @@
                     android:id="@+id/img_fragment_home_search"
                     android:layout_width="14dp"
                     android:layout_height="14dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ssdk_country_search_icon" />
 
                 <TextView
                     android:id="@+id/txt_fragment_home_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/img_fragment_home_search"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/img_fragment_home_search"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/img_fragment_home_search"
                     android:paddingEnd="0dp"
                     android:paddingStart="4dp"
                     android:text="@string/search_hint"
-                    android:textColor="#808080" />
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
         </RelativeLayout>
@@ -69,8 +78,7 @@
             android:id="@+id/cb_fragment_home"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:layout_below="@+id/rl_fragment_home_top"
-            android:layout_marginTop="6dp" />
+            android:layout_below="@+id/rl_fragment_home_top" />
 
         <LinearLayout
             android:id="@+id/ll_fragment_home_menu_one"
@@ -354,10 +362,10 @@
                 android:background="#EEEEEE" />
 
             <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/rcv_fragment_home_details"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:focusable="false" />-->
+            <!--android:id="@+id/rcv_fragment_home_details"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:focusable="false" />-->
 
             <com.anjile.shineourlove.rxjavaapplication.view.AutoFitViewpager
                 android:id="@+id/vp_fragment_home_details"

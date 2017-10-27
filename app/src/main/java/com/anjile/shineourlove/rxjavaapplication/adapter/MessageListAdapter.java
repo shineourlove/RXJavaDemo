@@ -9,7 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.entity.MessageMainEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.ProjectSelectEntity;
+import com.anjile.shineourlove.rxjavaapplication.utils.DateFormatTime;
+import com.anjile.shineourlove.rxjavaapplication.view.RoundImagePointView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
@@ -18,14 +23,17 @@ import java.util.ArrayList;
  */
 
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.ArchitectureHolder> {
-    private ArrayList<ProjectSelectEntity> selectList;
+    private ArrayList<MessageMainEntity> selectList;
     private Context context;
     private MyItemClickListener clickListener;
     private MyItemLongClickListener longClickListener;
 
-    public MessageListAdapter(ArrayList<ProjectSelectEntity> selectList, Context context) {
+    public MessageListAdapter(ArrayList<MessageMainEntity> selectList, Context context) {
         this.selectList = selectList;
         this.context = context;
+    }
+
+    public MessageListAdapter() {
     }
 
     public void setOnItemClickListener(MyItemClickListener listener) {
@@ -39,7 +47,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     @Override
     public ArchitectureHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ArchitectureHolder holder = new ArchitectureHolder(
-                LayoutInflater.from(context).inflate(R.layout.project_select_item_layout, parent, false),
+                LayoutInflater.from(context).inflate(R.layout.item_message_list_layout, parent, false),
                 clickListener, longClickListener
         );
         return holder;
@@ -47,15 +55,15 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
 
     @Override
     public void onBindViewHolder(ArchitectureHolder holder, int position) {
-        holder.txtName.setText(selectList.get(position).getItemName());
-        if (position == selectList.size() - 1)
-            holder.txtLine.setVisibility(View.GONE);
-        else
-            holder.txtLine.setVisibility(View.VISIBLE);
-        if (selectList.get(position).isCheck())
-            holder.imgSelect.setVisibility(View.VISIBLE);
-        else
-            holder.imgSelect.setVisibility(View.INVISIBLE);
+        holder.txtName.setText(selectList.get(position).getTitle());
+        holder.txtContent.setText(selectList.get(position).getContent());
+        holder.txtDate.setText(DateFormatTime.getTimeDataForYearsMonthDay(selectList.get(position).getDate()));
+        holder.imgHead.setPoint(selectList.get(position).isPoint());
+        holder.imgHead.invalidate();
+        Glide.with(context)
+                .load(selectList.get(position).getImgURL())
+                .apply(new RequestOptions().placeholder(R.drawable.ssdk_oks_classic_tumblr))
+                .into(holder.imgHead);
     }
 
 
@@ -68,26 +76,24 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
         private MyItemClickListener mListener;
         private MyItemLongClickListener mLongClickListener;
         private TextView txtName;
-        private TextView txtLine;
-        private ImageView imgSelect;
+        private TextView txtContent;
+        private TextView txtDate;
+        private RoundImagePointView imgHead;
 
         public ArchitectureHolder(View itemView, MyItemClickListener mListener, MyItemLongClickListener mLongClickListener) {
             super(itemView);
             this.mListener = mListener;
             this.mLongClickListener = mLongClickListener;
-            txtName = itemView.findViewById(R.id.txt_project_select_item_name);
-            txtLine = itemView.findViewById(R.id.txt_project_select_item_line);
-            imgSelect = itemView.findViewById(R.id.img_project_select_item_check);
+            txtName = itemView.findViewById(R.id.txt_item_message_list_title);
+            txtContent = itemView.findViewById(R.id.txt_item_message_list_content);
+            txtDate = itemView.findViewById(R.id.txt_item_message_list_date);
+            imgHead = itemView.findViewById(R.id.img_item_message_list_head);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            selectList.get(getAdapterPosition()).setCheck(!selectList.get(getAdapterPosition()).isCheck());
-            if (mListener != null) {
-                mListener.onItemClick(view, getAdapterPosition());
-            }
         }
 
         @Override

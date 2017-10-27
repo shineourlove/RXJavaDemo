@@ -20,4 +20,5 @@
     <color name="blue_end">#0072ff</color>
     <color name="gray_word_hint">#989898</color>
     <color name="gray_divide">#f2f2f2</color>
+    <color name="red">#FF0000</color>
 </resources>

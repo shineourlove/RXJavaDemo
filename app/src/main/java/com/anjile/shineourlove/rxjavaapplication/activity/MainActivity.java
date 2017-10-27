@@ -66,14 +66,27 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .setText("10")
                 .setBackgroundColorResource(R.color.orange)
                 .setBorderWidth(0);
+        BottomNavigationItem item1 = new BottomNavigationItem(R.drawable.home_select, R.string.tab_one);
+        item1.setInactiveIconResource(R.drawable.home);
+        item1.setActiveColorResource(R.color.blue);
+        item1.setBadgeItem(badgeItem);
+
+        BottomNavigationItem item2 = new BottomNavigationItem(R.drawable.message_select, R.string.tab_two);
+        item2.setInactiveIconResource(R.drawable.message);
+        item2.setActiveColorResource(R.color.blue);
+
+        BottomNavigationItem item3 = new BottomNavigationItem(R.drawable.my_select, R.string.tab_three);
+        item3.setInactiveIconResource(R.drawable.my);
+        item3.setActiveColorResource(R.color.blue);
+
 
         mBottomNavigationBar.setMode(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);//设置底部导航按钮的模式
-        mBottomNavigationBar.setBarBackgroundColor(R.color.blue);//set background color for navigation bar
-        mBottomNavigationBar.setInActiveColor(R.color.white);//unSelected icon color
-        mBottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.icon_one, R.string.tab_one).setActiveColorResource(R.color.green).setBadgeItem(badgeItem))
-                .addItem(new BottomNavigationItem(R.drawable.icon_two, R.string.tab_two).setActiveColorResource(R.color.orange))
-                .addItem(new BottomNavigationItem(R.drawable.icon_three, R.string.tab_three).setActiveColorResource(R.color.lime))
+        mBottomNavigationBar.setBarBackgroundColor(R.color.white);//set background color for navigation bar
+        mBottomNavigationBar.setInActiveColor(R.color.gray_word);//unSelected icon color
+        mBottomNavigationBar.addItem(item1)
+                .addItem(item2)
+                .addItem(item3)
                 .setFirstSelectedPosition(0)
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(MainActivity.this);

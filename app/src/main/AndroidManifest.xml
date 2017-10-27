@@ -25,6 +25,7 @@
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -70,15 +71,17 @@
             android:name=".activity.TalentPoolActivity"
             android:label="@string/title_activity_talent_pool"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.AccountLoginActivity"></activity>
+        <activity android:name=".activity.AccountLoginActivity" />
         <activity android:name=".activity.BudgetProgramActivity" />
         <activity
             android:name=".activity.FeedbackActivity"
             android:label="@string/title_activity_feedback"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.ProjectSelectActivity"
             android:label="@string/title_activity_project_select"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activity.OpenVIPActivityActivity"></activity>
     </application>
+
 </manifest>

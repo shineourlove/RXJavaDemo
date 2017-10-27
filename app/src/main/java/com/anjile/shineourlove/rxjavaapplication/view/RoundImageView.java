@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
@@ -183,7 +184,6 @@ public class RoundImageView extends ImageView {
      * Return the color drawn behind the circle-shaped drawable.
      *
      * @return The color drawn behind the drawable
-     *
      * @deprecated Fill color support is going to be removed in the future
      */
     @Deprecated
@@ -196,7 +196,6 @@ public class RoundImageView extends ImageView {
      * this has no effect if the drawable is opaque or no drawable is set.
      *
      * @param fillColor The color to be drawn behind the drawable
-     *
      * @deprecated Fill color support is going to be removed in the future
      */
     @Deprecated
@@ -216,7 +215,6 @@ public class RoundImageView extends ImageView {
      *
      * @param fillColorRes The color resource to be resolved to a color and
      *                     drawn behind the drawable
-     *
      * @deprecated Fill color support is going to be removed in the future
      */
     @Deprecated
@@ -393,7 +391,7 @@ public class RoundImageView extends ImageView {
     }
 
     private RectF calculateBounds() {
-        int availableWidth  = getWidth() - getPaddingLeft() - getPaddingRight();
+        int availableWidth = getWidth() - getPaddingLeft() - getPaddingRight();
         int availableHeight = getHeight() - getPaddingTop() - getPaddingBottom();
 
         int sideLength = Math.min(availableWidth, availableHeight);

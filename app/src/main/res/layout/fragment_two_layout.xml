@@ -61,13 +61,14 @@
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/img_fragment_message_more"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
                     android:layout_marginEnd="12dp"
-                    android:text="· · ·"
+                    android:src="@drawable/more"
                     android:textColor="@color/white" />
             </RelativeLayout>
 

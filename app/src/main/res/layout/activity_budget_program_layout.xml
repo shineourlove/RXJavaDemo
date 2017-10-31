@@ -82,7 +82,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="@dimen/gray_divide_line_height"
         android:background="@color/gray_line" />
 
     <RelativeLayout

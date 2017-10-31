@@ -22,13 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:icon, android:theme">
-        <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -81,7 +75,24 @@
             android:name=".activity.ProjectSelectActivity"
             android:label="@string/title_activity_project_select"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.OpenVIPActivityActivity"></activity>
+        <activity android:name=".activity.OpenVIPActivityActivity" />
+        <activity android:name=".activity.MyOrderFormActivity" />
+        <activity android:name=".activity.PersonDataActivity" />
+        <activity android:name=".activity.CooperatorActivity" />
+        <activity android:name=".activity.MyIntegralActivity" />
+        <activity android:name=".activity.AboutUsActivity" />
+        <activity android:name=".activity.MemberInfoActivity" />
+        <activity android:name=".activity.IntegralDetailsActivity"></activity>
+        <activity android:name=".activity.AccountSettingActivity" />
+        <activity android:name=".activity.IndentityAuthenticationActivity" />
+        <activity android:name=".activity.AptitudeQueryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.PersonalSearchConditionActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_divide"
+    android:orientation="vertical"
+    tools:context="com.anjile.shineourlove.rxjavaapplication.activity.AccountSettingActivity">
+
+    <include
+        layout="@layout/include_top_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_account_setting_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/modify_phone_number"
+            android:textColor="@color/black_wold"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/arrow_right" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gray_divide_line_height" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_account_setting_push_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/push_setting"
+            android:textColor="@color/black_wold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/arrow_right"
+            android:text="@string/bent_down"
+            android:textColor="@color/gray_word"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/item_divide_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_account_setting_check_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/check_update"
+            android:textColor="@color/black_wold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/arrow_right"
+            android:text="@string/app_version"
+            android:textColor="@color/gray_word"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/item_divide_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_account_setting_clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/clear_cache"
+            android:textColor="@color/black_wold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txt_account_setting_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/arrow_right"
+            android:text="0B"
+            android:textColor="@color/gray_word"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <include
+        layout="@layout/item_divide_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/ll_account_setting_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:text="@string/about_us"
+            android:textColor="@color/black_wold"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/arrow_right"
+            android:text="@string/bent_down"
+            android:textColor="@color/gray_word"
+            android:textSize="14sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/gray_divide_line_height" />
+
+    <LinearLayout
+        android:id="@+id/ll_account_setting_log_out"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_marginBottom="14dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:src="@drawable/arrow_right"
+            android:text="@string/log_out"
+            android:textAlignment="center"
+            android:textColor="@color/blue_word"
+            android:textSize="14sp"
+            android:visibility="visible" />
+    </LinearLayout>
+</LinearLayout>

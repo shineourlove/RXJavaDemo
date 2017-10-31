@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             tools:text="大力哥" />
 
         <TextView
@@ -43,7 +43,7 @@
             android:paddingLeft="15dp"
             android:text="@string/period_of_validity"
             android:textAlignment="viewEnd"
-            android:textColor="@color/black_wold" />
+            android:textColor="@color/black_word" />
 
         <TextView
             android:id="@+id/txt_member_info_period_of_validity"

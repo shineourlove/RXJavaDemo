@@ -26,7 +26,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="@string/modify_phone_number"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             android:textSize="14sp" />
 
         <ImageView
@@ -57,7 +57,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="@string/push_setting"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             android:textSize="14sp" />
 
         <TextView
@@ -91,7 +91,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="@string/check_update"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             android:textSize="14sp" />
 
         <TextView
@@ -125,7 +125,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="@string/clear_cache"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             android:textSize="14sp" />
 
         <TextView
@@ -160,7 +160,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="@string/about_us"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             android:textSize="14sp" />
 
         <TextView

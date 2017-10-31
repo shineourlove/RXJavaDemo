@@ -82,7 +82,7 @@
         <activity android:name=".activity.MyIntegralActivity" />
         <activity android:name=".activity.AboutUsActivity" />
         <activity android:name=".activity.MemberInfoActivity" />
-        <activity android:name=".activity.IntegralDetailsActivity"></activity>
+        <activity android:name=".activity.IntegralDetailsActivity" />
         <activity android:name=".activity.AccountSettingActivity" />
         <activity android:name=".activity.IndentityAuthenticationActivity" />
         <activity android:name=".activity.AptitudeQueryActivity">
@@ -92,7 +92,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PersonalSearchConditionActivity"></activity>
+        <activity android:name=".activity.PersonalSearchConditionActivity" />
+        <activity android:name=".activity.CreditSituationActivity"></activity>
     </application>
 
 </manifest>

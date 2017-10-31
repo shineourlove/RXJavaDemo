@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="@string/order_form"
-                    android:textColor="@color/black_wold"
+                    android:textColor="@color/black_word"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -128,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="@string/order_receiving"
-                    android:textColor="@color/black_wold"
+                    android:textColor="@color/black_word"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="@string/integral"
-                    android:textColor="@color/black_wold"
+                    android:textColor="@color/black_word"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:text="@string/collect"
-                    android:textColor="@color/black_wold"
+                    android:textColor="@color/black_word"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>

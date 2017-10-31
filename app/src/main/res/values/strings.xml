@@ -52,4 +52,14 @@
     <string name="identity_authentication_hint">请上传本人手持身份证照片</string>
     <string name="identity_authentication_example">样例：</string>
     <string name="aptitude_query">资质查询</string>
+    <string name="register_class_person">注册类人员</string>
+    <string name="title_class_person">职称类人员</string>
+    <string name="field_management_class_person">现场管理人员</string>
+    <string name="confirm">确定</string>
+    <string name="highway">公路</string>
+    <string name="building_municipal">建筑市政</string>
+    <string name="hydraulic">水利</string>
+    <string name="water_transport">水运</string>
+    <string name="park">园林</string>
+    <string name="credit_condition">信誉状况</string>
 </resources>

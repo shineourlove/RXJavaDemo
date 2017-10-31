@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_divide"
     android:orientation="vertical"
-    tools:context="com.anjile.shineourlove.rxjavaapplication.activity.PersonalSearchConditionActivity">
+    tools:context="com.anjile.shineourlove.rxjavaapplication.activity.CreditSituationActivity">
 
-    <include
-        layout="@layout/include_top_status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/include_top_status_bar" />
 
     <LinearLayout
-        android:id="@+id/ll_person_search_condition_register"
+        android:id="@+id/ll_person_search_condition_highway"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -28,12 +23,12 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/item_text_vertical_margin"
             android:paddingTop="@dimen/item_text_vertical_margin"
-            android:text="@string/register_class_person"
+            android:text="@string/highway"
             android:textColor="@color/black_word"
             android:textSize="@dimen/item_text_size" />
 
         <TextView
-            android:id="@+id/txt_person_search_condition_register"
+            android:id="@+id/txt_person_search_condition_highway"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_word_hint"
@@ -51,7 +46,7 @@
     <include layout="@layout/item_divide_line" />
 
     <LinearLayout
-        android:id="@+id/ll_person_search_condition_title"
+        android:id="@+id/ll_person_search_condition_building_municipal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -65,12 +60,12 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/item_text_vertical_margin"
             android:paddingTop="@dimen/item_text_vertical_margin"
-            android:text="@string/title_class_person"
+            android:text="@string/building_municipal"
             android:textColor="@color/black_word"
             android:textSize="@dimen/item_text_size" />
 
         <TextView
-            android:id="@+id/txt_person_search_condition_title"
+            android:id="@+id/txt_person_search_condition_building_municipal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_word_hint"
@@ -88,7 +83,7 @@
     <include layout="@layout/item_divide_line" />
 
     <LinearLayout
-        android:id="@+id/ll_person_search_condition_field_management"
+        android:id="@+id/ll_person_search_condition_hydraulic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -102,12 +97,12 @@
             android:layout_weight="1"
             android:paddingBottom="@dimen/item_text_vertical_margin"
             android:paddingTop="@dimen/item_text_vertical_margin"
-            android:text="@string/field_management_class_person"
+            android:text="@string/hydraulic"
             android:textColor="@color/black_word"
             android:textSize="@dimen/item_text_size" />
 
         <TextView
-            android:id="@+id/txt_person_search_condition_field_management"
+            android:id="@+id/txt_person_search_condition_hydraulic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray_word_hint"
@@ -122,19 +117,77 @@
             android:src="@drawable/arrow_right" />
     </LinearLayout>
 
-    <android.support.percent.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <include layout="@layout/item_divide_line" />
 
-        <Button
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/ll_person_search_condition_water_transport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/item_margin_left"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/item_text_vertical_margin"
+            android:paddingTop="@dimen/item_text_vertical_margin"
+            android:text="@string/water_transport"
+            android:textColor="@color/black_word"
+            android:textSize="@dimen/item_text_size" />
+
+        <TextView
+            android:id="@+id/txt_person_search_condition_water_transport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_word_hint"
+            android:textSize="@dimen/item_text_size"
+            tools:text="请选择" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="@dimen/item_margin_right"
-            android:background="@drawable/round_radius_50_blue"
-            android:text="@string/confirm"
-            android:textColor="@color/white"
-            android:textSize="@dimen/btn_text_size"
-            app:layout_marginTopPercent="25%" />
-    </android.support.percent.PercentRelativeLayout>
+            android:src="@drawable/arrow_right" />
+    </LinearLayout>
+
+    <include layout="@layout/item_divide_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_person_search_condition_park"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_margin_left"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/item_text_vertical_margin"
+            android:paddingTop="@dimen/item_text_vertical_margin"
+            android:text="@string/park"
+            android:textColor="@color/black_word"
+            android:textSize="@dimen/item_text_size" />
+
+        <TextView
+            android:id="@+id/txt_person_search_condition_park"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_word_hint"
+            android:textSize="@dimen/item_text_size"
+            tools:text="请选择" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="@dimen/item_margin_right"
+            android:src="@drawable/arrow_right" />
+    </LinearLayout>
 </LinearLayout>

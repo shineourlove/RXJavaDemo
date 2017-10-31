@@ -17,7 +17,7 @@
             android:layout_marginBottom="@dimen/item_text_vertical_margin"
             android:layout_marginLeft="@dimen/item_margin_left"
             android:layout_marginTop="@dimen/item_text_vertical_margin"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             android:textSize="@dimen/item_text_size"
             tools:text="福建联谊建筑工程有限公司" />
 

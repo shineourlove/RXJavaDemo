@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="人才库"
-            android:textColor="@color/black_wold"
+            android:textColor="@color/black_word"
             android:textSize="17sp" />
     </RelativeLayout>
 

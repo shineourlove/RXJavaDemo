@@ -10,4 +10,5 @@
     <dimen name="gray_divide_line_height">5dp</dimen>
     <dimen name="item_text_vertical_margin">14dp</dimen>
     <dimen name="item_text_size">14sp</dimen>
+    <dimen name="btn_text_size">18sp</dimen>
 </resources>

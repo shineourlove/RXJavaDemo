@@ -12,6 +12,7 @@
     <string name="title_activity_project_select">ProjectSelectActivity</string>
     <string name="order_form">订单</string>
     <string name="order_receiving">接单</string>
+    <string name="order_receiving_authentication">接单认证</string>
     <string name="integral">积分</string>
     <string name="collect">收藏</string>
     <string name="login">登录</string>
@@ -62,4 +63,17 @@
     <string name="water_transport">水运</string>
     <string name="park">园林</string>
     <string name="credit_condition">信誉状况</string>
+    <string name="new_hot_spot">最新热点</string>
+    <string name="name_input_hint">请输入真实姓名</string>
+    <string name="please_choose">请选择</string>
+    <string name="date_of_birth">出生年月</string>
+    <string name="graduate_institution">毕业院校</string>
+    <string name="please_input_graduate_institution">请输入您的毕业院校</string>
+    <string name="please_choose_project">请选择工程</string>
+    <string name="add_work_experience">添加工作经历</string>
+    <string name="add_project_experience">添加项目经历</string>
+    <string name="personal_description">个人说明</string>
+    <string name="order_receiving_category">接单类别</string>
+    <string name="skilled_field">擅长领域</string>
+    <string name="next_step">下一步</string>
 </resources>

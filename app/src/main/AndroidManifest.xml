@@ -74,7 +74,7 @@
         <activity
             android:name=".activity.ProjectSelectActivity"
             android:label="@string/title_activity_project_select"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".activity.OpenVIPActivityActivity" />
         <activity android:name=".activity.MyOrderFormActivity" />
         <activity android:name=".activity.PersonDataActivity" />
@@ -85,15 +85,17 @@
         <activity android:name=".activity.IntegralDetailsActivity" />
         <activity android:name=".activity.AccountSettingActivity" />
         <activity android:name=".activity.IndentityAuthenticationActivity" />
-        <activity android:name=".activity.AptitudeQueryActivity">
+        <activity android:name=".activity.AptitudeQueryActivity" />
+        <activity android:name=".activity.PersonalSearchConditionActivity" />
+        <activity android:name=".activity.CreditSituationActivity" />
+        <activity android:name=".activity.HotSpotActivity"/>
+        <activity android:name=".activity.OrderReceiveAuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.PersonalSearchConditionActivity" />
-        <activity android:name=".activity.CreditSituationActivity"></activity>
     </application>
 
 </manifest>

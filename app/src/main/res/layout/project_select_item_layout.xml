@@ -22,7 +22,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="14dp"
-        android:src="@drawable/ssdk_oks_classic_pocket" />
+        android:src="@drawable/check_mark" />
 
     <TextView
         android:id="@+id/txt_project_select_item_line"

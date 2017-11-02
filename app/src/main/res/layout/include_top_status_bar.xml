@@ -20,7 +20,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            tools:src="@drawable/back" />
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/txt_top_status_bar_left"

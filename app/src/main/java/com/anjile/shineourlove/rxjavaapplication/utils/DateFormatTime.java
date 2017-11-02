@@ -21,6 +21,12 @@ public class DateFormatTime {
         return time;
     }
 
+    public static String getTimeYearMonth(long currentTime) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM");
+        String time = dateFormat.format(currentTime);
+        return time;
+    }
+
     /**
      * 只保留数字 时间格式化
      *

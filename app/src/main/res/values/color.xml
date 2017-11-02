@@ -13,7 +13,7 @@
     <color name="blue_line">#009cff</color>
     <color name="blue_word">#009cff</color>
     <color name="gray_word">#656565</color>
-    <color name="gray_line">#EEEEEE</color>
+    <color name="gray_line">#CCCCCC</color>
     <color name="white_side">#DFE7FE</color>
     <color name="black_word">#282828</color>
     <color name="blue_start">#00b4ff</color>
@@ -21,4 +21,5 @@
     <color name="gray_word_hint">#989898</color>
     <color name="gray_divide">#f2f2f2</color>
     <color name="red">#FF0000</color>
+    <color name="tint_red">#ff3a30</color>
 </resources>

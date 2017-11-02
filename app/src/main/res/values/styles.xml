@@ -41,4 +41,8 @@
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
+    <style name="radio_button_check">
+        <item name="android:button">@drawable/tick_selector</item>
+    </style>
 </resources>

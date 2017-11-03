@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/gray_divide"
     tools:context="com.anjile.shineourlove.rxjavaapplication.activity.QueryActivity">
 
     <include
+        layout="@layout/include_top_status_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/include_top_status_bar"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,98 +71,90 @@
         android:background="@color/gray_line" />
 
     <LinearLayout
+        android:background="@color/white"
         android:id="@+id/ll_query_company_query"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="选择省市"
-                android:textColor="@color/black_word"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/img_query_area_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ssdk_country_clear_search" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_toLeftOf="@+id/img_query_area_more"
-                android:text="选择企业所在的位置"
-                android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="12dp"
-            android:background="#EEEEEE" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="企业名称"
+                android:text="@string/enterprise_name"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <EditText
+                android:id="@+id/edt_query_enterprise_enterprise_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="8dp"
                 android:background="@color/white"
-                android:hint="请输入要查询的企业名称"
+                android:hint="@string/please_enter_a_enterprise_name_to_query"
                 android:textColorHint="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
-        <TextView
+        <include layout="@layout/item_divide_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_query_enterprise_area"
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="12dp"
-            android:background="#EEEEEE" />
+            android:layout_height="@dimen/item_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_province_and_city"
+                android:textColor="@color/black_word"
+                android:textSize="@dimen/item_text_size" />
+
+            <ImageView
+                android:id="@+id/img_query_area_more"
+                android:layout_width="@dimen/right_arrow_width"
+                android:layout_height="@dimen/right_arrow_height"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/arrow_right" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_toLeftOf="@+id/img_query_area_more"
+                android:text="@string/please_select_area_of_the_enterprise"
+                android:textColor="@color/gray_word_hint"
+                android:textSize="@dimen/item_text_size" />
+        </RelativeLayout>
+
+        <include layout="@layout/item_divide_line" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="企业要求"
+                android:text="@string/enterprise_require"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <RadioGroup
                 android:layout_width="wrap_content"
@@ -171,182 +164,199 @@
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/rb_query_enterprise_unlimited"
+                    style="@style/radio_button_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="不限"
+                    android:text="@string/unlimited"
                     android:textColor="@color/gray_word"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/item_text_size" />
 
                 <RadioButton
+                    android:id="@+id/rb_query_enterprise_ecdemic"
+                    style="@style/radio_button_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="外地企业"
+                    android:text="@string/ecdemic_enterprise"
                     android:textColor="@color/gray_word"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/item_text_size" />
 
                 <RadioButton
+                    android:id="@+id/rb_query_enterprise_local"
+                    style="@style/radio_button_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="本地企业"
+                    android:text="@string/local_enterprise"
                     android:textColor="@color/gray_word"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/item_text_size" />
             </RadioGroup>
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="12dp"
-            android:background="#EEEEEE" />
+        <include layout="@layout/item_divide_line" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="资质搜索条件"
+                android:layout_centerVertical="true"
+                android:text="@string/legal_person_name"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
+
+            <EditText
+                android:id="@+id/edt_query_enterprise_legal_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:background="@color/white"
+                android:hint="@string/please_enter_the_legal_person_name_to_query"
+                android:textColorHint="@color/gray_word_hint"
+                android:textSize="@dimen/item_text_size" />
+        </RelativeLayout>
+
+        <include layout="@layout/item_divide_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_query_enterprise_qualification"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/qualification_search_condition"
+                android:textColor="@color/black_word"
+                android:textSize="@dimen/item_text_size" />
 
             <ImageView
                 android:id="@+id/img_query_aptitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/right_arrow_width"
+                android:layout_height="@dimen/right_arrow_height"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ssdk_country_clear_search" />
+                android:src="@drawable/arrow_right" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_toLeftOf="@+id/img_query_aptitude"
-                android:text="点击设置"
+                android:text="@string/click_setting"
                 android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="12dp"
-            android:background="#EEEEEE" />
+        <include layout="@layout/item_divide_line" />
 
         <RelativeLayout
+            android:id="@+id/rl_query_enterprise_performance"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="业绩搜索条件"
+                android:text="@string/performance_search_condition"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <ImageView
                 android:id="@+id/img_query_area_performance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/right_arrow_width"
+                android:layout_height="@dimen/right_arrow_height"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ssdk_country_clear_search" />
+                android:src="@drawable/arrow_right" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_toLeftOf="@+id/img_query_area_performance"
-                android:text="点击设置"
+                android:text="@string/click_setting"
                 android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="12dp"
-            android:background="#EEEEEE" />
+        <include layout="@layout/item_divide_line" />
 
         <RelativeLayout
+            android:id="@+id/rl_query_enterprise_person"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="人员搜索条件"
+                android:text="@string/person_search_condition"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <ImageView
                 android:id="@+id/img_query_personal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/right_arrow_width"
+                android:layout_height="@dimen/right_arrow_height"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ssdk_country_clear_search" />
+                android:src="@drawable/arrow_right" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_toLeftOf="@+id/img_query_personal"
-                android:text="点击设置"
+                android:text="@string/click_setting"
                 android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="12dp"
-            android:background="#EEEEEE" />
+         <include layout="@layout/item_divide_line" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/item_height"
+             android:gravity="center_vertical"
+             android:paddingLeft="@dimen/item_margin_left"
+             android:paddingRight="@dimen/item_margin_right">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="信誉搜索条件"
-                android:textColor="@color/black_word"
-                android:textSize="13sp" />
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="@string/credit_search_condition"
+                 android:textColor="@color/black_word"
+                 android:textSize="@dimen/item_text_size" />
 
-            <ImageView
-                android:id="@+id/img_query_reputation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ssdk_country_clear_search" />
+             <ImageView
+                 android:id="@+id/img_query_reputation"
+                 android:layout_width="@dimen/right_arrow_width"
+                 android:layout_height="@dimen/right_arrow_height"
+                 android:layout_alignParentEnd="true"
+                 android:src="@drawable/arrow_right" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_toLeftOf="@+id/img_query_reputation"
-                android:text="点击设置"
-                android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
-        </RelativeLayout>
-
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="8dp"
+                 android:layout_toLeftOf="@+id/img_query_reputation"
+                 android:text="@string/click_setting"
+                 android:textColor="@color/gray_word_hint"
+                 android:textSize="@dimen/item_text_size" />
+         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -354,8 +364,8 @@
             android:layout_weight="4"
             android:background="#f2f2f2">
 
-            <TextView
-                android:id="@+id/txt_query_company_query_now"
+            <Button
+                android:id="@+id/btn_query_company_query_now"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginLeft="16dp"
@@ -363,7 +373,7 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/round_radius_50_blue"
                 android:gravity="center"
-                android:text="立即查询"
+                android:text="@string/立即查询"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/btn_text_size" />
@@ -376,14 +386,14 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -391,9 +401,10 @@
                 android:layout_centerVertical="true"
                 android:text="项目名称"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <EditText
+                android:id="@+id/edt_query_performance_project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -401,7 +412,7 @@
                 android:background="@color/white"
                 android:hint="请输入项目名称"
                 android:textColorHint="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
         <TextView
@@ -412,10 +423,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -423,9 +433,10 @@
                 android:layout_centerVertical="true"
                 android:text="企业名称"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <EditText
+                android:id="@+id/edt_query_performance_enterprise_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -433,7 +444,7 @@
                 android:background="@color/white"
                 android:hint="请输入企业名称"
                 android:textColorHint="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
         <TextView
@@ -444,10 +455,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -455,9 +465,10 @@
                 android:layout_centerVertical="true"
                 android:text="建造师"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <EditText
+                android:id="@+id/edt_query_performance_builder_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -465,7 +476,7 @@
                 android:background="@color/white"
                 android:hint="输入建造师名字"
                 android:textColorHint="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
         <TextView
@@ -475,26 +486,26 @@
             android:background="#EEEEEE" />
 
         <RelativeLayout
+            android:id="@+id/rl_query_performance_area"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="项目所在地"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <ImageView
                 android:id="@+id/img_query_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/right_arrow_width"
+                android:layout_height="@dimen/right_arrow_height"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ssdk_country_clear_search" />
+                android:src="@drawable/arrow_right" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -503,7 +514,7 @@
                 android:layout_toLeftOf="@+id/img_query_location"
                 android:text="请选择省市"
                 android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
         <TextView
@@ -521,11 +532,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -533,7 +542,7 @@
                 android:layout_centerVertical="true"
                 android:text="中标时间段"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
 
             <TextView
@@ -543,13 +552,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="#f2f2f2"
+                android:hint="结束时间"
                 android:paddingBottom="6dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="6dp"
-                android:text="结束时间"
-                android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textColor="@color/gray_word"
+                android:textColorHint="@color/gray_word_hint"
+                android:textSize="@dimen/item_text_size" />
 
             <TextView
                 android:id="@+id/txt_query_start_to_end"
@@ -568,13 +578,14 @@
                 android:layout_marginEnd="12dp"
                 android:layout_toLeftOf="@+id/txt_query_start_to_end"
                 android:background="#f2f2f2"
+                android:hint="开始时间"
                 android:paddingBottom="6dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="6dp"
-                android:text="开始时间"
-                android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textColor="@color/gray_word"
+                android:textColorHint="@color/gray_word_hint"
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
         <TextView
@@ -585,11 +596,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp">
+            android:layout_height="@dimen/item_height"
+            android:paddingLeft="@dimen/item_margin_left"
+            android:paddingRight="@dimen/item_margin_right">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -597,7 +606,7 @@
                 android:layout_centerVertical="true"
                 android:text="业绩规模"
                 android:textColor="@color/black_word"
-                android:textSize="13sp" />
+                android:textSize="@dimen/item_text_size" />
 
             <TextView
                 android:id="@+id/txt_query_check_unit"
@@ -606,13 +615,14 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="#f2f2f2"
+                android:hint="选择单位"
                 android:paddingBottom="6dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="6dp"
-                android:text="选择单位"
-                android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textColor="@color/gray_word"
+                android:textColorHint="@color/gray_word_hint"
+                android:textSize="@dimen/item_text_size" />
 
             <TextView
                 android:id="@+id/txt_query_input_scale"
@@ -622,13 +632,14 @@
                 android:layout_marginEnd="12dp"
                 android:layout_toLeftOf="@+id/txt_query_check_unit"
                 android:background="#f2f2f2"
+                android:hint="输入业绩规模"
                 android:paddingBottom="6dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="6dp"
-                android:text="输入业绩规模"
-                android:textColor="@color/gray_word_hint"
-                android:textSize="13sp" />
+                android:textColor="@color/gray_word"
+                android:textColorHint="@color/gray_word_hint"
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
 
@@ -638,10 +649,10 @@
             android:layout_weight="5"
             android:background="#f2f2f2">
 
-            <TextView
-                android:id="@+id/txt_query_performance_query_now"
+            <Button
+                android:id="@+id/btn_query_performance_query_now"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="30dp"

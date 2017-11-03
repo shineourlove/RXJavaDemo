@@ -60,7 +60,7 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.QueryActivity" />
+        <activity android:name=".activity.QueryActivity"></activity>
         <activity
             android:name=".activity.TalentPoolActivity"
             android:label="@string/title_activity_talent_pool"
@@ -74,7 +74,7 @@
         <activity
             android:name=".activity.ProjectSelectActivity"
             android:label="@string/title_activity_project_select"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".activity.OpenVIPActivityActivity" />
         <activity android:name=".activity.MyOrderFormActivity" />
         <activity android:name=".activity.PersonDataActivity" />
@@ -88,14 +88,17 @@
         <activity android:name=".activity.AptitudeQueryActivity" />
         <activity android:name=".activity.PersonalSearchConditionActivity" />
         <activity android:name=".activity.CreditSituationActivity" />
-        <activity android:name=".activity.HotSpotActivity"/>
-        <activity android:name=".activity.OrderReceiveAuthenticationActivity">
+        <activity android:name=".activity.HotSpotActivity" />
+        <activity android:name=".activity.OrderReceiveAuthenticationActivity" />
+        <activity android:name=".activity.JobResumeActivity" />
+        <activity android:name=".activity.FuzzySearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.EnterpriseDetailActivity"></activity>
     </application>
 
 </manifest>

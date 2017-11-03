@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="24dp"
+    android:layout_marginRight="24dp"
+    android:background="@drawable/radius_6_solid_white"
+    android:orientation="horizontal">
+
+    <org.feezu.liuli.timeselector.view.PickerView
+        android:id="@+id/pv_date_picker_dialog_year"
+        android:layout_width="0dp"
+        android:layout_height="160dp"
+        android:layout_weight="1"
+        app:isLoop="false" />
+
+    <org.feezu.liuli.timeselector.view.PickerView
+        android:id="@+id/pv_date_picker_dialog_month"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="160dp"
+        app:isLoop="false" />
+</LinearLayout>

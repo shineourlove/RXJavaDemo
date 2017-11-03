@@ -1,6 +1,9 @@
 package com.anjile.shineourlove.rxjavaapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.adapter.WorkExperienceAdapter;
+import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
+import com.anjile.shineourlove.rxjavaapplication.common.ResultCode;
 import com.anjile.shineourlove.rxjavaapplication.db.WorkResumeBean;
 import com.anjile.shineourlove.rxjavaapplication.db.WorkResumeDao;
 import com.anjile.shineourlove.rxjavaapplication.manager.FullyLinearLayoutManager;
@@ -23,6 +28,10 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuBridge;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,12 +131,13 @@ public class OrderReceiveAuthenticationActivity extends BaseActivity {
             case R.id.ll_order_receive_authentication_skilled:
                 break;
             case R.id.txt_order_receive_authentication_add_work:
-                workList.add(new WorkResumeBean("洛城铁厂", "打铁", "洛杉矶", "1490000000000", "1500800000000", "职业打铁，决不妥协"));
-                workAdapter.notifyDataSetChanged();
+                Intent intentWork = new Intent(this, JobResumeActivity.class);
+                intentWork.putExtra("tag", 1);
+                startActivityForResult(intentWork, RequestCode.AUTHENTICATION_ADD_RESUME);
                 break;
             case R.id.txt_order_receive_authentication_add_project:
-                projectList.add(new WorkResumeBean("金陵兵工厂", "打铁", "金陵", "1490000000000", "1500800000000", "职业打铁，决不妥协"));
-                projectAdapter.notifyDataSetChanged();
+                workList.add(new WorkResumeBean("金陵兵工厂", "打铁", "金陵", "1490000000000", "1500800000000", "职业打铁，决不妥协"));
+                workAdapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -135,16 +145,11 @@ public class OrderReceiveAuthenticationActivity extends BaseActivity {
     public void initWorkList() {
         workResumeDao = new WorkResumeDao(this);
         workList = workResumeDao.query();
-        for (int i = 0; i < 4; i++) {
-            workList.add(new WorkResumeBean("洛城铁厂"+i, "打铁", "洛杉矶", "1490000000000", "1500800000000", "职业打铁，决不妥协"));
-        }
+/*        for (int i = 0; i < 4; i++) {
+            workList.add(new WorkResumeBean("洛城铁厂" + i, "打铁", "洛杉矶", "1490000000000", "1500800000000", "职业打铁，决不妥协"));
+        }*/
         workAdapter = new WorkExperienceAdapter(workList, this);
-        svOrderReceiveAuthenticationAddWork.setLayoutManager(new LinearLayoutManager(this) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
+        svOrderReceiveAuthenticationAddWork.setLayoutManager(new FullyLinearLayoutManager(this));
         svOrderReceiveAuthenticationAddWork.setSwipeMenuCreator(SwiperRecycleViewUtil.getSwipeMenuCreator(this, R.color.tint_red, R.color.white));
         svOrderReceiveAuthenticationAddWork.setSwipeItemClickListener(new SwipeItemClickListener() {
             @Override
@@ -155,6 +160,8 @@ public class OrderReceiveAuthenticationActivity extends BaseActivity {
         svOrderReceiveAuthenticationAddWork.setSwipeMenuItemClickListener(new SwipeMenuItemClickListener() {
             @Override
             public void onItemClick(SwipeMenuBridge menuBridge) {
+                menuBridge.closeMenu();
+                workResumeDao.deleteOnly(workList.get(menuBridge.getAdapterPosition()).getId());
                 workList.remove(menuBridge.getAdapterPosition());
                 workAdapter.notifyDataSetChanged();
             }
@@ -166,7 +173,7 @@ public class OrderReceiveAuthenticationActivity extends BaseActivity {
         workResumeDao = new WorkResumeDao(this);
         projectList = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            projectList.add(new WorkResumeBean("金陵兵工厂"+i, "打铁", "金陵", "1490000000000", "1500800000000", "职业打铁，决不妥协"));
+            projectList.add(new WorkResumeBean("金陵兵工厂" + i, "打铁", "金陵", "1490000000000", "1500800000000", "职业打铁，决不妥协"));
         }
         projectAdapter = new WorkExperienceAdapter(projectList, this);
         svOrderReceiveAuthenticationAddProject.setLayoutManager(new FullyLinearLayoutManager(this));
@@ -180,10 +187,58 @@ public class OrderReceiveAuthenticationActivity extends BaseActivity {
         svOrderReceiveAuthenticationAddProject.setSwipeMenuItemClickListener(new SwipeMenuItemClickListener() {
             @Override
             public void onItemClick(SwipeMenuBridge menuBridge) {
+                menuBridge.closeMenu();
                 projectList.remove(menuBridge.getAdapterPosition());
                 projectAdapter.notifyDataSetChanged();
             }
         });
         svOrderReceiveAuthenticationAddProject.setAdapter(projectAdapter);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("date_picker", "requestCode: " + requestCode + "   resultCode: " + resultCode);
+        switch (requestCode) {
+            case 10001:
+                switch (resultCode) {
+                    case 20000:
+                        Log.i("date_picker", "onActivityResult: ");
+                        handler.sendEmptyMessage(0);
+                        break;
+                }
+                break;
+        }
+    }
+
+    static class OrderHandler extends Handler {
+        WeakReference<OrderReceiveAuthenticationActivity> activityWeakReference;
+
+        OrderHandler(OrderReceiveAuthenticationActivity activity) {
+            activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            final OrderReceiveAuthenticationActivity activity = activityWeakReference.get();
+            switch (msg.what) {
+                case 0:
+                    final List<WorkResumeBean> queryList = activity.workResumeDao.query();
+                    if (queryList != null) {
+                        activity.handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.workList.add(queryList.get(queryList.size()-1));
+                                Log.i("date_picker", "workList: " + activity.workList.size());
+                                activity.workAdapter.notifyDataSetChanged();
+                            }
+                        },200);
+                    }
+                    break;
+            }
+        }
+    }
+
+    OrderHandler handler = new OrderHandler(this);
 }

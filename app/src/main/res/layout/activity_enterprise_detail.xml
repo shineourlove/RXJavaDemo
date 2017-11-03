@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_divide"
+    android:orientation="vertical"
+    tools:context="com.anjile.shineourlove.rxjavaapplication.activity.EnterpriseDetailActivity">
+
+    <include layout="@layout/include_top_status_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/item_text_vertical_margin"
+        android:paddingLeft="@dimen/item_margin_left"
+        android:paddingRight="@dimen/item_margin_right"
+        android:paddingTop="@dimen/item_text_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="企业名称: "
+            android:textColor="@color/gray_word" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:textColor="@color/black_word"
+            tools:text="福建联谊建筑工程有限公司" />
+    </LinearLayout>
+
+    <include layout="@layout/item_divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/item_text_vertical_margin"
+        android:paddingLeft="@dimen/item_margin_left"
+        android:paddingRight="@dimen/item_margin_right"
+        android:paddingTop="@dimen/item_text_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="企业名称: "
+            android:textColor="@color/gray_word" />
+
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <include layout="@layout/item_divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/item_text_vertical_margin"
+        android:paddingLeft="@dimen/item_margin_left"
+        android:paddingRight="@dimen/item_margin_right"
+        android:paddingTop="@dimen/item_text_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="企业人员: "
+            android:textColor="@color/gray_word" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:textColor="@color/black_word"
+            tools:text="查看公司人员情况" />
+
+        <ImageView
+            android:layout_width="@dimen/right_arrow_width"
+            android:layout_height="@dimen/right_arrow_height"
+            android:src="@drawable/arrow_right" />
+    </LinearLayout>
+
+    <include layout="@layout/item_divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/item_text_vertical_margin"
+        android:paddingLeft="@dimen/item_margin_left"
+        android:paddingRight="@dimen/item_margin_right"
+        android:paddingTop="@dimen/item_text_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="联 系 人: "
+            android:textColor="@color/gray_word" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1"
+            android:textColor="@color/black_word"
+            tools:text="查看公司人员情况" />
+
+        <ImageView
+            android:layout_width="@dimen/right_arrow_width"
+            android:layout_height="@dimen/right_arrow_height"
+            android:src="@drawable/arrow_right" />
+    </LinearLayout>
+</LinearLayout>

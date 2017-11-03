@@ -11,6 +11,7 @@
     <dimen name="item_text_vertical_margin">14dp</dimen>
     <dimen name="item_text_size">14sp</dimen>
     <dimen name="btn_text_size">18sp</dimen>
+    <dimen name="big_item_text_size">16sp</dimen>
     <dimen name="right_arrow_margin_left">6dp</dimen>
     <dimen name="right_arrow_height">16dp</dimen>
     <dimen name="right_arrow_width">12dp</dimen>

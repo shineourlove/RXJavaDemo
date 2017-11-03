@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeQueryItemEntity;
+import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/12.
@@ -18,13 +20,13 @@ import java.util.ArrayList;
 
 public class AptitudeQueryItemAdapter extends RecyclerView.Adapter<AptitudeQueryItemAdapter.ArchitectureHolder> {
 
-    private ArrayList<AptitudeQueryItemEntity> companyList;
+    private List<EnterpriseSearchEntity.DataBean> beanList;
     private Context context;
     private MyItemClickListener clickListener;
     private MyItemLongClickListener longClickListener;
 
-    public AptitudeQueryItemAdapter(ArrayList<AptitudeQueryItemEntity> companyList, Context context) {
-        this.companyList = companyList;
+    public AptitudeQueryItemAdapter(List<EnterpriseSearchEntity.DataBean> companyList, Context context) {
+        this.beanList = companyList;
         this.context = context;
     }
 
@@ -47,9 +49,9 @@ public class AptitudeQueryItemAdapter extends RecyclerView.Adapter<AptitudeQuery
 
     @Override
     public void onBindViewHolder(ArchitectureHolder holder, int position) {
-        holder.txtName.setText(companyList.get(position).getName());
-        holder.txtArea.setText(companyList.get(position).getArea());
-        if (companyList.get(position).isAuthentication()) {
+        holder.txtName.setText(beanList.get(position).getName());
+        holder.txtArea.setText(beanList.get(position).getRegistersite());
+        if (true) {//是否认证
             holder.txtArea.setBackground(context.getDrawable(R.drawable.stroke_blue_1px));
             holder.txtArea.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(R.drawable.authentication_diamond),
                     null, null, null);
@@ -57,13 +59,16 @@ public class AptitudeQueryItemAdapter extends RecyclerView.Adapter<AptitudeQuery
             holder.txtArea.setBackground(context.getDrawable(R.drawable.stroke_white_1px));
             holder.txtArea.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         }
-        if (position == companyList.size() - 1)
+        if (position == beanList.size() - 1)
             holder.line.setVisibility(View.GONE);
     }
 
     @Override
     public int getItemCount() {
-        return companyList.size();
+        if (beanList == null)
+            return 0;
+        else
+            return beanList.size();
     }
 
     class ArchitectureHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

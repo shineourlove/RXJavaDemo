@@ -11,12 +11,13 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 
 /**
- * Created by CP on 2016/9/27.
+ * Created by shineourlove on 2016/9/27.
  * 数据库管理类
  */
 public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "user_data.db";   //数据库文件名字
     private Dao<WorkResumeBean, Integer> workResumeDao; //参数1：DAO操作的类；参数2：标记数据表的ID
+    private Dao<UserInfoBean,Integer> userInfoDao;
 
 
     public DataBaseHelper(Context context) {
@@ -59,6 +60,17 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             }
         }
         return workResumeDao;
+    }
+
+    public Dao<UserInfoBean, Integer> getUserInfoDao() {
+        if (userInfoDao == null) {
+            try {
+                userInfoDao = getDao(UserInfoBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return userInfoDao;
     }
 
     /**

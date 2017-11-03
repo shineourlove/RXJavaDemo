@@ -2,6 +2,7 @@ package com.anjile.shineourlove.rxjavaapplication.api;
 
 
 import com.anjile.shineourlove.rxjavaapplication.entity.CheckSecurityCodeBean;
+import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.GitHubApiEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.Retrofit2EntrtyTest1;
 
@@ -64,4 +65,17 @@ public interface Api {
     @FormUrlEncoded
     @POST("architecture/verification.user")
     io.reactivex.Observable<CheckSecurityCodeBean> loginPostObservable(@Field("phone") String phone, @Field("authCode") String authCode);
+
+    //  http://192.168.1.167:8080/architecture/queryEnterprise.enterprise
+
+    /**
+     * 模糊查询企业的api
+     */
+    @FormUrlEncoded
+    @POST("architecture/queryEnterprise.enterprise")
+    io.reactivex.Observable<EnterpriseSearchEntity> fuzzySearchObservable(
+            @Field("phone") String phone,
+            @Field("parameter") String parameter,
+            @Field("start") String start,
+            @Field("end") String end);
 }

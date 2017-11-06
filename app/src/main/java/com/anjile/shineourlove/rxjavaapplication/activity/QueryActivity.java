@@ -1,6 +1,10 @@
 package com.anjile.shineourlove.rxjavaapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Telephony;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -13,9 +17,29 @@ import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.api.Api;
+import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
+import com.anjile.shineourlove.rxjavaapplication.common.ResultCode;
+import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
+import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllDao;
+import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeAllEntity;
+import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
+import com.anjile.shineourlove.rxjavaapplication.service.BackstageDownloadService;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class QueryActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -99,7 +123,10 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         llQueryPerformanceQuery.setVisibility(View.GONE);
         txtQueryCompanyQueryLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
         txtQueryPerformanceQueryLine.setBackgroundColor(getResources().getColor(R.color.white));
+        Intent intentBack = new Intent(this, BackstageDownloadService.class);
+        startService(intentBack);
 
+        setEnterpriseQuery();
     }
 
     @Override
@@ -117,17 +144,41 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                 txtQueryCompanyQueryLine.setBackgroundColor(getResources().getColor(R.color.white));
                 txtQueryPerformanceQueryLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
                 break;
+            case R.id.rl_query_enterprise_qualification://企业查询-资质选择
+                Intent intent = new Intent(this, AptitudeSelectActivity.class);
+                startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_APTITUDE_SELEST);
+                break;
+            case R.id.rl_query_enterprise_performance://企业查询-业绩选择
+                break;
+            case R.id.rl_query_enterprise_area://企业查询-省市地区
+                break;
+            case R.id.btn_query_company_query_now://企业查询-立即查询
+                break;
         }
     }
 
+    //企业查询的基础操作
     public void setEnterpriseQuery() {
         rbQueryEnterpriseUnlimited.setOnCheckedChangeListener(this);
         rbQueryEnterpriseEcdemic.setOnCheckedChangeListener(this);
         rbQueryEnterpriseLocal.setOnCheckedChangeListener(this);
+
+        rlQueryEnterpriseQualification.setOnClickListener(this);
+        rlQueryEnterprisePerformance.setOnClickListener(this);
+        rlQueryEnterpriseArea.setOnClickListener(this);
+        btnQueryCompanyQueryNow.setOnClickListener(this);
+
+        //initAptitudeIndex();
     }
 
     private int localType = 0;
 
+    /**
+     * 选择变化 监听
+     *
+     * @param compoundButton radioButton
+     * @param b              改变后的选择状态
+     */
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         switch (compoundButton.getId()) {
@@ -144,5 +195,14 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                     localType = 2;
                 break;
         }
+    }
+
+    public void initAptitudeIndex() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new BackstageDownloadControl(0));
+            }
+        },1000);
     }
 }

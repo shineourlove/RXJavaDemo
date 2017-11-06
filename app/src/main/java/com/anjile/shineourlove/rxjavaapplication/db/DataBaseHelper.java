@@ -17,7 +17,8 @@ import java.sql.SQLException;
 public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "user_data.db";   //数据库文件名字
     private Dao<WorkResumeBean, Integer> workResumeDao; //参数1：DAO操作的类；参数2：标记数据表的ID
-    private Dao<UserInfoBean,Integer> userInfoDao;
+    private Dao<UserInfoBean, Integer> userInfoDao;
+    private Dao<AptitudeAllBean, Integer> aptitudeAllDao;
 
 
     public DataBaseHelper(Context context) {
@@ -28,7 +29,8 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, WorkResumeBean.class);  //创建一张表; 传入链接源(ConnectionSource)参数
-
+            TableUtils.createTable(connectionSource, UserInfoBean.class);
+            TableUtils.createTable(connectionSource, AptitudeAllBean.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,6 +73,17 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             }
         }
         return userInfoDao;
+    }
+
+    public Dao<AptitudeAllBean, Integer> getAptitudeAllDao() {
+        if (aptitudeAllDao == null) {
+            try {
+                aptitudeAllDao = getDao(AptitudeAllBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return aptitudeAllDao;
     }
 
     /**

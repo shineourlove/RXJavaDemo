@@ -1,6 +1,7 @@
 package com.anjile.shineourlove.rxjavaapplication.api;
 
 
+import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeAllEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.CheckSecurityCodeBean;
 import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.GitHubApiEntity;
@@ -78,4 +79,12 @@ public interface Api {
             @Field("parameter") String parameter,
             @Field("start") String start,
             @Field("end") String end);
+
+    /**
+     * 获取所有资质目录的api
+     *
+     * @return 资质目录对应的观察者对象
+     */
+    @POST("architecture/corporate.enterprise")
+    io.reactivex.Observable<AptitudeAllEntity> aptitudeIndexObservable();
 }

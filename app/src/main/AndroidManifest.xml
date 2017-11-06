@@ -60,7 +60,9 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.QueryActivity"></activity>
+        <activity android:name=".activity.QueryActivity">
+
+        </activity>
         <activity
             android:name=".activity.TalentPoolActivity"
             android:label="@string/title_activity_talent_pool"
@@ -91,14 +93,17 @@
         <activity android:name=".activity.HotSpotActivity" />
         <activity android:name=".activity.OrderReceiveAuthenticationActivity" />
         <activity android:name=".activity.JobResumeActivity" />
-        <activity android:name=".activity.FuzzySearchActivity">
+        <activity android:name=".activity.FuzzySearchActivity"></activity>
+        <activity android:name=".activity.EnterpriseDetailActivity" />
+        <activity android:name=".activity.AptitudeSelectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.EnterpriseDetailActivity"></activity>
+        <!--服务-->
+        <service android:name=".service.BackstageDownloadService" />
     </application>
 
 </manifest>

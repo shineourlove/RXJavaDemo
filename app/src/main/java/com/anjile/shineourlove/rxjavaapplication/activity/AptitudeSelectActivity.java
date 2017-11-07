@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -16,6 +15,7 @@ import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.adapter.AptitudeSelectAdapter;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllDao;
+import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.AptitudeRankControl;
 import com.anjile.shineourlove.rxjavaapplication.view.TopMiddlePopup;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
@@ -140,11 +140,13 @@ public class AptitudeSelectActivity extends BaseActivity {
     }
 
     public void loadQueryIndex() {
-        List<AptitudeAllBean> list = dao.queryWhere("aptitude_type", txtAptitudeSelectClassify.getText().toString().trim());
+        List<AptitudeAllBean> list = dao.queryDistinct("aptitude_type", txtAptitudeSelectClassify.getText().toString().trim());
+        List<AptitudeRankControl> booleanList = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setInitial(dao.queryFirst("aptitude_name",list.get(i).getAptitude_name()).getInitial());
+            list.get(i).setInitial(dao.queryFirst("aptitude_name", list.get(i).getAptitude_name()).getInitial());
+            booleanList.add(new AptitudeRankControl(0));
         }
-        AptitudeSelectAdapter selectAdapter = new AptitudeSelectAdapter(list,this);
+        AptitudeSelectAdapter selectAdapter = new AptitudeSelectAdapter(list, this, booleanList);
         svAptitudeSelectItem.setLayoutManager(new LinearLayoutManager(this));
         svAptitudeSelectItem.setAdapter(selectAdapter);
     }

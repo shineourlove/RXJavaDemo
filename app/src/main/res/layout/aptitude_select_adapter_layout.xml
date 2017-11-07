@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/item_text_vertical_margin"
         android:paddingEnd="@dimen/item_margin_right"
+        android:gravity="center_vertical"
         android:paddingStart="@dimen/item_margin_left"
         android:paddingTop="@dimen/item_text_vertical_margin">
 
@@ -36,7 +37,7 @@
 
         <ImageView
             android:id="@+id/img_aptitude_select_adapter_arrow"
-            android:layout_width="@dimen/right_arrow_width"
+            android:layout_width="@dimen/right_arrow_height"
             android:layout_height="@dimen/right_arrow_height"
             android:src="@drawable/arrow_right" />
     </LinearLayout>
@@ -45,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/sv_aptitude_select_adapter_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

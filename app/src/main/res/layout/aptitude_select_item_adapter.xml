@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray_divide"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/item_margin_left">
+
+        <TextView
+            android:id="@+id/txt_aptitude_select_item_adapter_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/black_word"
+            android:textSize="@dimen/item_text_size"
+            tools:text="甲级" />
+
+        <TextView
+            android:id="@+id/txt_aptitude_select_item_adapter_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/black_word"
+            android:textSize="@dimen/item_text_size"
+            tools:text="甲级及以上" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_aptitude_select_item_adapter_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/item_margin_left"
+        android:background="@color/gray_line" />
+</LinearLayout>

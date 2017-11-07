@@ -58,10 +58,10 @@ public class AptitudeAllDao {
      * @param value 值
      * @return 返回数据列表
      */
-    public List<AptitudeAllBean> queryWhere(String key, String value) {
+    public List<AptitudeAllBean> queryDistinct(String key, String value) {
         List<AptitudeAllBean> queryList = null;
         try {
-           QueryBuilder builder =  DataBaseHelper.getInstance(mContext).getAptitudeAllDao()
+            QueryBuilder builder = DataBaseHelper.getInstance(mContext).getAptitudeAllDao()
                     .queryBuilder();
             builder.selectColumns("aptitude_name").distinct();
             queryList = builder.where().eq(key, value).query();
@@ -69,6 +69,26 @@ public class AptitudeAllDao {
             /*queryList = DataBaseHelper.getInstance(mContext).getAptitudeAllDao()
                     .queryBuilder().where().eq(key, value)
                     .query();*/
+            return queryList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryList;
+    }
+
+    /**
+     * 查询某个关键字对应的数据列表
+     *
+     * @param key   关键字
+     * @param value 值
+     * @return 返回数据列表
+     */
+    public List<AptitudeAllBean> queryWhere(String key, String value) {
+        List<AptitudeAllBean> queryList = null;
+        try {
+            queryList = DataBaseHelper.getInstance(mContext).getAptitudeAllDao()
+                    .queryBuilder().where().eq(key, value)
+                    .query();
             return queryList;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,7 +189,7 @@ public class AptitudeAllDao {
         AndroidDatabaseConnection adc = null;
         adc = new AndroidDatabaseConnection(DataBaseHelper.getInstance(c).getWritableDatabase(), true);
         try {
-            Dao<AptitudeAllBean, Integer> dao= DataBaseHelper.getInstance(mContext).getAptitudeAllDao();
+            Dao<AptitudeAllBean, Integer> dao = DataBaseHelper.getInstance(mContext).getAptitudeAllDao();
             dao.setAutoCommit(adc, false);
             Savepoint savepoint = adc.setSavePoint("aptitude_all");
 

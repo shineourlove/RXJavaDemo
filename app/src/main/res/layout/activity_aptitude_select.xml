@@ -53,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
+                android:layout_marginRight="1dp"
                 android:background="@color/white"
                 android:hint="搜索资质"
                 android:maxLength="26"
@@ -75,20 +76,20 @@
                 android:id="@+id/sv_aptitude_select_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:scrollbars="vertical" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="15dp"
+            android:layout_width="24dp"
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/sv_aptitude_select_initial"
+                android:id="@+id/rcv_aptitude_select_iintial"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

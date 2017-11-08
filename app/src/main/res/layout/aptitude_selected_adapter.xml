@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txt_aptitude_select_item_adapter_left"
+                android:id="@+id/txt_aptitude_selected_adapter_left"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -30,39 +30,24 @@
                 android:textSize="@dimen/item_text_size"
                 tools:text="甲级" />
 
-            <ImageView
-                android:id="@+id/img_aptitude_select_item_adapter_left"
+            <TextView
+                android:id="@+id/txt_aptitude_selected_adapter_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/item_margin_right"
-                android:src="@drawable/check_mark" />
+                android:background="@drawable/stroke_blue_1px"
+                android:gravity="center_vertical"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp"
+                android:textColor="@color/blue_word"
+                android:textColorHighlight="@color/blue_word"
+                android:textSize="@dimen/item_text_size"
+                tools:text="甲级" />
         </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_aptitude_select_item_adapter_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:textColor="@color/black_word"
-            android:textSize="@dimen/item_text_size"
-            tools:text="甲级及以上" />
-
-        <ImageView
-            android:id="@+id/img_aptitude_select_item_adapter_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/item_margin_right"
-            android:src="@drawable/check_mark" />
     </LinearLayout>
-</LinearLayout>
 
     <TextView
         android:id="@+id/txt_aptitude_select_item_adapter_line"

@@ -19,7 +19,12 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<WorkResumeBean, Integer> workResumeDao; //参数1：DAO操作的类；参数2：标记数据表的ID
     private Dao<UserInfoBean, Integer> userInfoDao;
     private Dao<AptitudeAllBean, Integer> aptitudeAllDao;
-
+    private Dao<AptitudeSelectedBean, Integer> selectedBeanDao;
+    private Dao<EnterprisePerformanceSettingBean, Integer> enterprisePerformanceSettingDao;
+    private Dao<EnterpriseQueryBean, Integer> enterpriseQueryDao;
+    private Dao<PersonalRegisterBean, Integer> personalRegisterDao;
+    private Dao<PersonalTitleBean, Integer> personalTitlerDao;
+    private Dao<PersonalManagerBean, Integer> personalManagerDao;
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -31,6 +36,12 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, WorkResumeBean.class);  //创建一张表; 传入链接源(ConnectionSource)参数
             TableUtils.createTable(connectionSource, UserInfoBean.class);
             TableUtils.createTable(connectionSource, AptitudeAllBean.class);
+            TableUtils.createTable(connectionSource, AptitudeSelectedBean.class);
+            TableUtils.createTable(connectionSource, EnterprisePerformanceSettingBean.class);
+            TableUtils.createTable(connectionSource, EnterpriseQueryBean.class);
+            TableUtils.createTable(connectionSource, PersonalRegisterBean.class);
+            TableUtils.createTable(connectionSource, PersonalTitleBean.class);
+            TableUtils.createTable(connectionSource, PersonalManagerBean.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,6 +95,72 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             }
         }
         return aptitudeAllDao;
+    }
+
+    public Dao<AptitudeSelectedBean, Integer> getSelectedBeanDao() {
+        if (selectedBeanDao == null) {
+            try {
+                selectedBeanDao = getDao(AptitudeSelectedBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return selectedBeanDao;
+    }
+
+    public Dao<EnterpriseQueryBean, Integer> getEnterpriseQueryDao() {
+        if (enterpriseQueryDao == null) {
+            try {
+                enterpriseQueryDao = getDao(EnterpriseQueryBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return enterpriseQueryDao;
+    }
+
+    public Dao<EnterprisePerformanceSettingBean, Integer> getEnterprisePerformanceSettingDao() {
+        if (enterprisePerformanceSettingDao == null) {
+            try {
+                enterprisePerformanceSettingDao = getDao(EnterprisePerformanceSettingBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return enterprisePerformanceSettingDao;
+    }
+
+    public Dao<PersonalRegisterBean, Integer> getPersonalRegisterDao() {
+        if (personalRegisterDao == null) {
+            try {
+                personalRegisterDao = getDao(PersonalRegisterBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return personalRegisterDao;
+    }
+
+    public Dao<PersonalTitleBean, Integer> getPersonalTitlerDao() {
+        if (personalTitlerDao == null) {
+            try {
+                personalTitlerDao = getDao(PersonalTitleBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return personalTitlerDao;
+    }
+
+    public Dao<PersonalManagerBean, Integer> getPersonalManagerDao() {
+        if (personalManagerDao == null) {
+            try {
+                personalManagerDao = getDao(PersonalManagerBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return personalManagerDao;
     }
 
     /**

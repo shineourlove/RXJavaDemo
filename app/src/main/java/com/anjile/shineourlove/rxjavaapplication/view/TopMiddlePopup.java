@@ -151,7 +151,6 @@ public class TopMiddlePopup extends PopupWindow {
             adapter = new PopupAdapter(myContext, myItems, myType);
             myLv.setAdapter(adapter);
         }
-
         showAsDropDown(view, 0, 0);
     }
 

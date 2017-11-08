@@ -12,25 +12,25 @@ import java.util.List;
  * Created by Administrator on 2017/4/17.
  */
 
-public class UserInfoDao {
+public class AptitudeSelectedDao {
     Context mContext;
 
-    public UserInfoDao(Context context) {
+    public AptitudeSelectedDao(Context context) {
         this.mContext = context;
     }
 
-    public void add(UserInfoBean bean) {
+    public void add(AptitudeSelectedBean bean) {
         try {
-            DataBaseHelper.getInstance(mContext).getUserInfoDao().create(bean);
+            DataBaseHelper.getInstance(mContext).getSelectedBeanDao().create(bean);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public List<UserInfoBean> query() {
-        List<UserInfoBean> queryList = null;
+    public List<AptitudeSelectedBean> query() {
+        List<AptitudeSelectedBean> queryList = null;
         try {
-            queryList = DataBaseHelper.getInstance(mContext).getUserInfoDao().queryForAll();
+            queryList = DataBaseHelper.getInstance(mContext).getSelectedBeanDao().queryForAll();
             return queryList;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class UserInfoDao {
      */
     public void updateOnly(int id, String columnKey, String columnValue) {
         try {
-            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getUserInfoDao().updateBuilder();
+            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getSelectedBeanDao().updateBuilder();
             builder.updateColumnValue(columnKey, columnValue);  //修改列为columnKey的值
             builder.where().eq("id", id + "");   //修改id为1的列
             builder.update();
@@ -60,14 +60,34 @@ public class UserInfoDao {
      *
      * @param columnValue 字段对应的数据
      */
-    public void updateName(String key,String columnValue) {
+    public void updateName(String key, String columnValue) {
         try {
-            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getUserInfoDao().updateBuilder();
+            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getSelectedBeanDao().updateBuilder();
             builder.updateColumnValue(key, columnValue);  //修改列为columnKey的值
             builder.update();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 查询某个关键字对应的数据列表
+     *
+     * @param key   关键字
+     * @param value 值
+     * @return 返回数据列表
+     */
+    public List<AptitudeSelectedBean> queryWhere(String key, String value) {
+        List<AptitudeSelectedBean> queryList = null;
+        try {
+            queryList = DataBaseHelper.getInstance(mContext).getSelectedBeanDao()
+                    .queryBuilder().where().eq(key, value)
+                    .query();
+            return queryList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryList;
     }
 
     /**
@@ -77,7 +97,7 @@ public class UserInfoDao {
      */
     public void deleteOnly(int id) {
         try {
-            DeleteBuilder deleteBuilder = DataBaseHelper.getInstance(mContext).getUserInfoDao().deleteBuilder();
+            DeleteBuilder deleteBuilder = DataBaseHelper.getInstance(mContext).getSelectedBeanDao().deleteBuilder();
             deleteBuilder.where().eq("id", id);
             deleteBuilder.delete();
         } catch (SQLException e) {
@@ -87,9 +107,8 @@ public class UserInfoDao {
 
     public void clearAll() {
         try {
-            DataBaseHelper.getInstance(mContext).getUserInfoDao()
-                    .queryRaw("delete from user_info");
-            DataBaseHelper.getInstance(mContext).getUserInfoDao().executeRaw("DELETE FROM sqlite_sequence WHERE name = 'user_info'");
+            DataBaseHelper.getInstance(mContext).getSelectedBeanDao().queryRaw("delete from aptitude_selected");
+            DataBaseHelper.getInstance(mContext).getSelectedBeanDao().executeRaw("DELETE FROM sqlite_sequence WHERE name = 'aptitude_selected'");
         } catch (SQLException e) {
             e.printStackTrace();
         }

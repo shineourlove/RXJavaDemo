@@ -18,11 +18,12 @@
         tools:text="A" />
 
     <LinearLayout
+        android:id="@+id/ll_aptitude_select_adapter_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:paddingBottom="@dimen/item_text_vertical_margin"
         android:paddingEnd="@dimen/item_margin_right"
-        android:gravity="center_vertical"
         android:paddingStart="@dimen/item_margin_left"
         android:paddingTop="@dimen/item_text_vertical_margin">
 
@@ -35,6 +36,14 @@
             android:textSize="@dimen/item_text_size"
             tools:text="爆破专业单位许可证" />
 
+        <TextView
+            android:id="@+id/txt_aptitude_select_adapter_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/blue_word"
+            tools:text="已选择" />
+
         <ImageView
             android:id="@+id/img_aptitude_select_adapter_arrow"
             android:layout_width="@dimen/right_arrow_height"
@@ -42,7 +51,11 @@
             android:src="@drawable/arrow_right" />
     </LinearLayout>
 
-    <RelativeLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -50,5 +63,5 @@
             android:id="@+id/sv_aptitude_select_adapter_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 </LinearLayout>

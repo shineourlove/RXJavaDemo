@@ -58,13 +58,13 @@ public class AptitudeAllDao {
      * @param value 值
      * @return 返回数据列表
      */
-    public List<AptitudeAllBean> queryDistinct(String key, String value) {
+    public List<AptitudeAllBean> queryDistinct(String key, String value, String imput) {
         List<AptitudeAllBean> queryList = null;
         try {
             QueryBuilder builder = DataBaseHelper.getInstance(mContext).getAptitudeAllDao()
                     .queryBuilder();
             builder.selectColumns("aptitude_name").distinct();
-            queryList = builder.where().eq(key, value).query();
+            queryList = builder.where().eq(key, value).and().like("aptitude_name", "%" + imput + "%").query();
 
             /*queryList = DataBaseHelper.getInstance(mContext).getAptitudeAllDao()
                     .queryBuilder().where().eq(key, value)

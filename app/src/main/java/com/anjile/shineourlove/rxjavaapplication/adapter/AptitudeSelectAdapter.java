@@ -1,26 +1,22 @@
 package com.anjile.shineourlove.rxjavaapplication.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.activity.AptitudeRankSelectActivity;
+import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
-import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllDao;
-import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.AptitudeRankControl;
-import com.anjile.shineourlove.rxjavaapplication.manager.FullyLinearLayoutManager;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedBean;
+import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedDao;
 
 import java.util.List;
 
@@ -30,13 +26,13 @@ import java.util.List;
 
 public class AptitudeSelectAdapter extends RecyclerView.Adapter<AptitudeSelectAdapter.ArchitectureHolder> {
     private List<AptitudeAllBean> beanList;
-    private List<AptitudeRankControl> controls;
     private Context context;
+    private Activity activity;
 
-    public AptitudeSelectAdapter(List<AptitudeAllBean> companyList, Context context, List<AptitudeRankControl> booleanList) {
+    public AptitudeSelectAdapter(List<AptitudeAllBean> companyList, Context context, Activity activity) {
         this.beanList = companyList;
         this.context = context;
-        this.controls = booleanList;
+        this.activity = activity;
     }
 
     @Override
@@ -48,13 +44,18 @@ public class AptitudeSelectAdapter extends RecyclerView.Adapter<AptitudeSelectAd
 
     @Override
     public void onBindViewHolder(ArchitectureHolder holder, int position) {
-        Log.i("aptitude_select_adapter", "onBindViewHolder: ");
-        if (controls.get(position).getPosition() == 1) {
-            holder.svList.setVisibility(View.VISIBLE);
-        } else {
-            holder.svList.setVisibility(View.GONE);
+        List<AptitudeSelectedBean> selectedList = new AptitudeSelectedDao(context).query();
+        boolean isSelected = false;
+        for (int i = 0; i < selectedList.size(); i++) {
+            if (selectedList.get(i).getName().equals(beanList.get(position).getAptitude_name())) {
+                holder.txtSelected.setText("已选择");
+                isSelected = true;
+            }
         }
-        holder.txtName.setText(beanList.get(position).getAptitude_name());
+        if (!isSelected)
+            holder.txtSelected.setText("");
+        Log.i("aptitude_select_adapter", "onBindViewHolder: ");
+        holder.txtName.setText(beanList.get(position).getAptitude_name().trim());
         if (position > 0) {
             if (!beanList.get(position).getInitial().equals(beanList.get(position - 1).getInitial())) {
                 holder.txtHead.setText(beanList.get(position).getInitial());
@@ -66,7 +67,6 @@ public class AptitudeSelectAdapter extends RecyclerView.Adapter<AptitudeSelectAd
             holder.txtHead.setText(beanList.get(position).getInitial());
             holder.txtHead.setVisibility(View.VISIBLE);
         }
-        loadRank(beanList.get(position).getAptitude_name(), holder.svList);
     }
 
     @Override
@@ -80,24 +80,25 @@ public class AptitudeSelectAdapter extends RecyclerView.Adapter<AptitudeSelectAd
     public class ArchitectureHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView txtHead;
         private TextView txtName;
-        private RecyclerView svList;
-        private ImageView imgArrow;
+        private TextView txtSelected;
+        private LinearLayout llName;
 
         public ArchitectureHolder(View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txt_aptitude_select_adapter_name);
-            svList = itemView.findViewById(R.id.sv_aptitude_select_adapter_item);
             txtHead = itemView.findViewById(R.id.txt_aptitude_select_adapter_head);
-            imgArrow = itemView.findViewById(R.id.img_aptitude_select_adapter_arrow);
-            txtName.setOnClickListener(this);
+            txtSelected = itemView.findViewById(R.id.txt_aptitude_select_adapter_selected);
+            llName = itemView.findViewById(R.id.ll_aptitude_select_adapter_name);
+            llName.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.txt_aptitude_select_adapter_name:
-
-                    controlRank(new AptitudeRankControl(getAdapterPosition()));
+                case R.id.ll_aptitude_select_adapter_name:
+                    Intent intent = new Intent(context, AptitudeRankSelectActivity.class);
+                    intent.putExtra("aptitude_name", txtName.getText().toString().trim());
+                    activity.startActivityForResult(intent, RequestCode.APTITUDE_SELECT_ACTIVITY_REQUEST);
                     break;
             }
         }
@@ -106,66 +107,5 @@ public class AptitudeSelectAdapter extends RecyclerView.Adapter<AptitudeSelectAd
         public boolean onLongClick(View view) {
             return false;
         }
-
-
-        public void controlRank(AptitudeRankControl c) {
-            Log.i("aptitude_select_adapter", "AptitudeRankControl: " + c.getPosition());
-            for (int i = 0; i < controls.size(); i++) {
-                controls.get(i).setPosition(0);
-            }
-            controls.get(c.getPosition()).setPosition(1);
-            notifyDataSetChanged();
-        }
-    }
-
-    int clickCount = 0;
-
-    public void loadRank(String name, RecyclerView svList) {
-        Log.i("aptitude_select_adapter", "name: " + name);
-        AptitudeAllDao dao = new AptitudeAllDao(context);
-        List<AptitudeAllBean> list = dao.queryWhere("aptitude_name", name);
-        AptitudeSelectItemAdapter selectItemAdapter = new AptitudeSelectItemAdapter(list, context);
-        svList.setLayoutManager(new FullyLinearLayoutManager(context));
-        svList.setAdapter(selectItemAdapter);
-    }
-
-    public void clearRank(RecyclerView view) {
-        view.removeAllViews();
-    }
-
-
-    public void startAlphaAnimation(ImageView img, float start, float finish) {
-        RotateAnimation animation = new RotateAnimation(start, finish, Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        //设置动画持续时长
-        animation.setDuration(300);
-        //设置动画结束之后的状态是否是动画的最终状态，true，表示是保持动画结束时的最终状态
-        animation.setFillAfter(true);
-        //设置动画结束之后的状态是否是动画开始时的状态，true，表示是保持动画开始时的状态
-        animation.setFillBefore(true);
-        //设置动画的重复模式：反转REVERSE和重新开始RESTART
-        animation.setRepeatMode(AlphaAnimation.REVERSE);
-        //设置动画播放次数
-        animation.setRepeatCount(-1);
-        //开始动画
-        img.setAnimation(animation);
-        animation.startNow();
-        //清除动画
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                animation.cancel();
-            }
-        });
     }
 }

@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_include_a"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="A"
+        android:textColor="@color/blue_word"
+        android:textSize="@dimen/item_text_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_b"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="B"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_c"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="C"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_d"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="D"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_e"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="E"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_f"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="F"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_g"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="G"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_h"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="H"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_i"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="I"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_j"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="J"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_k"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="K"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_l"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="L"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_m"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="M"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_n"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="N"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_o"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="O"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_p"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="P"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_q"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Q"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_r"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="R"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/txt_include_s"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="S"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_t"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="T"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_u"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="U"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_v"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="V"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_w"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="W"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_x"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="X"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_y"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Y"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_include_z"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Z"
+        android:textColor="@color/blue_word"
+        android:textStyle="bold" />
+</LinearLayout>

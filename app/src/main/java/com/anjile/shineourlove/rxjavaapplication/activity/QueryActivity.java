@@ -3,8 +3,8 @@ package com.anjile.shineourlove.rxjavaapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Telephony;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -17,29 +17,23 @@ import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
-import com.anjile.shineourlove.rxjavaapplication.api.Api;
 import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
 import com.anjile.shineourlove.rxjavaapplication.common.ResultCode;
-import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
-import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllDao;
-import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeAllEntity;
+import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedBean;
+import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedDao;
+import com.anjile.shineourlove.rxjavaapplication.db.EnterpriseQueryDao;
+import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.AptitudeBackControl;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
 import com.anjile.shineourlove.rxjavaapplication.service.BackstageDownloadService;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class QueryActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -67,6 +61,8 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
     EditText edtQueryEnterpriseEnterpriseName;
     @BindView(R.id.rl_query_enterprise_area)
     RelativeLayout rlQueryEnterpriseArea;
+    @BindView(R.id.txt_query_area_province)
+    TextView txtQueryAreaProvince;
     @BindView(R.id.rb_query_enterprise_unlimited)
     RadioButton rbQueryEnterpriseUnlimited;
     @BindView(R.id.rb_query_enterprise_ecdemic)
@@ -77,6 +73,8 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
     EditText edtQueryEnterpriseLegalPerson;
     @BindView(R.id.rl_query_enterprise_qualification)
     RelativeLayout rlQueryEnterpriseQualification;
+    @BindView(R.id.txt_query_enterprise_aptitude)
+    TextView txtQueryEnterpriseAptitude;
     @BindView(R.id.rl_query_enterprise_performance)
     RelativeLayout rlQueryEnterprisePerformance;
     @BindView(R.id.rl_query_enterprise_person)
@@ -104,6 +102,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
     @BindView(R.id.btn_query_performance_query_now)
     Button btnQueryPerformanceQueryNow;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,6 +126,12 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         startService(intentBack);
 
         setEnterpriseQuery();
+        initEditListener();
+        loadLocalData();
+        loadEnterpriseName();
+        loadLegalPerson();
+        loadRequire();
+        loadAptitude();
     }
 
     @Override
@@ -145,12 +150,21 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                 txtQueryPerformanceQueryLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
                 break;
             case R.id.rl_query_enterprise_qualification://企业查询-资质选择
-                Intent intent = new Intent(this, AptitudeSelectActivity.class);
-                startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_APTITUDE_SELEST);
+                AptitudeSelectedDao selectedDao = new AptitudeSelectedDao(this);
+                if (selectedDao.query().size() > 0) {
+                    Intent intent = new Intent(this, EnterpriseAptitudeActivity.class);
+                    intent.putExtra("type", 0);
+                    startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_APTITUDE_ACTIVITY);
+                } else {
+                    Intent intent = new Intent(this, AptitudeSelectActivity.class);
+                    startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_APTITUDE_SELECT);
+                }
                 break;
             case R.id.rl_query_enterprise_performance://企业查询-业绩选择
                 break;
             case R.id.rl_query_enterprise_area://企业查询-省市地区
+                Intent intentArea = new Intent(this, ProvinceSelectActivity.class);
+                startActivityForResult(intentArea, RequestCode.QUERY_ENTERPRISE_AREA_PROVINCE);
                 break;
             case R.id.btn_query_company_query_now://企业查询-立即查询
                 break;
@@ -171,7 +185,6 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         //initAptitudeIndex();
     }
 
-    private int localType = 0;
 
     /**
      * 选择变化 监听
@@ -181,18 +194,19 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
      */
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        EnterpriseQueryDao queryDao = new EnterpriseQueryDao(this);
         switch (compoundButton.getId()) {
             case R.id.rb_query_enterprise_unlimited://不限
                 if (b)
-                    localType = 0;
+                    queryDao.updateOnly("require", "0");
                 break;
             case R.id.rb_query_enterprise_ecdemic://外地
                 if (b)
-                    localType = 1;
+                    queryDao.updateOnly("require", "1");
                 break;
             case R.id.rb_query_enterprise_local://本地
                 if (b)
-                    localType = 2;
+                    queryDao.updateOnly("require", "2");
                 break;
         }
     }
@@ -203,6 +217,127 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
             public void run() {
                 EventBus.getDefault().post(new BackstageDownloadControl(0));
             }
-        },1000);
+        }, 1000);
+    }
+
+    /**
+     * 加载省市地区
+     */
+    private void loadLocalData() {
+        EnterpriseQueryDao queryDao = new EnterpriseQueryDao(this);
+        if (queryDao.query().size() > 0)
+            txtQueryAreaProvince.setText(queryDao.query().get(0).getProvince());
+    }
+
+    private void loadRequire() {
+        EnterpriseQueryDao queryDao = new EnterpriseQueryDao(this);
+        if (queryDao.query().size() > 0)
+            if (queryDao.query().get(0).getRequire() != null) {
+                if (queryDao.query().get(0).getRequire().equals("0")) {
+                    rbQueryEnterpriseUnlimited.setChecked(true);
+                } else if (queryDao.query().get(0).getRequire().equals("1")) {
+                    rbQueryEnterpriseEcdemic.setChecked(true);
+                } else {
+                    rbQueryEnterpriseLocal.setChecked(true);
+                }
+            } else {
+                rbQueryEnterpriseUnlimited.setChecked(true);
+            }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case ResultCode.ENTERPRISE_AREA_PROVINCE:
+                loadLocalData();
+                break;
+        }
+        switch (requestCode) {
+            case RequestCode.QUERY_ENTERPRISE_APTITUDE_SELECT:
+                loadAptitude();
+                break;
+            case RequestCode.QUERY_ENTERPRISE_APTITUDE_ACTIVITY:
+                loadAptitude();
+                break;
+        }
+    }
+
+    private void initEditListener() {
+        edtQueryEnterpriseEnterpriseName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                EnterpriseQueryDao queryDao = new EnterpriseQueryDao(QueryActivity.this);
+                queryDao.updateOnly("name", editable.toString().trim());
+            }
+        });
+        edtQueryEnterpriseLegalPerson.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                EnterpriseQueryDao queryDao = new EnterpriseQueryDao(QueryActivity.this);
+                queryDao.updateOnly("legal_person", editable.toString().trim());
+            }
+        });
+    }
+
+    /**
+     * 加载企业名称
+     */
+    private void loadEnterpriseName() {
+        EnterpriseQueryDao queryDao = new EnterpriseQueryDao(this);
+        if (queryDao.query().size() > 0)
+            edtQueryEnterpriseEnterpriseName.setText(queryDao.query().get(0).getName());
+    }
+
+    /**
+     * 加载法人名称
+     */
+    private void loadLegalPerson() {
+        EnterpriseQueryDao queryDao = new EnterpriseQueryDao(this);
+        if (queryDao.query().size() > 0)
+            edtQueryEnterpriseLegalPerson.setText(queryDao.query().get(0).getLegal_person());
+    }
+
+    private void loadAptitude() {
+        AptitudeSelectedDao selectedDao = new AptitudeSelectedDao(this);
+        List<AptitudeSelectedBean> selectedBeanList = selectedDao.query();
+        if (selectedBeanList.size() > 0) {
+            txtQueryEnterpriseAptitude.setText("您已选择" + selectedBeanList.size() + "项资质");
+        } else {
+            txtQueryEnterpriseAptitude.setText(R.string.click_setting);
+        }
+    }
+
+    /**
+     * 刷新页面
+     *
+     * @param c 数据传输对象
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void addTextControl(AptitudeBackControl c) {
+        if (c.getType() == 0) {
+            loadAptitude();
+        }
     }
 }

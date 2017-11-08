@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_divide"
+    android:orientation="vertical"
+    tools:context="com.anjile.shineourlove.rxjavaapplication.activity.EnterpriseAptitudeActivity">
+
+    <include layout="@layout/include_top_status_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+            android:id="@+id/sv_enterprise_aptitude_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txt_enterprise_aptitude_add"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:textColor="@color/blue_word"
+        android:textSize="@dimen/btn_text_size"
+        tools:text="添加" />
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_divide"
+    android:orientation="vertical"
+    tools:context="com.anjile.shineourlove.rxjavaapplication.activity.PersonalSettingActivity">
+
+    <include layout="@layout/include_top_status_bar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_personal_setting_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@color/gray_divide" />
+
+    <Button
+        android:id="@+id/btn_personal_setting_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/item_text_vertical_margin"
+        android:paddingTop="@dimen/item_text_vertical_margin"
+        android:text="添加"
+        android:textColor="@color/blue_word"
+        android:textSize="@dimen/btn_text_size" />
+</LinearLayout>

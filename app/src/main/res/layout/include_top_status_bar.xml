@@ -30,15 +30,17 @@
             android:layout_toRightOf="@+id/img_top_status_bar_back"
             android:textColor="@color/white"
             android:textSize="17sp"
-            tools:text="返回" />
+            android:text="          " />
 
         <TextView
+            android:layout_marginLeft="60dp"
             android:id="@+id/txt_top_status_bar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:textSize="17sp"
+            android:layout_marginRight="60dp"
             tools:text="意见反馈" />
 
         <TextView

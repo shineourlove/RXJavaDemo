@@ -85,9 +85,7 @@
         <activity android:name=".activity.AccountSettingActivity" />
         <activity android:name=".activity.IndentityAuthenticationActivity" />
         <activity android:name=".activity.AptitudeQueryActivity" />
-        <activity android:name=".activity.PersonalSearchConditionActivity" >
-
-        </activity>
+        <activity android:name=".activity.PersonalSearchConditionActivity" />
         <activity android:name=".activity.CreditSituationActivity" />
         <activity android:name=".activity.HotSpotActivity" />
         <activity android:name=".activity.OrderReceiveAuthenticationActivity" />
@@ -106,12 +104,16 @@
         </activity>
         <activity android:name=".activity.AptitudeRankSelectActivity" />
         <activity android:name=".activity.EnterpriseAptitudeActivity" />
-        <activity android:name=".activity.EnterprisePerformanceSettingActivity" />
+        <activity
+            android:name=".activity.EnterprisePerformanceSettingActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".activity.ProvinceSelectActivity" />
         <!-- 服务 -->
         <service android:name=".service.BackstageDownloadService" />
 
-        <activity android:name=".activity.PersonalSettingActivity"></activity>
+        <activity android:name=".activity.PersonalSettingActivity" />
+        <activity android:name=".activity.EnterpriseQueryResultActivity" />
+        <activity android:name=".activity.MajorSelectActivity"></activity>
     </application>
 
 </manifest>

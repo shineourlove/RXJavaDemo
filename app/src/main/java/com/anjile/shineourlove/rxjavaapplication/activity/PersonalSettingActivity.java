@@ -87,7 +87,7 @@ public class PersonalSettingActivity extends BaseActivity {
         if (registerBeanList.size() == 0) {
             registerBeanList.add(new PersonalRegisterBean());
         }
-        adapter = new PersonalSettingAdapter(registerBeanList, this, this);
+        adapter = new PersonalSettingAdapter(registerBeanList, this, this, "注册类");
         rcvPersonalSettingList.setLayoutManager(new FullyLinearLayoutManager(this));
         rcvPersonalSettingList.setAdapter(adapter);
     }

@@ -26,13 +26,14 @@ public class EnterprisePerformanceSettingBean implements Serializable {
         this.id = id;
     }
 
-    public EnterprisePerformanceSettingBean(String start, String end, String use, int number, int scale, String unit) {
+    public EnterprisePerformanceSettingBean(String start, String end, String use, int number, int scale, String unit, int save) {
         this.start = start;
         this.end = end;
         this.use = use;
         this.number = number;
         this.scale = scale;
         this.unit = unit;
+        this.save = save;
     }
 
     public String getEnd() {
@@ -75,6 +76,22 @@ public class EnterprisePerformanceSettingBean implements Serializable {
         this.unit = unit;
     }
 
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public int getSave() {
+        return save;
+    }
+
+    public void setSave(int save) {
+        this.save = save;
+    }
+
     @DatabaseField(columnName = "start")
     private String start;
     @DatabaseField(columnName = "end")
@@ -87,4 +104,6 @@ public class EnterprisePerformanceSettingBean implements Serializable {
     private int scale;
     @DatabaseField(columnName = "unit")
     private String unit;
+    @DatabaseField(columnName = "save")
+    private int save;
 }

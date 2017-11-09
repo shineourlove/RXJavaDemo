@@ -50,8 +50,8 @@ public class AptitudeSelectActivity extends BaseActivity {
     EditText txtAptitudeSelectSearch;
     @BindView(R.id.sv_aptitude_select_item)
     SwipeMenuRecyclerView svAptitudeSelectItem;
-    @BindView(R.id.rcv_aptitude_select_iintial)
-    RecyclerView rcvAptitudeSelectIintial;
+    @BindView(R.id.rcv_aptitude_select_initial)
+    RecyclerView rcvAptitudeSelectInitial;
 
     private ArrayList<String> classifyItems;
     private AptitudeAllDao dao;
@@ -231,8 +231,8 @@ public class AptitudeSelectActivity extends BaseActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         initialAdapter = new InitialAdapter(listInitial, this, this, metrics.heightPixels);
-        rcvAptitudeSelectIintial.setLayoutManager(new FullyLinearLayoutManager(this));
-        rcvAptitudeSelectIintial.setAdapter(initialAdapter);
+        rcvAptitudeSelectInitial.setLayoutManager(new FullyLinearLayoutManager(this));
+        rcvAptitudeSelectInitial.setAdapter(initialAdapter);
     }
 
     public void transInitial() {

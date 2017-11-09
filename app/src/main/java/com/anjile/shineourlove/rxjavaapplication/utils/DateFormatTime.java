@@ -69,6 +69,18 @@ public class DateFormatTime {
         return 0;
     }
 
+    public static long getForYearsMonthLong(String currentTime) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
+        try {
+            Date date = format.parse(currentTime);
+            long time = date.getTime();
+            return time;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static String getTimeDataForHour(long currentTime) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
         String time = dateFormat.format(currentTime);

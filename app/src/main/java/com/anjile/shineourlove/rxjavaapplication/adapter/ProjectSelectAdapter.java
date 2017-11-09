@@ -9,22 +9,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.db.PurposeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.entity.CompanyDetails;
 import com.anjile.shineourlove.rxjavaapplication.entity.ProjectSelectEntity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/12.
  */
 
 public class ProjectSelectAdapter extends RecyclerView.Adapter<ProjectSelectAdapter.ArchitectureHolder> {
-    private ArrayList<ProjectSelectEntity> selectList;
+    private List<PurposeAllBean> selectList;
     private Context context;
     private MyItemClickListener clickListener;
     private MyItemLongClickListener longClickListener;
 
-    public ProjectSelectAdapter(ArrayList<ProjectSelectEntity> selectList, Context context) {
+    public ProjectSelectAdapter(List<PurposeAllBean> selectList, Context context) {
         this.selectList = selectList;
         this.context = context;
     }
@@ -48,12 +50,12 @@ public class ProjectSelectAdapter extends RecyclerView.Adapter<ProjectSelectAdap
 
     @Override
     public void onBindViewHolder(ArchitectureHolder holder, int position) {
-        holder.txtName.setText(selectList.get(position).getItemName());
+        holder.txtName.setText(selectList.get(position).getProject_purpose());
         if (position == selectList.size() - 1)
             holder.txtLine.setVisibility(View.GONE);
         else
             holder.txtLine.setVisibility(View.VISIBLE);
-        if (selectList.get(position).isCheck())
+        if (selectList.get(position).getCheck())
             holder.imgSelect.setVisibility(View.VISIBLE);
         else
             holder.imgSelect.setVisibility(View.INVISIBLE);
@@ -85,7 +87,7 @@ public class ProjectSelectAdapter extends RecyclerView.Adapter<ProjectSelectAdap
 
         @Override
         public void onClick(View view) {
-            selectList.get(getAdapterPosition()).setCheck(!selectList.get(getAdapterPosition()).isCheck());
+            selectList.get(getAdapterPosition()).setCheck(!selectList.get(getAdapterPosition()).getCheck());
             if (mListener != null) {
                 mListener.onItemClick(view, getAdapterPosition());
             }

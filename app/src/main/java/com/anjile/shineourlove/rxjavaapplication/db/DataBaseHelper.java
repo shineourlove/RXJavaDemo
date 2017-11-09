@@ -23,8 +23,10 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<EnterprisePerformanceSettingBean, Integer> enterprisePerformanceSettingDao;
     private Dao<EnterpriseQueryBean, Integer> enterpriseQueryDao;
     private Dao<PersonalRegisterBean, Integer> personalRegisterDao;
-    private Dao<PersonalTitleBean, Integer> personalTitlerDao;
+    private Dao<PersonalTitleBean, Integer> personalTitleDao;
     private Dao<PersonalManagerBean, Integer> personalManagerDao;
+    private Dao<PurposeAllBean, Integer> purposeAllDao;
+    private Dao<PersonalAllBean, Integer> personalAllDao;
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -42,6 +44,8 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, PersonalRegisterBean.class);
             TableUtils.createTable(connectionSource, PersonalTitleBean.class);
             TableUtils.createTable(connectionSource, PersonalManagerBean.class);
+            TableUtils.createTable(connectionSource, PurposeAllBean.class);
+            TableUtils.createTable(connectionSource, PersonalAllBean.class);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -141,15 +145,15 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
         return personalRegisterDao;
     }
 
-    public Dao<PersonalTitleBean, Integer> getPersonalTitlerDao() {
-        if (personalTitlerDao == null) {
+    public Dao<PersonalTitleBean, Integer> getPersonalTitleDao() {
+        if (personalTitleDao == null) {
             try {
-                personalTitlerDao = getDao(PersonalTitleBean.class);
+                personalTitleDao = getDao(PersonalTitleBean.class);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return personalTitlerDao;
+        return personalTitleDao;
     }
 
     public Dao<PersonalManagerBean, Integer> getPersonalManagerDao() {
@@ -161,6 +165,28 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
             }
         }
         return personalManagerDao;
+    }
+
+    public Dao<PurposeAllBean, Integer> getPurposeAllDao() {
+        if (purposeAllDao == null) {
+            try {
+                purposeAllDao = getDao(PurposeAllBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return purposeAllDao;
+    }
+
+    public Dao<PersonalAllBean, Integer> getPersonalAllDao() {
+        if (personalAllDao == null) {
+            try {
+                personalAllDao = getDao(PersonalAllBean.class);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return personalAllDao;
     }
 
     /**

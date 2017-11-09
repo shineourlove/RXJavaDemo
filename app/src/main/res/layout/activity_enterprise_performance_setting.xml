@@ -26,11 +26,15 @@
 
         <TextView
             android:id="@+id/txt_enterprise_performance_setting_start"
-            android:layout_width="72dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:background="@color/gray_divide"
             android:gravity="center"
-            android:textColor="@color/gray_word_hint"
+            android:hint="开始时间"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/gray_word"
+            android:textColorHint="@color/gray_word_hint"
             android:textSize="@dimen/item_text_size"
             tools:text="9999-00" />
 
@@ -44,12 +48,16 @@
 
         <TextView
             android:id="@+id/txt_enterprise_performance_setting_end"
-            android:layout_width="72dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginRight="@dimen/item_margin_right"
             android:background="@color/gray_divide"
             android:gravity="center"
-            android:textColor="@color/gray_word_hint"
+            android:hint="结束时间"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/gray_word"
+            android:textColorHint="@color/gray_word_hint"
             android:textSize="@dimen/item_text_size"
             tools:text="结束时间" />
     </LinearLayout>
@@ -79,9 +87,10 @@
             android:layout_height="24dp"
             android:layout_marginRight="6dp"
             android:gravity="center"
-            android:textColor="@color/gray_word_hint"
-            android:textSize="@dimen/item_text_size"
-            tools:text="请选择" />
+            android:hint="请选择"
+            android:textColor="@color/gray_word"
+            android:textColorHint="@color/gray_word_hint"
+            android:textSize="@dimen/item_text_size" />
 
         <ImageView
             android:layout_width="@dimen/right_arrow_width"
@@ -129,19 +138,74 @@
             android:textColor="@color/black_word"
             android:textSize="@dimen/item_text_size" />
 
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_enterprise_performance_setting_number_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/selector_performance"
+                android:button="@null"
+                android:paddingBottom="4dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="4dp"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_text_size" />
+
+            <RadioButton
+                android:id="@+id/rb_enterprise_performance_setting_number_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/selector_performance"
+                android:button="@null"
+                android:paddingBottom="4dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="4dp"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_text_size" />
+
+            <RadioButton
+                android:id="@+id/rb_enterprise_performance_setting_number_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/selector_performance"
+                android:button="@null"
+                android:paddingBottom="4dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="4dp"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/item_text_size" />
+        </RadioGroup>
+
         <EditText
             android:id="@+id/edt_enterprise_performance_setting_number"
-            android:layout_width="72dp"
-            android:layout_height="24dp"
-            android:background="@color/blue"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/radius_3_solid_blue"
             android:gravity="center"
             android:hint="输入个数"
             android:inputType="number"
             android:maxLength="3"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp"
             android:textColor="@color/white"
-            android:layout_marginRight="10dp"
             android:textColorHint="@color/white"
             android:textSize="@dimen/item_text_size" />
+
         <ImageView
             android:layout_width="@dimen/right_arrow_width"
             android:layout_height="@dimen/right_arrow_height"

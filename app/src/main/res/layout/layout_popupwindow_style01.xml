@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginLeft="@dimen/item_margin_left"
+    android:layout_marginRight="@dimen/item_margin_right"
+    android:background="@drawable/radius_6_solid_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@drawable/fade_blue_gradual_change"
+        android:gravity="center"
+        android:text="请选择规模单位"
+        android:textColor="@color/white"
+        android:textSize="@dimen/item_text_size" />
+
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="万元"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="平方米"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="立方米"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="米"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+</LinearLayout>

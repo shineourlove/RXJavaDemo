@@ -21,10 +21,12 @@ import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
 import com.anjile.shineourlove.rxjavaapplication.common.ResultCode;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedBean;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedDao;
+import com.anjile.shineourlove.rxjavaapplication.db.EnterprisePerformanceSettingDao;
 import com.anjile.shineourlove.rxjavaapplication.db.EnterpriseQueryDao;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.AptitudeBackControl;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
 import com.anjile.shineourlove.rxjavaapplication.service.BackstageDownloadService;
+import com.anjile.shineourlove.rxjavaapplication.view.DeleteEditTextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -34,6 +36,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.anjile.shineourlove.rxjavaapplication.common.RequestCode.QUERY_ENTERPRISE_PERFORMANCE_SETTING;
+import static com.anjile.shineourlove.rxjavaapplication.common.RequestCode.QUERY_ENTERPRISE_PERSONAL;
+import static com.anjile.shineourlove.rxjavaapplication.common.RequestCode.QUERY_ENTERPRISE_RESULT;
 
 public class QueryActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener {
 
@@ -81,6 +87,10 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
     RelativeLayout rlQueryEnterprisePerson;
     @BindView(R.id.btn_query_company_query_now)
     Button btnQueryCompanyQueryNow;
+    @BindView(R.id.txt_query_enterprise_performance)
+    TextView txtQueryEnterprisePerformance;
+    @BindView(R.id.txt_query_enterprise_person)
+    TextView txtQueryEnterprisePerson;
 
     //业绩查询
     @BindView(R.id.edt_query_performance_project_name)
@@ -132,6 +142,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         loadLegalPerson();
         loadRequire();
         loadAptitude();
+        loadPerformance();
     }
 
     @Override
@@ -161,12 +172,19 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                 }
                 break;
             case R.id.rl_query_enterprise_performance://企业查询-业绩选择
+                Intent intentPerformance = new Intent(this, EnterprisePerformanceSettingActivity.class);
+                startActivityForResult(intentPerformance, QUERY_ENTERPRISE_PERFORMANCE_SETTING);
                 break;
             case R.id.rl_query_enterprise_area://企业查询-省市地区
                 Intent intentArea = new Intent(this, ProvinceSelectActivity.class);
                 startActivityForResult(intentArea, RequestCode.QUERY_ENTERPRISE_AREA_PROVINCE);
                 break;
+            case R.id.rl_query_enterprise_person:
+                Intent intentPersonal = new Intent(this, PersonalSearchConditionActivity.class);
+                startActivityForResult(intentPersonal, QUERY_ENTERPRISE_PERSONAL);
+                break;
             case R.id.btn_query_company_query_now://企业查询-立即查询
+                queryNow();
                 break;
         }
     }
@@ -181,8 +199,9 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         rlQueryEnterprisePerformance.setOnClickListener(this);
         rlQueryEnterpriseArea.setOnClickListener(this);
         btnQueryCompanyQueryNow.setOnClickListener(this);
+        rlQueryEnterprisePerson.setOnClickListener(this);
 
-        //initAptitudeIndex();
+        initAptitudeIndex();
     }
 
 
@@ -198,15 +217,15 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         switch (compoundButton.getId()) {
             case R.id.rb_query_enterprise_unlimited://不限
                 if (b)
-                    queryDao.updateOnly("require", "0");
+                    queryDao.updateOnly("require", "2");
                 break;
             case R.id.rb_query_enterprise_ecdemic://外地
                 if (b)
-                    queryDao.updateOnly("require", "1");
+                    queryDao.updateOnly("require", "0");
                 break;
             case R.id.rb_query_enterprise_local://本地
                 if (b)
-                    queryDao.updateOnly("require", "2");
+                    queryDao.updateOnly("require", "1");
                 break;
         }
     }
@@ -216,8 +235,10 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
             @Override
             public void run() {
                 EventBus.getDefault().post(new BackstageDownloadControl(0));
+                EventBus.getDefault().post(new BackstageDownloadControl(1));
+                EventBus.getDefault().post(new BackstageDownloadControl(4));
             }
-        }, 1000);
+        }, 50);
     }
 
     /**
@@ -252,6 +273,23 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         switch (resultCode) {
             case ResultCode.ENTERPRISE_AREA_PROVINCE:
                 loadLocalData();
+                break;
+            case ResultCode.ENTERPRISE_PERFORMANCE_SETTING_CONFIRM:
+                loadPerformance();
+                break;
+            case ResultCode.ENTERPRISE_PERFORMANCE_SETTING_CANCEL:
+                loadPerformance();
+                break;
+            case QUERY_ENTERPRISE_RESULT:
+                clearQueryDataBase();
+                loadLocalData();
+                loadEnterpriseName();
+                loadLegalPerson();
+                loadRequire();
+                loadAptitude();
+                loadPerformance();
+                break;
+            case QUERY_ENTERPRISE_PERSONAL:
                 break;
         }
         switch (requestCode) {
@@ -339,5 +377,32 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         if (c.getType() == 0) {
             loadAptitude();
         }
+    }
+
+    /**
+     * 加载业绩
+     */
+    private void loadPerformance() {
+        EnterprisePerformanceSettingDao settingDao = new EnterprisePerformanceSettingDao(this);
+        if (settingDao.query().size() > 0) {
+            txtQueryEnterprisePerformance.setText("已保存业绩设置");
+        } else {
+            txtQueryEnterprisePerformance.setText("点击设置");
+        }
+    }
+
+    /**
+     * 立即查询
+     */
+    public void queryNow() {
+        EventBus.getDefault().post(new BackstageDownloadControl(2));
+        Intent intent = new Intent(this, EnterpriseQueryResultActivity.class);
+        startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_RESULT);
+    }
+
+    public void clearQueryDataBase() {
+        new AptitudeSelectedDao(this).clearAll();
+        new EnterprisePerformanceSettingDao(this).clearAll();
+        new EnterpriseQueryDao(this).clearAll();
     }
 }

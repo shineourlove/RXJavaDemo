@@ -5,6 +5,8 @@ import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeAllEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.CheckSecurityCodeBean;
 import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.GitHubApiEntity;
+import com.anjile.shineourlove.rxjavaapplication.entity.PersonalAllEntity;
+import com.anjile.shineourlove.rxjavaapplication.entity.PurposeEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.Retrofit2EntrtyTest1;
 
 import java.util.List;
@@ -87,4 +89,49 @@ public interface Api {
      */
     @POST("architecture/corporate.enterprise")
     io.reactivex.Observable<AptitudeAllEntity> aptitudeIndexObservable();
+
+    /**
+     * 获取所有工程用途目录的api
+     *
+     * @return 资质工程用途对应的观察者对象
+     */
+    @POST("architecture/purpose.enterprise")
+    io.reactivex.Observable<PurposeEntity> purposeObservable();
+
+    /**
+     * 获取所有人员分类目录的api
+     *
+     * @return 人员分类目录对应的观察者对象
+     */
+    @POST("architecture/staff.enterprise")
+    io.reactivex.Observable<PersonalAllEntity> personalObservable();
+
+    /**
+     * 条件查询企业的api
+     *
+     * @param phone       电话号码
+     * @param start       开始条数
+     * @param number      请求条数
+     * @param area        企业地区（省市）
+     * @param ifLocal     是否本地企业 1是 0否 3不限
+     * @param corporate   法人
+     * @param aptitude    资质 ["资质级别ID","资质级别ID"]
+     * @param performance 业绩 格式
+     *                    {“mixdate”:”开始时间”,” maxdate”:”结束时间”,” purpose”:”工程用途” ,” project_scale”:”业绩规模”, ”number”:”业绩数量”,” units”:”1-万元,0-其他”}
+     *                    时间戳
+     * @return 观察着对象
+     */
+    @FormUrlEncoded
+    @POST("architecture/enterprise.enterprise")
+    io.reactivex.Observable<EnterpriseSearchEntity> conditionSearchObservable(
+            @Field("phone") String phone,
+            @Field("currentPage") String start,
+            @Field("pageSize") String number,
+            @Field("site") String area,
+            @Field("iflocal") String ifLocal,
+            @Field("corporate") String corporate,
+            @Field("aptitude") String aptitude,
+            @Field("performance") String performance);
+
+
 }

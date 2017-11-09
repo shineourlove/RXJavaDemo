@@ -21,7 +21,7 @@ public class PersonalTitleDao {
 
     public void add(PersonalTitleBean bean) {
         try {
-            DataBaseHelper.getInstance(mContext).getPersonalTitlerDao().create(bean);
+            DataBaseHelper.getInstance(mContext).getPersonalTitleDao().create(bean);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class PersonalTitleDao {
     public List<PersonalTitleBean> query() {
         List<PersonalTitleBean> queryList = null;
         try {
-            queryList = DataBaseHelper.getInstance(mContext).getPersonalTitlerDao().queryForAll();
+            queryList = DataBaseHelper.getInstance(mContext).getPersonalTitleDao().queryForAll();
             return queryList;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class PersonalTitleDao {
      */
     public void updateOnly(int id, String columnKey, String columnValue) {
         try {
-            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getPersonalTitlerDao().updateBuilder();
+            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getPersonalTitleDao().updateBuilder();
             builder.updateColumnValue(columnKey, columnValue);  //修改列为columnKey的值
             builder.where().eq("id", id + "");   //修改id为1的列
             builder.update();
@@ -62,7 +62,7 @@ public class PersonalTitleDao {
      */
     public void updateName(String key, String columnValue) {
         try {
-            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getPersonalTitlerDao().updateBuilder();
+            UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getPersonalTitleDao().updateBuilder();
             builder.updateColumnValue(key, columnValue);  //修改列为columnKey的值
             builder.update();
         } catch (SQLException e) {
@@ -77,7 +77,7 @@ public class PersonalTitleDao {
      */
     public void deleteOnly(int id) {
         try {
-            DeleteBuilder deleteBuilder = DataBaseHelper.getInstance(mContext).getPersonalTitlerDao().deleteBuilder();
+            DeleteBuilder deleteBuilder = DataBaseHelper.getInstance(mContext).getPersonalTitleDao().deleteBuilder();
             deleteBuilder.where().eq("id", id);
             deleteBuilder.delete();
         } catch (SQLException e) {
@@ -87,9 +87,9 @@ public class PersonalTitleDao {
 
     public void clearAll() {
         try {
-            DataBaseHelper.getInstance(mContext).getPersonalTitlerDao()
+            DataBaseHelper.getInstance(mContext).getPersonalTitleDao()
                     .queryRaw("delete from personal_title");
-            DataBaseHelper.getInstance(mContext).getPersonalTitlerDao().executeRaw("DELETE FROM sqlite_sequence WHERE name = 'personal_title'");
+            DataBaseHelper.getInstance(mContext).getPersonalTitleDao().executeRaw("DELETE FROM sqlite_sequence WHERE name = 'personal_title'");
         } catch (SQLException e) {
             e.printStackTrace();
         }

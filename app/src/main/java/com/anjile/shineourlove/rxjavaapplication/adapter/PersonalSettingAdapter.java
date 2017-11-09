@@ -2,6 +2,7 @@ package com.anjile.shineourlove.rxjavaapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.activity.MajorSelectActivity;
+import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.PersonalRegisterBean;
 
@@ -26,11 +29,13 @@ public class PersonalSettingAdapter extends RecyclerView.Adapter<PersonalSetting
     private List<PersonalRegisterBean> beanList;
     private Context context;
     private Activity activity;
+    private String type;
 
-    public PersonalSettingAdapter(List<PersonalRegisterBean> companyList, Context context, Activity activity) {
+    public PersonalSettingAdapter(List<PersonalRegisterBean> companyList, Context context, Activity activity, String type) {
         this.beanList = companyList;
         this.context = context;
         this.activity = activity;
+        this.type = type;
     }
 
     @Override
@@ -91,6 +96,9 @@ public class PersonalSettingAdapter extends RecyclerView.Adapter<PersonalSetting
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.ll_personal_setting_adapter_name:
+                    Intent intentMajor = new Intent(context, MajorSelectActivity.class);
+                    intentMajor.putExtra("type", type);
+                    activity.startActivityForResult(intentMajor, RequestCode.PERSONAL_SETTING_MAJOR);
                     break;
                 case R.id.ll_personal_setting_adapter_grade:
                     break;

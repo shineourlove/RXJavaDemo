@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
@@ -23,6 +24,9 @@ import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedBean;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedDao;
 import com.anjile.shineourlove.rxjavaapplication.db.EnterprisePerformanceSettingDao;
 import com.anjile.shineourlove.rxjavaapplication.db.EnterpriseQueryDao;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalManagerDao;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalRegisterDao;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalTitleDao;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.AptitudeBackControl;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
 import com.anjile.shineourlove.rxjavaapplication.service.BackstageDownloadService;
@@ -143,6 +147,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         loadRequire();
         loadAptitude();
         loadPerformance();
+        loadPersonal();
     }
 
     @Override
@@ -290,6 +295,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                 loadPerformance();
                 break;
             case QUERY_ENTERPRISE_PERSONAL:
+                loadPersonal();
                 break;
         }
         switch (requestCode) {
@@ -384,7 +390,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
      */
     private void loadPerformance() {
         EnterprisePerformanceSettingDao settingDao = new EnterprisePerformanceSettingDao(this);
-        if (settingDao.query().size() > 0) {
+        if (settingDao.query() != null && settingDao.query().size() > 0) {
             txtQueryEnterprisePerformance.setText("已保存业绩设置");
         } else {
             txtQueryEnterprisePerformance.setText("点击设置");
@@ -392,12 +398,35 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
     }
 
     /**
+     * 加载人员
+     */
+    public void loadPersonal() {
+        PersonalRegisterDao registerDao = new PersonalRegisterDao(this);
+        PersonalTitleDao titleDao = new PersonalTitleDao(this);
+        PersonalManagerDao managerDao = new PersonalManagerDao(this);
+        txtQueryEnterprisePerson.setText("");
+        if (registerDao.query() != null && registerDao.query().size() > 0) {
+            txtQueryEnterprisePerson.setText("已保存人员设置");
+        }
+        if (titleDao.query() != null && titleDao.query().size() > 0) {
+            txtQueryEnterprisePerson.setText("已保存人员设置");
+        }
+        if (managerDao.query() != null && managerDao.query().size() > 0) {
+            txtQueryEnterprisePerson.setText("已保存人员设置");
+        }
+    }
+
+    /**
      * 立即查询
      */
     public void queryNow() {
-        EventBus.getDefault().post(new BackstageDownloadControl(2));
-        Intent intent = new Intent(this, EnterpriseQueryResultActivity.class);
-        startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_RESULT);
+        if (!txtQueryAreaProvince.getText().toString().trim().equals("")) {
+            EventBus.getDefault().post(new BackstageDownloadControl(2));
+            Intent intent = new Intent(this, EnterpriseQueryResultActivity.class);
+            startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_RESULT);
+        } else {
+            Toast.makeText(this, "请先选择省市！", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void clearQueryDataBase() {

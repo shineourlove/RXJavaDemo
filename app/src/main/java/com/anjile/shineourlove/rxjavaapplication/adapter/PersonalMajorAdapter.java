@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.activity.AptitudeRankSelectActivity;
@@ -19,6 +20,9 @@ import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedBean;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedDao;
 import com.anjile.shineourlove.rxjavaapplication.db.PersonalAllBean;
+import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.PersonalMajorControl;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -87,8 +91,13 @@ public class PersonalMajorAdapter extends RecyclerView.Adapter<PersonalMajorAdap
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.ll_aptitude_select_adapter_name:
-                    activity.setResult(ResultCode.PERSONAL_MAJOR_RESULT);
-                    activity.finish();
+                    if (activity.getIntent().getStringExtra("checked") != null && activity.getIntent().getStringExtra("checked").contains(beanList.get(getAdapterPosition()).getMajor_name())) {
+                        Toast.makeText(context, "该项工程已选择！", Toast.LENGTH_SHORT).show();
+                    } else {
+                        activity.setResult(ResultCode.PERSONAL_MAJOR_RESULT);
+                        EventBus.getDefault().post(new PersonalMajorControl(beanList.get(getAdapterPosition()), 0, activity.getIntent().getIntExtra("position", 0)));
+                        activity.finish();
+                    }
                     break;
             }
         }

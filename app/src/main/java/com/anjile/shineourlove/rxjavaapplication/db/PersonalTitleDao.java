@@ -27,6 +27,14 @@ public class PersonalTitleDao {
         }
     }
 
+    public void addAll(List<PersonalTitleBean> bean) {
+        try {
+            DataBaseHelper.getInstance(mContext).getPersonalTitleDao().create(bean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<PersonalTitleBean> query() {
         List<PersonalTitleBean> queryList = null;
         try {

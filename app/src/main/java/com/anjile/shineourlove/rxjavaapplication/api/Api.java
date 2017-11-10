@@ -119,6 +119,7 @@ public interface Api {
      * @param performance 业绩 格式
      *                    {“mixdate”:”开始时间”,” maxdate”:”结束时间”,” purpose”:”工程用途” ,” project_scale”:”业绩规模”, ”number”:”业绩数量”,” units”:”1-万元,0-其他”}
      *                    时间戳
+     * @param staff       人员要求  格式:[{"grade_id":"人员类别等级ID","number":"数量"},{"grade_id":"1","number":"2"}]
      * @return 观察着对象
      */
     @FormUrlEncoded
@@ -131,7 +132,8 @@ public interface Api {
             @Field("iflocal") String ifLocal,
             @Field("corporate") String corporate,
             @Field("aptitude") String aptitude,
-            @Field("performance") String performance);
+            @Field("performance") String performance,
+            @Field("staff") String staff);
 
 
 }

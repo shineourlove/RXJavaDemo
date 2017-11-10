@@ -17,4 +17,7 @@ public class RequestCode {
     public static final int QUERY_ENTERPRISE_RESULT = 10009;
     public static final int QUERY_ENTERPRISE_PERSONAL = 10010;
     public static final int PERSONAL_SETTING_MAJOR = 10011;
+    public static final int PERSONAL_SETTING_MAJOR_RANK = 10012;
+    public static final int PERSONAL_SETTING_TITLE = 10013;
+    public static final int PERSONAL_SETTING_MANAGER = 10014;
 }

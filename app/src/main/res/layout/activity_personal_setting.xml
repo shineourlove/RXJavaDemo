@@ -7,27 +7,45 @@
     android:orientation="vertical"
     tools:context="com.anjile.shineourlove.rxjavaapplication.activity.PersonalSettingActivity">
 
+
     <include layout="@layout/include_top_status_bar" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcv_personal_setting_list"
+    <ScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:background="@color/gray_divide" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_personal_setting_add"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingBottom="@dimen/item_text_vertical_margin"
-        android:paddingTop="@dimen/item_text_vertical_margin"
-        android:text="添加"
-        android:textColor="@color/blue_word"
-        android:textSize="@dimen/btn_text_size" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcv_personal_setting_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:background="@color/gray_divide" />
+
+            <Button
+                android:id="@+id/btn_personal_setting_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/item_text_vertical_margin"
+                android:paddingTop="@dimen/item_text_vertical_margin"
+                android:text="添加"
+                android:textColor="@color/blue_word"
+                android:textSize="@dimen/btn_text_size" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

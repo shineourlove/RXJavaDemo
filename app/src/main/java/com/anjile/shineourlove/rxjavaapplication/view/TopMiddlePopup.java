@@ -3,6 +3,7 @@ package com.anjile.shineourlove.rxjavaapplication.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -71,8 +72,8 @@ public class TopMiddlePopup extends PopupWindow {
      * 初始化控件
      */
     private void initWidget() {
-        myLv =  myMenuView.findViewById(R.id.popup_lv);
-        popupLL =  myMenuView.findViewById(R.id.popup_layout);
+        myLv = myMenuView.findViewById(R.id.popup_lv);
+        popupLL = myMenuView.findViewById(R.id.popup_layout);
         myLv.setOnItemClickListener(myOnItemClickListener);
 
         if (myType == 1) {
@@ -152,6 +153,15 @@ public class TopMiddlePopup extends PopupWindow {
             myLv.setAdapter(adapter);
         }
         showAsDropDown(view, 0, 0);
+    }
+
+    public void showAtHalf(View view, int height) {
+        if (myIsDirty) {
+            myIsDirty = false;
+            adapter = new PopupAdapter(myContext, myItems, myType);
+            myLv.setAdapter(adapter);
+        }
+        showAsDropDown(view,  0, height,Gravity.CENTER);
     }
 
 }

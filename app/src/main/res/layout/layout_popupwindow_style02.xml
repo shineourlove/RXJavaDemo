@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/item_margin_left"
+    android:layout_marginRight="@dimen/item_margin_right"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/radius_6_solid_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@drawable/fade_blue_gradual_change"
+        android:gravity="center"
+        android:text="请选择人员数量"
+        android:textColor="@color/white"
+        android:textSize="@dimen/item_text_size" />
+
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="1个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="2个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="3个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="4个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="5个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_6"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="6个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_7"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="7个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <TextView
+        android:id="@+id/txt_popup_window_style_8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="8个及以上"
+        android:textColor="@color/gray_word"
+        android:textSize="@dimen/item_text_size" />
+</LinearLayout>

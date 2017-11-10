@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.adapter.InitialAdapter;
 import com.anjile.shineourlove.rxjavaapplication.adapter.PersonalMajorAdapter;
+import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.PersonalAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.PersonalAllDao;
 import com.anjile.shineourlove.rxjavaapplication.manager.FullyLinearLayoutManager;
@@ -55,8 +57,8 @@ public class MajorSelectActivity extends BaseActivity {
         txtTopStatusBarLeft.setOnClickListener(this);
         imgTopStatusBarBack.setOnClickListener(this);
 
-        initAdapter();
         initInitial();
+        initAdapter();
         initListener();
     }
 
@@ -79,16 +81,17 @@ public class MajorSelectActivity extends BaseActivity {
 
     public void initAdapter() {
         PersonalAllDao dao = new PersonalAllDao(this);
-        list = dao.queryWhere("type_name", getIntent().getStringExtra("type"));
+        list = dao.queryDistinct1("type_name", getIntent().getStringExtra("type"), "");
         for (int i = 0; i < list.size(); i++) {
-            list.get(i).setInitial(dao.queryFirst("type_name", list.get(i).getType_name()).getInitial());
+            list.get(i).setInitial(dao.queryFirst("major_name", list.get(i).getMajor_name()).getInitial());
         }
         majorAdapter = new PersonalMajorAdapter(list, this, this);
         rcvMajorSelectList.setLayoutManager(new LinearLayoutManager(this));
         rcvMajorSelectList.setAdapter(majorAdapter);
+        transInitial();
     }
 
-    public void initListener(){
+    public void initListener() {
         edtMajorSelectCondition.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -102,11 +105,22 @@ public class MajorSelectActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                transSearch(editable.toString().trim());
             }
         });
     }
 
+    public void transSearch(String input) {
+        PersonalAllDao dao = new PersonalAllDao(this);
+        List<PersonalAllBean> newList = dao.queryDistinct("type_name", getIntent().getStringExtra("type"), input);
+        list.clear();
+        for (int i = 0; i < newList.size(); i++) {
+            list.add(newList.get(i));
+        }
+        Log.i("aptitude_select_act", "transClassify: " + list.size());
+        majorAdapter.notifyDataSetChanged();
+        transInitial();
+    }
 
     public void initInitial() {
         listInitial = new ArrayList<>();

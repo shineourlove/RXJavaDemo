@@ -113,7 +113,10 @@
 
         <activity android:name=".activity.PersonalSettingActivity" />
         <activity android:name=".activity.EnterpriseQueryResultActivity" />
-        <activity android:name=".activity.MajorSelectActivity"></activity>
+        <activity
+            android:name=".activity.MajorSelectActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".activity.PersonalMajorRankActivity"></activity>
     </application>
 
 </manifest>

@@ -17,6 +17,12 @@ import com.anjile.shineourlove.rxjavaapplication.db.EnterprisePerformanceSetting
 import com.anjile.shineourlove.rxjavaapplication.db.EnterprisePerformanceSettingDao;
 import com.anjile.shineourlove.rxjavaapplication.db.EnterpriseQueryDao;
 import com.anjile.shineourlove.rxjavaapplication.db.PersonalAllDao;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalManagerBean;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalManagerDao;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalRegisterBean;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalRegisterDao;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalTitleBean;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalTitleDao;
 import com.anjile.shineourlove.rxjavaapplication.db.PurposeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.PurposeAllDao;
 import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeAllEntity;
@@ -25,11 +31,13 @@ import com.anjile.shineourlove.rxjavaapplication.entity.PersonalAllEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.PurposeEntity;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
 import com.anjile.shineourlove.rxjavaapplication.utils.DateFormatTime;
+import com.google.gson.JsonObject;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -344,11 +352,54 @@ public class BackstageDownloadService extends Service {
             e.printStackTrace();
         }
         Log.i("background_service", "jsonObj: " + jsonObj.toString());
+        //staff 格式:[{"grade_id":"人员类别等级ID","number":"数量"},{"grade_id":"1","number":"2"}]
+        PersonalRegisterDao registerDao = new PersonalRegisterDao(this);
+        PersonalTitleDao titleDao = new PersonalTitleDao(this);
+        PersonalManagerDao managerDao = new PersonalManagerDao(this);
 
+        JSONArray jsonArray = new JSONArray();
+        if (registerDao.query() != null && registerDao.query().size() > 0) {
+            List<PersonalRegisterBean> list = registerDao.query();
+            for (int i = 0; i < list.size(); i++) {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("grade_id", list.get(i).getDetails());
+                    jsonArray.put(jsonObject);
+                    Log.i("background_service", "PersonalRegisterBean: " + jsonObject.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (titleDao.query() != null && titleDao.query().size() > 0) {
+            List<PersonalTitleBean> list = titleDao.query();
+            for (int i = 0; i < list.size(); i++) {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("grade_id", list.get(i).getDetails());
+                    jsonArray.put(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (managerDao.query() != null && managerDao.query().size() > 0) {
+            List<PersonalManagerBean> list = managerDao.query();
+            for (int i = 0; i < list.size(); i++) {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("grade_id", list.get(i).getDetails());
+                    jsonArray.put(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Log.i("background_service", "jsonObject: " + jsonArray.toString());
 
         api.conditionSearchObservable("13637897256", count + "",
                 count + 20 + "", area, require,
-                legalPerson, Arrays.asList(aptArr).toString(), jsonObj.toString())
+                legalPerson, Arrays.asList(aptArr).toString(), jsonObj.toString(), jsonArray.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnterpriseSearchEntity>() {

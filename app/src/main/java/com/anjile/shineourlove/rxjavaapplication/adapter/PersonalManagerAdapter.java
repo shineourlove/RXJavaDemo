@@ -15,29 +15,27 @@ import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.activity.MajorSelectActivity;
 import com.anjile.shineourlove.rxjavaapplication.activity.PersonalMajorRankActivity;
 import com.anjile.shineourlove.rxjavaapplication.common.RequestCode;
-import com.anjile.shineourlove.rxjavaapplication.db.AptitudeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.PersonalAllBean;
-import com.anjile.shineourlove.rxjavaapplication.db.PersonalRegisterBean;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalManagerBean;
+import com.anjile.shineourlove.rxjavaapplication.db.PersonalTitleBean;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.PersonalMajorControl;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * Created by Administrator on 2017/10/12.
  */
 
-public class PersonalSettingAdapter extends RecyclerView.Adapter<PersonalSettingAdapter.ArchitectureHolder> {
+public class PersonalManagerAdapter extends RecyclerView.Adapter<PersonalManagerAdapter.ArchitectureHolder> {
 
-    private List<PersonalRegisterBean> beanList;
+    private List<PersonalManagerBean> beanList;
     private Context context;
     private Activity activity;
     private String type;
 
-    public PersonalSettingAdapter(List<PersonalRegisterBean> companyList, Context context, Activity activity, String type) {
+    public PersonalManagerAdapter(List<PersonalManagerBean> companyList, Context context, Activity activity, String type) {
         this.beanList = companyList;
         this.context = context;
         this.activity = activity;

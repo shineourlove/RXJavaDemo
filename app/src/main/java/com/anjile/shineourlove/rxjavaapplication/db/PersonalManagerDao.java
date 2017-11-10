@@ -27,6 +27,14 @@ public class PersonalManagerDao {
         }
     }
 
+    public void addAll(List<PersonalManagerBean> bean) {
+        try {
+            DataBaseHelper.getInstance(mContext).getPersonalManagerDao().create(bean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<PersonalManagerBean> query() {
         List<PersonalManagerBean> queryList = null;
         try {

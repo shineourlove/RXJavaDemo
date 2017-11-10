@@ -27,6 +27,14 @@ public class PersonalRegisterDao {
         }
     }
 
+    public void addAll( List<PersonalRegisterBean> bean) {
+        try {
+            DataBaseHelper.getInstance(mContext).getPersonalRegisterDao().create(bean);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<PersonalRegisterBean> query() {
         List<PersonalRegisterBean> queryList = null;
         try {

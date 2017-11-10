@@ -63,8 +63,26 @@ public class PersonalAllDao {
         try {
             QueryBuilder builder = DataBaseHelper.getInstance(mContext).getPersonalAllDao()
                     .queryBuilder();
-            builder.selectColumns("type_name").distinct();
-            queryList = builder.where().eq(key, value).and().like("aptitude_name", "%" + imput + "%").query();
+            //builder.selectColumns("type_name").distinct();
+            queryList = builder.where().eq(key, value).and().like("major_name", "%" + imput + "%").query();
+
+            /*queryList = DataBaseHelper.getInstance(mContext).getPersonalAllDao()
+                    .queryBuilder().where().eq(key, value)
+                    .query();*/
+            return queryList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return queryList;
+    }
+
+    public List<PersonalAllBean> queryDistinct1(String key, String value, String imput) {
+        List<PersonalAllBean> queryList = null;
+        try {
+            QueryBuilder builder = DataBaseHelper.getInstance(mContext).getPersonalAllDao()
+                    .queryBuilder();
+            builder.selectColumns("major_name").distinct();
+            queryList = builder.where().eq(key, value).and().like("major_name", "%" + imput + "%").query();
 
             /*queryList = DataBaseHelper.getInstance(mContext).getPersonalAllDao()
                     .queryBuilder().where().eq(key, value)

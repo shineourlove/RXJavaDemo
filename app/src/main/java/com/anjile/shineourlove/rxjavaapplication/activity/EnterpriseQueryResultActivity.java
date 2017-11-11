@@ -14,6 +14,7 @@ import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.adapter.AptitudeQueryItemAdapter;
 import com.anjile.shineourlove.rxjavaapplication.api.Api;
 import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
+import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,6 +59,8 @@ public class EnterpriseQueryResultActivity extends BaseActivity {
         txtTopStatusBarTitle.setText("企业查询结果");
         imgTopStatusBarBack.setOnClickListener(this);
         txtTopStatusBarLeft.setOnClickListener(this);
+        EventBus.getDefault().post(new BackstageDownloadControl(2));
+
         initAdapter();
     }
 
@@ -72,8 +75,6 @@ public class EnterpriseQueryResultActivity extends BaseActivity {
                 break;
         }
     }
-
-    private int count = 0;
 
     public void initAdapter() {
         searchList = new ArrayList<>();

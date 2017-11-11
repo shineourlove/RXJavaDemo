@@ -30,6 +30,7 @@ import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.PersonalAllEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.PurposeEntity;
 import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
+import com.anjile.shineourlove.rxjavaapplication.manager.NetManager;
 import com.anjile.shineourlove.rxjavaapplication.utils.DateFormatTime;
 import com.google.gson.JsonObject;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -340,7 +341,7 @@ public class BackstageDownloadService extends Service {
             aptArr[i] = aptitudes.get(i);
         }
         Log.i("background_service", "aptArr: " + Arrays.asList(aptArr).toString());
-        JSONObject jsonObj = new JSONObject();//pet对象，json形式
+        JSONObject jsonObj = new JSONObject();//对象，json形式
         try {
             jsonObj.put("mixdate", Long.parseLong(startDate));//向pet对象里面添加值
             jsonObj.put("maxdate", Long.parseLong(endDate));
@@ -351,7 +352,12 @@ public class BackstageDownloadService extends Service {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i("background_service", "jsonObj: " + jsonObj.toString());
+        String performance = "{}";
+        if (settingDao.query() == null || settingDao.query().size() == 0) {
+            performance = "{}";
+        } else {
+            performance = jsonObj.toString();
+        }
         //staff 格式:[{"grade_id":"人员类别等级ID","number":"数量"},{"grade_id":"1","number":"2"}]
         PersonalRegisterDao registerDao = new PersonalRegisterDao(this);
         PersonalTitleDao titleDao = new PersonalTitleDao(this);
@@ -365,7 +371,6 @@ public class BackstageDownloadService extends Service {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("grade_id", list.get(i).getDetails());
                     jsonArray.put(jsonObject);
-                    Log.i("background_service", "PersonalRegisterBean: " + jsonObject.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -396,10 +401,11 @@ public class BackstageDownloadService extends Service {
             }
         }
         Log.i("background_service", "jsonObject: " + jsonArray.toString());
-
+        Log.i("background_service", "aptitude: " + Arrays.asList(aptArr).toString());
+        Log.i("background_service", "performance: " + performance);
         api.conditionSearchObservable("13637897256", count + "",
                 count + 20 + "", area, require,
-                legalPerson, Arrays.asList(aptArr).toString(), jsonObj.toString(), jsonArray.toString())
+                legalPerson, Arrays.asList(aptArr).toString(), performance, jsonArray.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnterpriseSearchEntity>() {
@@ -435,4 +441,6 @@ public class BackstageDownloadService extends Service {
         new EnterprisePerformanceSettingDao(this).clearAll();
         new EnterpriseQueryDao(this).clearAll();
     }
+
+
 }

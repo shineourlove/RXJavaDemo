@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.activity.FuzzySearchActivity;
 import com.anjile.shineourlove.rxjavaapplication.activity.QueryActivity;
 import com.anjile.shineourlove.rxjavaapplication.adapter.ArchitectureRecycleAdapter;
 import com.anjile.shineourlove.rxjavaapplication.adapter.DetailsPagerAdapter;
@@ -54,6 +56,43 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     ImageView imgFragmentHomeArea;
     Unbinder unbinder;
 
+    @BindView(R.id.cb_fragment_home)  //轮播
+    ConvenientBanner cbFragmentHome;
+    @BindView(R.id.ll_fragment_home_advanced_query)  //高级查询
+    LinearLayout llFragmentHomeAdvancedQuery;
+    @BindView(R.id.ll_fragment_home_talent_pool)  //人才库
+    LinearLayout llFragmentHomeTalentPool;
+    @BindView(R.id.ll_fragment_home_budget_program)  //方案预算
+    LinearLayout llFragmentHomeBudgetProgram;
+
+    @BindView(R.id.ll_fragment_home_vip)//vip
+    LinearLayout llFragmentHomeVip;
+    @BindView(R.id.ll_fragment_home_credit)//信誉值
+    LinearLayout llFragmentHomeCredit;
+    @BindView(R.id.ll_fragment_home_material_choose)//材料选购
+    LinearLayout llFragmentHomeMaterialChoose;
+
+    @BindView(R.id.txt_fragment_home_hot_one)
+    TextView txtFragmentHomeHotOne;
+    @BindView(R.id.txt_fragment_home_hot_two)
+    TextView txtFragmentHomeHotTwo;
+
+    @BindView(R.id.txt_fragment_home_company)
+    TextView txtFragmentHomeCompany;
+    @BindView(R.id.txt_fragment_home_company_line)
+    TextView txtFragmentHomeCompanyLine;
+    @BindView(R.id.txt_fragment_home_info)
+    TextView txtFragmentHomeInfo;
+    @BindView(R.id.txt_fragment_home_info_line)
+    TextView txtFragmentHomeInfoLine;
+    @BindView(R.id.txt_fragment_home_builder)
+    TextView txtFragmentHomeBuilder;
+    @BindView(R.id.txt_fragment_home_builder_line)
+    TextView txtFragmentHomeBuilderLine;
+    @BindView(R.id.vp_fragment_home_details)
+    AutoFitViewpager vpFragmentHomeDetails;
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -77,6 +116,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtBuilderLine = view.findViewById(R.id.txt_fragment_home_builder_line);
         rlSearch = view.findViewById(R.id.rl_fragment_home_search);
         unbinder = ButterKnife.bind(this, view);
+        llFragmentHomeTalentPool.setOnClickListener(this);
         return view;
     }
 
@@ -235,7 +275,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
                 clickBuilder();
                 break;
             case R.id.rl_fragment_home_search:
-                Intent intent = new Intent(getContext(), QueryActivity.class);
+                Intent intent = new Intent(getContext(), FuzzySearchActivity.class);
                 startActivity(intent);
                 break;
             case R.id.txt_fragment_home_area:
@@ -243,6 +283,10 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
                 break;
             case R.id.img_fragment_home_area:
                 areaClick();
+                break;
+            case R.id.ll_fragment_home_talent_pool:
+                Intent intentP = new Intent(getContext(), QueryActivity.class);
+                startActivity(intentP);
                 break;
         }
     }

@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+                    <android.support.v7.widget.RecyclerView
                         android:id="@+id/rcv_enterprise_detail_aptitude"
                         android:layout_width="match_parent"
                         android:layout_marginLeft="6dp"
@@ -96,7 +96,7 @@
                     android:layout_marginLeft="6dp"
                     android:layout_weight="1"
                     android:textColor="@color/black_word"
-                    tools:text="查看公司人员情况" />
+                    android:text="查看公司人员情况" />
 
                 <ImageView
                     android:layout_width="@dimen/right_arrow_width"

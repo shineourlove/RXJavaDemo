@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
@@ -70,6 +71,8 @@ public class EnterprisePerformanceSettingActivity extends BaseActivity implement
     RadioButton rbEnterprisePerformanceSettingNumber3;
     @BindView(R.id.edt_enterprise_performance_setting_number)
     EditText edtEnterprisePerformanceSettingNumber;
+    @BindView(R.id.txt_top_status_bar_right)
+    TextView txtTopStatusBarRight;
 
 
     @Override
@@ -83,8 +86,10 @@ public class EnterprisePerformanceSettingActivity extends BaseActivity implement
         ButterKnife.bind(this);
 
         txtTopStatusBarTitle.setText("企业业绩");
+        txtTopStatusBarRight.setText("清空");
         txtTopStatusBarLeft.setOnClickListener(this);
         imgTopStatusBarBack.setOnClickListener(this);
+        txtTopStatusBarRight.setOnClickListener(this);
         initInfo();
         loadLocalData();
     }
@@ -97,6 +102,9 @@ public class EnterprisePerformanceSettingActivity extends BaseActivity implement
                 break;
             case R.id.img_top_status_bar_back:
                 backTo();
+                break;
+            case R.id.txt_top_status_bar_right:
+                clearLocalData();
                 break;
             case R.id.ll_enterprise_performance_setting_use:
                 Intent intent = new Intent(this, ProjectSelectActivity.class);
@@ -218,7 +226,7 @@ public class EnterprisePerformanceSettingActivity extends BaseActivity implement
     }
 
     /**
-     * 夹杂本地数据
+     * 加载本地数据
      */
     public void loadLocalData() {
         EnterprisePerformanceSettingDao settingDao = new EnterprisePerformanceSettingDao(this);
@@ -232,12 +240,18 @@ public class EnterprisePerformanceSettingActivity extends BaseActivity implement
                     String[] uses = queryList.get(0).getUse().split("[,]");
                     txtEnterprisePerformanceSettingUse.setText("已选择" + uses.length + "项用途");
                 }
+            } else {
+                txtEnterprisePerformanceSettingUse.setText("");
             }
             if (queryList.get(0).getStart() != null && !queryList.get(0).getStart().equals("") && !queryList.get(0).getStart().equals("0")) {
                 txtEnterprisePerformanceSettingStart.setText(DateFormatTime.getTimeYearMonth(Long.parseLong(queryList.get(0).getStart())));
+            } else {
+                txtEnterprisePerformanceSettingStart.setText("");
             }
-            if (queryList.get(0).getEnd()!=null&&!queryList.get(0).getEnd().equals("") && !queryList.get(0).getEnd().equals("0")) {
+            if (queryList.get(0).getEnd() != null && !queryList.get(0).getEnd().equals("") && !queryList.get(0).getEnd().equals("0")) {
                 txtEnterprisePerformanceSettingEnd.setText(DateFormatTime.getTimeYearMonth(Long.parseLong(queryList.get(0).getEnd())));
+            } else {
+                txtEnterprisePerformanceSettingEnd.setText("");
             }
             if (queryList.get(0).getNumber() > 0) {
                 if (queryList.get(0).getNumber() < 2)
@@ -253,16 +267,30 @@ public class EnterprisePerformanceSettingActivity extends BaseActivity implement
             }
             if (queryList.get(0).getScale() > 0)
                 edtEnterprisePerformanceSettingScale.setText(queryList.get(0).getScale() + "");
-
-            if (queryList.get(0).getUnit()!=null&&queryList.get(0).getUnit().equals("0"))
+            else
+                edtEnterprisePerformanceSettingScale.setText("0");
+            if (queryList.get(0).getUnit() != null && queryList.get(0).getUnit().equals("0"))
                 txtEnterprisePerformanceSettingUnit.setText("万元");
-            if (queryList.get(0).getUnit()!=null&&queryList.get(0).getUnit().equals("1"))
+            if (queryList.get(0).getUnit() != null && queryList.get(0).getUnit().equals("1"))
                 txtEnterprisePerformanceSettingUnit.setText("平方米");
-            if (queryList.get(0).getUnit()!=null&&queryList.get(0).getUnit().equals("2"))
+            if (queryList.get(0).getUnit() != null && queryList.get(0).getUnit().equals("2"))
                 txtEnterprisePerformanceSettingUnit.setText("立方米");
-            if (queryList.get(0).getUnit()!=null&&queryList.get(0).getUnit().equals("3"))
+            if (queryList.get(0).getUnit() != null && queryList.get(0).getUnit().equals("3"))
                 txtEnterprisePerformanceSettingUnit.setText("米");
+        } else {
+            txtEnterprisePerformanceSettingUse.setText("");
+            txtEnterprisePerformanceSettingStart.setText("");
+            txtEnterprisePerformanceSettingEnd.setText("");
+            edtEnterprisePerformanceSettingNumber.setText("");
+            rbEnterprisePerformanceSettingNumber1.setChecked(true);
+            txtEnterprisePerformanceSettingUnit.setText("万元");
         }
+    }
+
+    public void clearLocalData() {
+        new EnterprisePerformanceSettingDao(this).clearAll();
+        Toast.makeText(this, "已清空设置", Toast.LENGTH_SHORT).show();
+        loadLocalData();
     }
 
     private String yearStart = "", monthStart = "", yearEnd = "", monthEnd = "";

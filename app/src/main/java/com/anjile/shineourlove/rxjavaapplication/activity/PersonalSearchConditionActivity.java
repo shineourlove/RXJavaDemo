@@ -3,6 +3,7 @@ package com.anjile.shineourlove.rxjavaapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class PersonalSearchConditionActivity extends BaseActivity {
     TextView txtPersonSearchConditionFieldManagement;
     @BindView(R.id.ll_person_search_condition_field_management)
     LinearLayout llPersonSearchConditionFieldManagement;
+    @BindView(R.id.btn_person_search_condition_confirm)
+    Button btnPersonSearchConditionConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class PersonalSearchConditionActivity extends BaseActivity {
         llPersonSearchConditionRegister.setOnClickListener(this);
         llPersonSearchConditionTitle.setOnClickListener(this);
         llPersonSearchConditionFieldManagement.setOnClickListener(this);
+        btnPersonSearchConditionConfirm.setOnClickListener(this);
         loadLocalData();
     }
 
@@ -88,6 +92,9 @@ public class PersonalSearchConditionActivity extends BaseActivity {
                 Intent intentM = new Intent(this, PersonalSettingActivity.class);
                 intentM.putExtra("title", "现场管理人员");
                 startActivityForResult(intentM, RequestCode.PERSONAL_SETTING_MANAGER);
+                break;
+            case R.id.btn_person_search_condition_confirm:
+                finish();
                 break;
         }
     }

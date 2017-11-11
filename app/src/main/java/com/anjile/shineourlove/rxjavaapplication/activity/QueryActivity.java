@@ -136,8 +136,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         llQueryPerformanceQuery.setVisibility(View.GONE);
         txtQueryCompanyQueryLine.setBackgroundColor(getResources().getColor(R.color.blue_line));
         txtQueryPerformanceQueryLine.setBackgroundColor(getResources().getColor(R.color.white));
-        Intent intentBack = new Intent(this, BackstageDownloadService.class);
-        startService(intentBack);
+
 
         setEnterpriseQuery();
         initEditListener();
@@ -206,7 +205,6 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         btnQueryCompanyQueryNow.setOnClickListener(this);
         rlQueryEnterprisePerson.setOnClickListener(this);
 
-        initAptitudeIndex();
     }
 
 
@@ -233,17 +231,6 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                     queryDao.updateOnly("require", "1");
                 break;
         }
-    }
-
-    public void initAptitudeIndex() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                EventBus.getDefault().post(new BackstageDownloadControl(0));
-                EventBus.getDefault().post(new BackstageDownloadControl(1));
-                EventBus.getDefault().post(new BackstageDownloadControl(4));
-            }
-        }, 50);
     }
 
     /**
@@ -294,9 +281,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                 loadAptitude();
                 loadPerformance();
                 break;
-            case QUERY_ENTERPRISE_PERSONAL:
-                loadPersonal();
-                break;
+
         }
         switch (requestCode) {
             case RequestCode.QUERY_ENTERPRISE_APTITUDE_SELECT:
@@ -304,6 +289,9 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
                 break;
             case RequestCode.QUERY_ENTERPRISE_APTITUDE_ACTIVITY:
                 loadAptitude();
+                break;
+            case QUERY_ENTERPRISE_PERSONAL:
+                loadPersonal();
                 break;
         }
     }
@@ -404,7 +392,7 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
         PersonalRegisterDao registerDao = new PersonalRegisterDao(this);
         PersonalTitleDao titleDao = new PersonalTitleDao(this);
         PersonalManagerDao managerDao = new PersonalManagerDao(this);
-        txtQueryEnterprisePerson.setText("");
+        txtQueryEnterprisePerson.setText("点击设置");
         if (registerDao.query() != null && registerDao.query().size() > 0) {
             txtQueryEnterprisePerson.setText("已保存人员设置");
         }
@@ -421,7 +409,6 @@ public class QueryActivity extends BaseActivity implements CompoundButton.OnChec
      */
     public void queryNow() {
         if (!txtQueryAreaProvince.getText().toString().trim().equals("")) {
-            EventBus.getDefault().post(new BackstageDownloadControl(2));
             Intent intent = new Intent(this, EnterpriseQueryResultActivity.class);
             startActivityForResult(intent, RequestCode.QUERY_ENTERPRISE_RESULT);
         } else {

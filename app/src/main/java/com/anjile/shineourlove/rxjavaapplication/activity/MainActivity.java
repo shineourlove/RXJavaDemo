@@ -1,5 +1,7 @@
 package com.anjile.shineourlove.rxjavaapplication.activity;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,13 +11,17 @@ import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.api.Api;
 import com.anjile.shineourlove.rxjavaapplication.entity.Retrofit2EntrtyTest1;
+import com.anjile.shineourlove.rxjavaapplication.eventbuscontrol.BackstageDownloadControl;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentHome;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentPerson;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentMessage;
+import com.anjile.shineourlove.rxjavaapplication.service.BackstageDownloadService;
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.List;
@@ -93,6 +99,21 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         setDefaultFragment();
         //netDemo();
         netDemo2();
+
+        initAptitudeIndex();
+    }
+
+    public void initAptitudeIndex() {
+        Intent intentBack = new Intent(this, BackstageDownloadService.class);
+        startService(intentBack);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new BackstageDownloadControl(0));
+                EventBus.getDefault().post(new BackstageDownloadControl(1));
+                EventBus.getDefault().post(new BackstageDownloadControl(4));
+            }
+        }, 50);
     }
 
     /**

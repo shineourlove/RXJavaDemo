@@ -1,10 +1,13 @@
 package com.anjile.shineourlove.rxjavaapplication.api;
 
 
+import com.anjile.shineourlove.rxjavaapplication.activity.EnterpriseDetailActivity;
 import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeAllEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.CheckSecurityCodeBean;
+import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseDetailsEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.GitHubApiEntity;
+import com.anjile.shineourlove.rxjavaapplication.entity.HomePagePagerEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.PersonalAllEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.PurposeEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.Retrofit2EntrtyTest1;
@@ -135,5 +138,20 @@ public interface Api {
             @Field("performance") String performance,
             @Field("staff") String staff);
 
+    /**
+     * 获取单个企业详情的api
+     *
+     * @return 企业详情对应的观察者对象
+     */
+    @FormUrlEncoded
+    @POST("architecture/particulars.enterprise")
+    io.reactivex.Observable<EnterpriseDetailsEntity> enterpriseDetailsObservable(@Field("enterpriseid") String id);
 
+    /**
+     * 获取首页轮播的api
+     *
+     * @return 首页轮播对应的观察者对象
+     */
+    @POST("architecture/carousel.notoken")
+    io.reactivex.Observable<HomePagePagerEntity> mainPagerObservable();
 }

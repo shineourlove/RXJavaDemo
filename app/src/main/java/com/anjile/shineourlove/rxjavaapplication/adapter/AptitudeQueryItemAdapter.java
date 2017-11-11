@@ -1,6 +1,7 @@
 package com.anjile.shineourlove.rxjavaapplication.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
+import com.anjile.shineourlove.rxjavaapplication.activity.EnterpriseDetailActivity;
 import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeQueryItemEntity;
+import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseDetailsEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 
 import java.util.ArrayList;
@@ -94,6 +97,9 @@ public class AptitudeQueryItemAdapter extends RecyclerView.Adapter<AptitudeQuery
             if (mListener != null) {
                 mListener.onItemClick(view, getAdapterPosition());
             }
+            Intent intent = new Intent(context, EnterpriseDetailActivity.class);
+            intent.putExtra("id", beanList.get(getAdapterPosition()).getId());
+            context.startActivity(intent);
         }
 
         @Override

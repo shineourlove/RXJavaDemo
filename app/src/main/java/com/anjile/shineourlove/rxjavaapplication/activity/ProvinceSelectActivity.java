@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.adapter.ProvinceSelectedAdapter;
+import com.anjile.shineourlove.rxjavaapplication.entity.ProvinceEntity;
+import com.anjile.shineourlove.rxjavaapplication.utils.ProvinceUtil;
 
 import java.util.ArrayList;
 
@@ -57,11 +59,7 @@ public class ProvinceSelectActivity extends BaseActivity {
     }
 
     public void loadProvinceList() {
-        ArrayList<String> list = new ArrayList<>();
-        String[] arr = getResources().getStringArray(R.array.chinese_province);
-        for (int i = 0; i < arr.length; i++) {
-            list.add(arr[i]);
-        }
+        ArrayList<ProvinceEntity> list = new ProvinceUtil().getProvinceList(this);
         ProvinceSelectedAdapter selectedAdapter = new ProvinceSelectedAdapter(list, this, this);
         rcvProvinceSelectList.setLayoutManager(new LinearLayoutManager(this));
         rcvProvinceSelectList.setAdapter(selectedAdapter);

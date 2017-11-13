@@ -17,4 +17,6 @@
     <dimen name="right_arrow_width">12dp</dimen>
     <dimen name="item_height">44dp</dimen>
     <dimen name="enterprise_detail_aptitude_item_vertical_padding">6dp</dimen>
+    <dimen name="pager_line_height">2.5dp</dimen>
+    <dimen name="main_class_text_size">16sp</dimen>
 </resources>

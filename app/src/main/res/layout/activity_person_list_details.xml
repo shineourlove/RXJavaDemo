@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.anjile.shineourlove.rxjavaapplication.activity.PersonListDetailsActivity">
+
+    <include layout="@layout/include_top_status_bar" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/item_height"
+        android:paddingLeft="@dimen/item_margin_left"
+        android:paddingRight="@dimen/item_margin_right"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/txt_person_list_details_register"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/register_class"
+            android:textColor="@color/blue_word"
+            android:textSize="@dimen/item_text_size" />
+
+        <TextView
+            android:id="@+id/txt_person_list_details_title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/title_class"
+            android:textColor="@color/blue_word"
+            android:textSize="@dimen/item_text_size" />
+
+        <TextView
+            android:id="@+id/txt_person_list_details_manager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="@string/manager_class"
+            android:textColor="@color/blue_word"
+            android:textSize="@dimen/item_text_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pager_line_height"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:layout_marginLeft="30px"
+        android:layout_marginRight="30px"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_person_list_details_cursor"
+            android:layout_width="100dp"
+            android:layout_height="@dimen/pager_line_height"
+            android:scaleType="matrix"
+            android:src="@color/blue_line" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/white" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_person_list_details"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:background="@color/white"
+        android:flipInterval="30"
+        android:persistentDrawingCache="animation" />
+</LinearLayout>

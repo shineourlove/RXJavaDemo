@@ -106,4 +106,7 @@
     <string name="ecdemic_enterprise">外地公司</string>
     <string name="local_enterprise">本地公司</string>
     <string name="立即查询">立即查询</string>
+    <string name="register_class">注册类</string>
+    <string name="title_class">职称类</string>
+    <string name="manager_class">现场管理类</string>
 </resources>

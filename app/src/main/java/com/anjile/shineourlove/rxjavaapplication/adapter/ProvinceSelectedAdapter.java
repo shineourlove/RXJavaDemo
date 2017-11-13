@@ -14,6 +14,8 @@ import com.anjile.shineourlove.rxjavaapplication.common.ResultCode;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedBean;
 import com.anjile.shineourlove.rxjavaapplication.db.AptitudeSelectedDao;
 import com.anjile.shineourlove.rxjavaapplication.db.EnterpriseQueryDao;
+import com.anjile.shineourlove.rxjavaapplication.db.UserInfoDao;
+import com.anjile.shineourlove.rxjavaapplication.entity.ProvinceEntity;
 
 import java.util.List;
 
@@ -22,11 +24,11 @@ import java.util.List;
  */
 
 public class ProvinceSelectedAdapter extends RecyclerView.Adapter<ProvinceSelectedAdapter.ArchitectureHolder> {
-    private List<String> beanList;
+    private List<ProvinceEntity> beanList;
     private Context context;
     private Activity activity;
 
-    public ProvinceSelectedAdapter(List<String> companyList, Context context, Activity activity) {
+    public ProvinceSelectedAdapter(List<ProvinceEntity> companyList, Context context, Activity activity) {
         this.beanList = companyList;
         this.context = context;
         this.activity = activity;
@@ -41,7 +43,7 @@ public class ProvinceSelectedAdapter extends RecyclerView.Adapter<ProvinceSelect
 
     @Override
     public void onBindViewHolder(ArchitectureHolder holder, int position) {
-        holder.txtLeft.setText(beanList.get(position));
+        holder.txtLeft.setText(beanList.get(position).getName());
         holder.txtDelete.setVisibility(View.GONE);
         if (position == beanList.size() - 1) {
             holder.txtLine.setVisibility(View.INVISIBLE);
@@ -76,7 +78,9 @@ public class ProvinceSelectedAdapter extends RecyclerView.Adapter<ProvinceSelect
             switch (view.getId()) {
                 case R.id.txt_aptitude_selected_adapter_left:
                     EnterpriseQueryDao queryDao = new EnterpriseQueryDao(context);
-                    queryDao.updateOnly("province", beanList.get(getAdapterPosition()).trim());
+                    queryDao.updateOnly("province", beanList.get(getAdapterPosition()).getName().trim());
+                    UserInfoDao infoDao = new UserInfoDao(context);
+                    infoDao.updateOnly("city", beanList.get(getAdapterPosition()).getName().trim());
                     activity.setResult(ResultCode.ENTERPRISE_AREA_PROVINCE);
                     activity.finish();
                     break;

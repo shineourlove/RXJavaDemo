@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
@@ -88,7 +89,9 @@ public class AptitudeQueryActivity extends BaseActivity {
         /*UserInfoDao infoDao = new UserInfoDao(this);
         String phone = infoDao.query().get(0).getPhone();*/
         Log.i("aptitude_query", "initQuery: " + getIntent().getStringExtra("parameter"));
-        api.fuzzySearchObservable("13637897256", getIntent().getStringExtra("parameter"), (1 + count) + "", (1 + count + 20) + "")
+        Log.i("aptitude_query", "count: " + count);
+        Log.i("aptitude_query", "count + 20: " + (count + 20));
+        api.fuzzySearchObservable("13637897256", getIntent().getStringExtra("parameter"), (count) + "", (20) + "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnterpriseSearchEntity>() {
@@ -100,10 +103,12 @@ public class AptitudeQueryActivity extends BaseActivity {
                     @Override
                     public void onNext(EnterpriseSearchEntity value) {
                         Log.i("aptitude_query", "onNext: " + value.getData().size());
-                        if (value.getData() != null) {
+                        if (value.getData() != null && value.getData().size() > 0) {
                             for (int i = 0; i < value.getData().size(); i++) {
                                 searchList.add(value.getData().get(i));
                             }
+                        } else {
+                            Toast.makeText(AptitudeQueryActivity.this, "没有查询到符合条件的企业", Toast.LENGTH_SHORT).show();
                         }
                         adapter.notifyDataSetChanged();
                     }

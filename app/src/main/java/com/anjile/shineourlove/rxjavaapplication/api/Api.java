@@ -76,14 +76,16 @@ public interface Api {
 
     /**
      * 模糊查询企业的api
+     * currentPage 开始的记录数
+     * pageSize 查询条数
      */
     @FormUrlEncoded
     @POST("architecture/queryEnterprise.enterprise")
     io.reactivex.Observable<EnterpriseSearchEntity> fuzzySearchObservable(
             @Field("phone") String phone,
             @Field("parameter") String parameter,
-            @Field("start") String start,
-            @Field("end") String end);
+            @Field("currentPage") String start,
+            @Field("pageSize") String end);
 
     /**
      * 获取所有资质目录的api

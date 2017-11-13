@@ -44,11 +44,17 @@ public class UserInfoDao {
      * @param columnKey   字段
      * @param columnValue 字段对应的数据
      */
-    public void updateOnly(int id, String columnKey, String columnValue) {
+    public void updateOnly(String columnKey, String columnValue) {
+        List<UserInfoBean> queryList = null;
         try {
+            queryList = query();
+            if (queryList.size() == 0) {
+                add(new UserInfoBean());
+                queryList = query();
+            }
             UpdateBuilder builder = DataBaseHelper.getInstance(mContext).getUserInfoDao().updateBuilder();
             builder.updateColumnValue(columnKey, columnValue);  //修改列为columnKey的值
-            builder.where().eq("id", id + "");   //修改id为1的列
+            builder.where().eq("id", queryList.get(0).getId());   //修改id为1的列
             builder.update();
         } catch (SQLException e) {
             e.printStackTrace();

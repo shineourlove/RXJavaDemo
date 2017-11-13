@@ -23,11 +23,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:icon, android:theme">
         <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -101,9 +97,7 @@
         <activity
             android:name=".activity.AptitudeSelectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".activity.QueryActivity">
-
-        </activity>
+        <activity android:name=".activity.QueryActivity"></activity>
         <activity android:name=".activity.AptitudeRankSelectActivity" />
         <activity android:name=".activity.EnterpriseAptitudeActivity" />
         <activity
@@ -118,7 +112,13 @@
         <activity
             android:name=".activity.MajorSelectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".activity.PersonalMajorRankActivity"></activity>
+        <activity android:name=".activity.PersonalMajorRankActivity" />
+        <activity android:name=".activity.PersonListDetailsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

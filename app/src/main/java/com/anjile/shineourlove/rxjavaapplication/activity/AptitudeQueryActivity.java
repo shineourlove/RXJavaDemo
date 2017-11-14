@@ -91,7 +91,9 @@ public class AptitudeQueryActivity extends BaseActivity {
         Log.i("aptitude_query", "initQuery: " + getIntent().getStringExtra("parameter"));
         Log.i("aptitude_query", "count: " + count);
         Log.i("aptitude_query", "count + 20: " + (count + 20));
-        api.fuzzySearchObservable("13637897256", getIntent().getStringExtra("parameter"), (count) + "", (20) + "")
+        api.fuzzySearchObservable(new UserInfoDao(this).query().get(0).getPhone()
+                , getIntent().getStringExtra("parameter"), (count) + "", (20) + ""
+                ,new UserInfoDao(this).query().get(0).getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnterpriseSearchEntity>() {

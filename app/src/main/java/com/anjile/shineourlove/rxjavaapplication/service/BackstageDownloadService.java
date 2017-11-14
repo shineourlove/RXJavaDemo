@@ -25,6 +25,7 @@ import com.anjile.shineourlove.rxjavaapplication.db.PersonalTitleBean;
 import com.anjile.shineourlove.rxjavaapplication.db.PersonalTitleDao;
 import com.anjile.shineourlove.rxjavaapplication.db.PurposeAllBean;
 import com.anjile.shineourlove.rxjavaapplication.db.PurposeAllDao;
+import com.anjile.shineourlove.rxjavaapplication.db.UserInfoDao;
 import com.anjile.shineourlove.rxjavaapplication.entity.AptitudeAllEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseSearchEntity;
 import com.anjile.shineourlove.rxjavaapplication.entity.PersonalAllEntity;
@@ -135,8 +136,9 @@ public class BackstageDownloadService extends Service {
                 .build();
 
         Api api = retrofit.create(Api.class);
-
-        api.aptitudeIndexObservable().subscribeOn(Schedulers.io())
+        UserInfoDao infoDao = new UserInfoDao(this);
+        api.aptitudeIndexObservable(infoDao.query().get(0).getToken()
+                , new UserInfoDao(this).query().get(0).getPhone()).subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io()) //onNext()所在线程
                 .subscribe(new Observer<AptitudeAllEntity>() {
                     @Override
@@ -187,7 +189,8 @@ public class BackstageDownloadService extends Service {
 
         Api api = retrofit.create(Api.class);
 
-        api.purposeObservable().subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+        api.purposeObservable(new UserInfoDao(this).query().get(0).getToken()
+                , new UserInfoDao(this).query().get(0).getPhone()).subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
                 .subscribe(new Observer<PurposeEntity>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -220,7 +223,8 @@ public class BackstageDownloadService extends Service {
 
         Api api = retrofit.create(Api.class);
 
-        api.personalObservable().subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
+        api.personalObservable(new UserInfoDao(this).query().get(0).getToken()
+                , new UserInfoDao(this).query().get(0).getPhone()).subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
                 .subscribe(new Observer<PersonalAllEntity>() {
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -403,9 +407,10 @@ public class BackstageDownloadService extends Service {
         Log.i("background_service", "jsonObject: " + jsonArray.toString());
         Log.i("background_service", "aptitude: " + Arrays.asList(aptArr).toString());
         Log.i("background_service", "performance: " + performance);
-        api.conditionSearchObservable("13637897256", count + "",
+        api.conditionSearchObservable(new UserInfoDao(this).query().get(0).getPhone(), count + "",
                 count + 20 + "", area, require,
-                legalPerson, Arrays.asList(aptArr).toString(), performance, jsonArray.toString())
+                legalPerson, Arrays.asList(aptArr).toString(), performance, jsonArray.toString(),
+                new UserInfoDao(this).query().get(0).getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnterpriseSearchEntity>() {

@@ -22,9 +22,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:replace="android:icon, android:theme">
-        <activity android:name=".activity.MainActivity">
-
-        </activity>
+        <activity android:name=".activity.MainActivity"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -66,7 +64,9 @@
             android:name=".activity.TalentPoolActivity"
             android:label="@string/title_activity_talent_pool"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.AccountLoginActivity" />
+        <activity android:name=".activity.AccountLoginActivity">
+
+        </activity>
         <activity android:name=".activity.BudgetProgramActivity" />
         <activity
             android:name=".activity.FeedbackActivity"
@@ -97,7 +97,7 @@
         <activity
             android:name=".activity.AptitudeSelectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".activity.QueryActivity"></activity>
+        <activity android:name=".activity.QueryActivity" />
         <activity android:name=".activity.AptitudeRankSelectActivity" />
         <activity android:name=".activity.EnterpriseAptitudeActivity" />
         <activity
@@ -113,9 +113,11 @@
             android:name=".activity.MajorSelectActivity"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".activity.PersonalMajorRankActivity" />
-        <activity android:name=".activity.PersonListDetailsActivity">
+        <activity android:name=".activity.PersonListDetailsActivity"></activity>
+        <activity android:name=".activity.StartPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -20,6 +20,7 @@ import com.anjile.shineourlove.rxjavaapplication.adapter.MFragmentPagerAdapter;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentFieldManager;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentRegister;
 import com.anjile.shineourlove.rxjavaapplication.fragment.FragmentTitle;
+import com.anjile.shineourlove.rxjavaapplication.manager.NetManager;
 
 import java.util.ArrayList;
 
@@ -269,5 +270,9 @@ public class PersonListDetailsActivity extends BaseActivity {
         registerTextView.setTextColor(ContextCompat.getColor(PersonListDetailsActivity.this, R.color.black_word));
         titleTextView.setTextColor(ContextCompat.getColor(PersonListDetailsActivity.this, R.color.black_word));
         managementTextView.setTextColor(ContextCompat.getColor(PersonListDetailsActivity.this, R.color.black_word));
+    }
+
+    public void initPersonData(){
+        // new NetManager().getApi().enterpeisePersonObservable()
     }
 }

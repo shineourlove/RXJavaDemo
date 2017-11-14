@@ -12,6 +12,7 @@ import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.adapter.EnterpriseAptitudeDetailsAdapter;
 import com.anjile.shineourlove.rxjavaapplication.api.Api;
+import com.anjile.shineourlove.rxjavaapplication.db.UserInfoDao;
 import com.anjile.shineourlove.rxjavaapplication.entity.EnterpriseDetailsEntity;
 import com.anjile.shineourlove.rxjavaapplication.manager.FullyLinearLayoutManager;
 import com.anjile.shineourlove.rxjavaapplication.manager.NetManager;
@@ -77,7 +78,9 @@ public class EnterpriseDetailActivity extends BaseActivity {
 
     public void queryEnterpriseDetails() {
         Api api = new NetManager().getApi();
-        api.enterpriseDetailsObservable(getIntent().getIntExtra("id", 108) + "").subscribeOn(Schedulers.io())
+        api.enterpriseDetailsObservable(getIntent().getIntExtra("id", 108) + ""
+                , new UserInfoDao(this).query().get(0).getPhone()
+                , new UserInfoDao(this).query().get(0).getToken()).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnterpriseDetailsEntity>() {
                     @Override
@@ -106,7 +109,7 @@ public class EnterpriseDetailActivity extends BaseActivity {
     List<String> stringList;
 
     public void initAdapter() {
-        stringList =new ArrayList<>();
+        stringList = new ArrayList<>();
         rcvEnterpriseDetailAptitude.setLayoutManager(new FullyLinearLayoutManager(this));
         adapter = new EnterpriseAptitudeDetailsAdapter(stringList, this);
         rcvEnterpriseDetailAptitude.setAdapter(adapter);

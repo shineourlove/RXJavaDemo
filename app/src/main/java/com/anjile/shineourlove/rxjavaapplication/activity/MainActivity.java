@@ -97,9 +97,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .initialise();
         mBottomNavigationBar.setTabSelectedListener(MainActivity.this);
         setDefaultFragment();
-        //netDemo();
-        netDemo2();
-
         initAptitudeIndex();
     }
 
@@ -193,94 +190,4 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         observable.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.newThread()).subscribe(consumer);
     }
 
-    /**
-     * 网络请求
-     */
-    public void netDemo() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .build();
-
-        Api api = retrofit.create(Api.class);
-        Call call = api.contributorsGetCall("square", "retrofit");
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.i("retrofit_test", "onResponse: " + response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void netDemo2() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        Api api = retrofit.create(Api.class);
-/*        Call call = api.contributorsGetCall("square", "retrofit");
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    String res = response.body().string();
-                    Log.i("retrofit2_test", "onResponse: " + res);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });*/
-
-        Call<List<Retrofit2EntrtyTest1>> call = api.detailsGetCall("square", "retrofit");
-        call.enqueue(new Callback<List<Retrofit2EntrtyTest1>>() {
-            @Override
-            public void onResponse(Call<List<Retrofit2EntrtyTest1>> call, Response<List<Retrofit2EntrtyTest1>> response) {
-                List<Retrofit2EntrtyTest1> entrtyTest1s = response.body();
-                Log.i("retrofit2_test", "onResponse: " + entrtyTest1s.get(0).getAvatar_url());
-            }
-
-            @Override
-            public void onFailure(Call<List<Retrofit2EntrtyTest1>> call, Throwable t) {
-                Log.i("retrofit2_test", "onFailure: ");
-            }
-        });
-
-        api.login("square", "retrofit").subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Retrofit2EntrtyTest1>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Retrofit2EntrtyTest1> value) {
-                        Log.i("retrofit2_test", "onResponse: " + value.get(0).getAvatar_url());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i("retrofit2_test", "onError: 请求错误");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.i("retrofit2_test", "onComplete: 请求完成");
-                    }
-                });
-    }
 }

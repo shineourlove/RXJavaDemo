@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.activity.FuzzySearchActivity;
+import com.anjile.shineourlove.rxjavaapplication.activity.ProvinceSelectActivity;
 import com.anjile.shineourlove.rxjavaapplication.activity.QueryActivity;
 import com.anjile.shineourlove.rxjavaapplication.adapter.ArchitectureRecycleAdapter;
 import com.anjile.shineourlove.rxjavaapplication.adapter.DetailsPagerAdapter;
@@ -158,6 +159,9 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         rlSearch.setOnClickListener(this);
         txtFragmentHomeArea.setOnClickListener(this);
         imgFragmentHomeArea.setOnClickListener(this);
+
+        photos = new ArrayList<>();
+        urls = new ArrayList<>();
     }
 
     public void initCbHeight() {
@@ -172,8 +176,6 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     }
 
     public void initCbUrl() {
-        photos = new ArrayList<>();
-        urls = new ArrayList<>();
         Api api = new NetManager().getApi();
         api.mainPagerObservable()
                 .subscribeOn(Schedulers.io())
@@ -409,7 +411,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
      * 地区选择
      */
     public void areaClick() {
-        startActivityForResult(new Intent(getContext(), ProvinceEntity.class), RequestCode.HOME_AREA_REQUEST);
+        startActivityForResult(new Intent(getContext(), ProvinceSelectActivity.class), RequestCode.HOME_AREA_REQUEST);
     }
 
     @Override

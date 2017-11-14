@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">RXJavaApplication</string>
+    <string name="app_name">建管通</string>
     <string name="app_version">1.0.0</string>
+    <string name="app_start_page">专业的建筑查询、预算、投标方案平台</string>
     <string name="tab_one">首页</string>
     <string name="tab_two">消息</string>
     <string name="tab_three">个人</string>

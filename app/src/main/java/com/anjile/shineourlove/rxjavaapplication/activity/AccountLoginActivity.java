@@ -1,15 +1,20 @@
 package com.anjile.shineourlove.rxjavaapplication.activity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,7 +23,10 @@ import android.widget.Toast;
 import com.anjile.shineourlove.rxjavaapplication.BaseActivity;
 import com.anjile.shineourlove.rxjavaapplication.R;
 import com.anjile.shineourlove.rxjavaapplication.api.Api;
+import com.anjile.shineourlove.rxjavaapplication.db.UserInfoBean;
+import com.anjile.shineourlove.rxjavaapplication.db.UserInfoDao;
 import com.anjile.shineourlove.rxjavaapplication.entity.CheckSecurityCodeBean;
+import com.anjile.shineourlove.rxjavaapplication.manager.NetManager;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
@@ -51,7 +59,7 @@ public class AccountLoginActivity extends BaseActivity {
     @BindView(R.id.txt_account_login_login)
     TextView txtAccountLoginLogin;
 
-    private int phoneNum;
+    private String phoneNum;
     private int securityCode;
 
     @Override
@@ -71,14 +79,13 @@ public class AccountLoginActivity extends BaseActivity {
     public void viewClick(View v) {
         switch (v.getId()) {
             case R.id.txt_account_login_get_security_code:
-                if (edtAccountLoginPhoneNumber.getText().length() == 13) {
-                    phoneNum = Integer.parseInt(String.valueOf(edtAccountLoginPhoneNumber.getText()));
-                }
+                phoneNum = edtAccountLoginPhoneNumber.getText().toString();
                 sendOutPhone();
+                showDialog();
                 break;
             case R.id.txt_account_login_login:
                 loginCheck(edtAccountLoginPhoneNumber.getText().toString().trim(), edtAccountLoginSecurityCode.getText().toString().trim());
-                //checkSecurity("15000000000", "110022");
+                showDialog();
                 break;
         }
     }
@@ -128,18 +135,64 @@ public class AccountLoginActivity extends BaseActivity {
     private void initLogin() {
         txtAccountLoginGetSecurityCode.setOnClickListener(this);
         txtAccountLoginLogin.setOnClickListener(this);
+        edtAccountLoginPhoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length() != 11) {
+                    txtAccountLoginGetSecurityCode.setTextColor(getResources().getColor(R.color.gray_word_hint));
+                    txtAccountLoginGetSecurityCode.setEnabled(false);
+                } else {
+                    txtAccountLoginGetSecurityCode.setTextColor(getResources().getColor(R.color.blue_word));
+                    txtAccountLoginGetSecurityCode.setEnabled(true);
+                }
+            }
+        });
     }
 
     /**
      * 发送验证码
      */
     private void sendOutPhone() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.251:8080/")
-                .build();
+        Api api = new NetManager().getApi();
+        Log.i("ok_http_log", "phoneNum: " + phoneNum);
+        api.loginCodeObservable(phoneNum + "").subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<CheckSecurityCodeBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-        Api api = retrofit.create(Api.class);
-        Call call = api.securityCodePostCall("13637897256");
+                    }
+
+                    @Override
+                    public void onNext(CheckSecurityCodeBean value) {
+                        dialog.dismiss();
+                        if (value.getStatus() == 1)
+                            Toast.makeText(AccountLoginActivity.this, "验证码已发出", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(AccountLoginActivity.this, "验证码发送失败", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(AccountLoginActivity.this, "验证码发送失败", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        /*Call call = api.securityCodePostCall("13637897256");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -149,37 +202,14 @@ public class AccountLoginActivity extends BaseActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
-        });
-    }
-
-    private void checkSecurity(String phone, String code) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.251:8080/")
-                .build();
-
-        Api api = retrofit.create(Api.class);
-        Call call = api.checkSecurityCodePostCall(phone, code);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.i("retrofit_test", "校对验证码: " + response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });
+        });*/
     }
 
     /**
@@ -189,13 +219,7 @@ public class AccountLoginActivity extends BaseActivity {
      * @param code  验证码
      */
     private void loginCheck(String phone, String code) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.251:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        Api api = retrofit.create(Api.class);
+        Api api = new NetManager().getApi();
         api.loginPostObservable(phone, code)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -207,18 +231,21 @@ public class AccountLoginActivity extends BaseActivity {
 
                     @Override
                     public void onNext(CheckSecurityCodeBean value) {
-                        if (value.getStatus().equals("1")) {
+                        if (value.getStatus() == 1) {
+                            saveUserInfo(value);
                             startActivity(new Intent(AccountLoginActivity.this, MainActivity.class));
                             finish();
                         } else {
                             Toast.makeText(AccountLoginActivity.this, "手机号或验证码错误", Toast.LENGTH_SHORT).show();
                         }
+                        dialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.i("retrofit_test", "onError: ");
-
+                        dialog.dismiss();
+                        Toast.makeText(AccountLoginActivity.this, "手机号或验证码错误", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -226,5 +253,37 @@ public class AccountLoginActivity extends BaseActivity {
                         Log.i("retrofit_test", "onComplete: ");
                     }
                 });
+    }
+
+    public void saveUserInfo(CheckSecurityCodeBean value) {
+        UserInfoDao infoDao = new UserInfoDao(this);
+        infoDao.clearAll();
+        int age = 18;
+        if (!value.getData().get(0).getAge().equals(""))
+            age = Integer.parseInt(value.getData().get(0).getAge());
+        UserInfoBean infoBean = new UserInfoBean();
+        infoBean.setToken(value.getToken());
+        infoBean.setPhone(value.getData().get(0).getPhone());
+        infoBean.setUserId(value.getData().get(0).getId() + "");
+        infoBean.setName(value.getData().get(0).getName());
+        infoBean.setGender(value.getData().get(0).getGender());
+        infoBean.setAge(age);
+        infoBean.setBirthday(value.getData().get(0).getBirthday());
+        infoBean.setInterests(value.getData().get(0).getInterests());
+        infoBean.setVip(value.getData().get(0).getVip());
+        infoBean.setVipStartDate(value.getData().get(0).getVipStartDate());
+        infoBean.setVipDateDue(value.getData().get(0).getVipDateDue());
+        infoBean.setMail(value.getData().get(0).getMail());
+        infoBean.setPhoto(value.getData().get(0).getPhoto());
+        infoDao.add(infoBean);
+    }
+
+    Dialog dialog;
+
+    public void showDialog() {
+        dialog = new Dialog(this, R.style.dialog);
+        View view = LayoutInflater.from(this).inflate(R.layout.rotation_hint_dialog, null);
+        dialog.setContentView(view);
+        dialog.show();
     }
 }

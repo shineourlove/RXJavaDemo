@@ -129,13 +129,7 @@ public class BackstageDownloadService extends Service {
     }
 
     public void addAptitudeIndex() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.167:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        Api api = retrofit.create(Api.class);
+        Api api = new NetManager().getHeaderApi(this);
         UserInfoDao infoDao = new UserInfoDao(this);
         api.aptitudeIndexObservable(infoDao.query().get(0).getToken()
                 , new UserInfoDao(this).query().get(0).getPhone()).subscribeOn(Schedulers.io())
@@ -181,13 +175,7 @@ public class BackstageDownloadService extends Service {
     }
 
     public void addPurposeIndex() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.167:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        Api api = retrofit.create(Api.class);
+        Api api = new NetManager().getHeaderApi(this);
 
         api.purposeObservable(new UserInfoDao(this).query().get(0).getToken()
                 , new UserInfoDao(this).query().get(0).getPhone()).subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
@@ -215,14 +203,7 @@ public class BackstageDownloadService extends Service {
     }
 
     public void addPersonalIndex() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.167:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        Api api = retrofit.create(Api.class);
-
+        Api api = new NetManager().getHeaderApi(this);
         api.personalObservable(new UserInfoDao(this).query().get(0).getToken()
                 , new UserInfoDao(this).query().get(0).getPhone()).subscribeOn(Schedulers.io()).observeOn(Schedulers.io())
                 .subscribe(new Observer<PersonalAllEntity>() {

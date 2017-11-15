@@ -1,6 +1,9 @@
 package com.anjile.shineourlove.rxjavaapplication.utils;
 
+import android.content.Context;
 import android.util.Log;
+
+import com.anjile.shineourlove.rxjavaapplication.db.UserInfoDao;
 
 import java.io.IOException;
 
@@ -29,10 +32,25 @@ public class InterceptorUtil {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
-                Request mRequest = chain.request();
                 //在这里你可以做一些想做的事,比如token失效时,重新获取token
-                //或者添加header等等,PS我会在下一篇文章总写拦截token方法
+                //或者添加header等等
+                Request mRequest = chain.request();
                 return chain.proceed(mRequest);
+            }
+        };
+    }
+
+    public static Interceptor HeaderWithInterceptor(final String token,final String phone) {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                //在这里你可以做一些想做的事,比如token失效时,重新获取token
+                //或者添加header等等
+                Request request = chain.request().newBuilder()
+                        .addHeader("token", token)
+                        .addHeader("phone", phone)
+                        .build();
+                return chain.proceed(request);
             }
         };
 

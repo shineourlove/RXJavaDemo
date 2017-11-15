@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingEnd="0dp"
-                android:paddingStart="16dp"
+                android:paddingStart="@dimen/item_text_size"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:text="重庆" />
@@ -56,7 +56,7 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ssdk_country_search_icon" />
+                    android:src="@drawable/search_icon" />
 
                 <TextView
                     android:id="@+id/txt_fragment_home_search"

@@ -78,22 +78,29 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     ImageView imgFragmentHomeArea;
     Unbinder unbinder;
 
-    @BindView(R.id.cb_fragment_home)  //轮播
-            ConvenientBanner cbFragmentHome;
-    @BindView(R.id.ll_fragment_home_advanced_query)  //高级查询
-            LinearLayout llFragmentHomeAdvancedQuery;
-    @BindView(R.id.ll_fragment_home_talent_pool)  //人才库
-            LinearLayout llFragmentHomeTalentPool;
-    @BindView(R.id.ll_fragment_home_budget_program)  //方案预算
-            LinearLayout llFragmentHomeBudgetProgram;
+    //轮播
+    @BindView(R.id.cb_fragment_home)
+    ConvenientBanner cbFragmentHome;
+    //高级查询
+    @BindView(R.id.ll_fragment_home_advanced_query)
+    LinearLayout llFragmentHomeAdvancedQuery;
+    //人才库
+    @BindView(R.id.ll_fragment_home_talent_pool)
+    LinearLayout llFragmentHomeTalentPool;
+    //方案预算
+    @BindView(R.id.ll_fragment_home_budget_program)
+    LinearLayout llFragmentHomeBudgetProgram;
+    //vip
+    @BindView(R.id.ll_fragment_home_vip)
+    LinearLayout llFragmentHomeVip;
+    //信誉值
+    @BindView(R.id.ll_fragment_home_credit)
+    LinearLayout llFragmentHomeCredit;
+    //材料选购
+    @BindView(R.id.ll_fragment_home_material_choose)
+    LinearLayout llFragmentHomeMaterialChoose;
 
-    @BindView(R.id.ll_fragment_home_vip)//vip
-            LinearLayout llFragmentHomeVip;
-    @BindView(R.id.ll_fragment_home_credit)//信誉值
-            LinearLayout llFragmentHomeCredit;
-    @BindView(R.id.ll_fragment_home_material_choose)//材料选购
-            LinearLayout llFragmentHomeMaterialChoose;
-
+    //热点
     @BindView(R.id.txt_fragment_home_hot_one)
     TextView txtFragmentHomeHotOne;
     @BindView(R.id.txt_fragment_home_hot_two)
@@ -124,12 +131,10 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_layout, container, false);
-        ButterKnife.bind(getActivity());
+        unbinder = ButterKnife.bind(this, view);
         banner = view.findViewById(R.id.cb_fragment_home);
         txtHot1 = view.findViewById(R.id.txt_fragment_home_hot_one);
         txtHot2 = view.findViewById(R.id.txt_fragment_home_hot_two);
-        //rcvCompany = view.findViewById(R.id.rcv_fragment_home_details);
-        //pagerDetails = view.findViewById(R.id.vp_fragment_home_details);
         txtCompany = view.findViewById(R.id.txt_fragment_home_company);
         txtCompanyLine = view.findViewById(R.id.txt_fragment_home_company_line);
         txtInfo = view.findViewById(R.id.txt_fragment_home_info);
@@ -137,8 +142,6 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         txtBuilder = view.findViewById(R.id.txt_fragment_home_builder);
         txtBuilderLine = view.findViewById(R.id.txt_fragment_home_builder_line);
         rlSearch = view.findViewById(R.id.rl_fragment_home_search);
-        unbinder = ButterKnife.bind(this, view);
-        llFragmentHomeTalentPool.setOnClickListener(this);
         return view;
     }
 
@@ -149,8 +152,6 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         initCbHeight();
         initCbUrl();
         initHotPoint();
-        //initArchitecture();
-        //initPager(savedInstanceState);
         initDetails();
         initArea();
     }
@@ -159,9 +160,59 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
         rlSearch.setOnClickListener(this);
         txtFragmentHomeArea.setOnClickListener(this);
         imgFragmentHomeArea.setOnClickListener(this);
+        llFragmentHomeTalentPool.setOnClickListener(this);
+        llFragmentHomeAdvancedQuery.setOnClickListener(this);
+        llFragmentHomeBudgetProgram.setOnClickListener(this);
+        llFragmentHomeVip.setOnClickListener(this);
+        llFragmentHomeCredit.setOnClickListener(this);
+        llFragmentHomeMaterialChoose.setOnClickListener(this);
 
         photos = new ArrayList<>();
         urls = new ArrayList<>();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.txt_fragment_home_company:
+                clickCompany();
+                break;
+            case R.id.txt_fragment_home_info:
+                clickInfo();
+                break;
+            case R.id.txt_fragment_home_builder:
+                clickBuilder();
+                break;
+            case R.id.rl_fragment_home_search: //模糊查询  顶部输入框
+                Intent intent = new Intent(getContext(), FuzzySearchActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.txt_fragment_home_area:
+                areaClick();
+                break;
+            case R.id.img_fragment_home_area:
+                areaClick();
+                break;
+            case R.id.ll_fragment_home_talent_pool://人才库
+
+                break;
+            case R.id.ll_fragment_home_advanced_query://高级查询
+                Intent intentP = new Intent(getContext(), QueryActivity.class);
+                startActivity(intentP);
+                break;
+            case R.id.ll_fragment_home_budget_program://预算方案
+
+                break;
+            case R.id.ll_fragment_home_vip://vip
+
+                break;
+            case R.id.ll_fragment_home_credit://信誉值
+
+                break;
+            case R.id.ll_fragment_home_material_choose://材料选购
+
+                break;
+        }
     }
 
     public void initCbHeight() {
@@ -176,7 +227,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     }
 
     public void initCbUrl() {
-        Api api = new NetManager().getApi();
+        Api api = new NetManager().getHeaderApi(getContext());
         api.mainPagerObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -332,35 +383,6 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
 
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.txt_fragment_home_company:
-                clickCompany();
-                break;
-            case R.id.txt_fragment_home_info:
-                clickInfo();
-                break;
-            case R.id.txt_fragment_home_builder:
-                clickBuilder();
-                break;
-            case R.id.rl_fragment_home_search:
-                Intent intent = new Intent(getContext(), FuzzySearchActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.txt_fragment_home_area:
-                areaClick();
-                break;
-            case R.id.img_fragment_home_area:
-                areaClick();
-                break;
-            case R.id.ll_fragment_home_talent_pool:
-                Intent intentP = new Intent(getContext(), QueryActivity.class);
-                startActivity(intentP);
-                break;
-        }
-    }
-
     public void clickCompany() {
         txtCompany.setTextColor(getResources().getColor(R.color.blue_word));
         txtInfo.setTextColor(getResources().getColor(R.color.gray_word));
@@ -403,7 +425,7 @@ public class FragmentHome extends Fragment implements AdapterView.OnItemClickLis
     public void initArea() {
         txtFragmentHomeArea.setText("重庆");
         UserInfoDao infoDao = new UserInfoDao(getContext());
-        if (infoDao.query() != null && infoDao.query().size() > 0)
+        if (infoDao.query() != null && infoDao.query().size() > 0 && infoDao.query().get(0).getCity() != null && !infoDao.query().get(0).getCity().equals(""))
             txtFragmentHomeArea.setText(infoDao.query().get(0).getCity());
     }
 

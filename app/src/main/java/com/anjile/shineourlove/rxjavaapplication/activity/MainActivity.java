@@ -110,7 +110,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 EventBus.getDefault().post(new BackstageDownloadControl(1));
                 EventBus.getDefault().post(new BackstageDownloadControl(4));
             }
-        }, 50);
+        }, 200);
     }
 
     /**

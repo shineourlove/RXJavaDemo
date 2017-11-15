@@ -1,9 +1,10 @@
 package com.anjile.shineourlove.rxjavaapplication.activity;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -16,6 +17,9 @@ import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,24 +31,17 @@ import com.anjile.shineourlove.rxjavaapplication.db.UserInfoBean;
 import com.anjile.shineourlove.rxjavaapplication.db.UserInfoDao;
 import com.anjile.shineourlove.rxjavaapplication.entity.CheckSecurityCodeBean;
 import com.anjile.shineourlove.rxjavaapplication.manager.NetManager;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-import java.io.IOException;
-import java.util.List;
+import java.lang.ref.WeakReference;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AccountLoginActivity extends BaseActivity {
 
@@ -57,10 +54,15 @@ public class AccountLoginActivity extends BaseActivity {
     @BindView(R.id.txt_account_login_get_security_code)
     TextView txtAccountLoginGetSecurityCode;
     @BindView(R.id.txt_account_login_login)
-    TextView txtAccountLoginLogin;
+    Button txtAccountLoginLogin;
+    @BindView(R.id.cb_txt_account_login_agreement_and_terms)
+    CheckBox cbTxtAccountLoginAgreementAndTerms;
 
     private String phoneNum;
-    private int securityCode;
+    private int securityL = 0;
+    private int phoneL = 0;
+    private boolean check = false;
+    private boolean security = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,12 @@ public class AccountLoginActivity extends BaseActivity {
     public void initBasic() {
         setContentView(R.layout.activity_account_login);
         ButterKnife.bind(this);
+
+        txtAccountLoginGetSecurityCode.setTextColor(getResources().getColor(R.color.gray_word_hint));
+        txtAccountLoginGetSecurityCode.setEnabled(false);
+
+        txtAccountLoginLogin.setEnabled(false);
+        txtAccountLoginLogin.setBackground(getDrawable(R.drawable.round_radius_50_blue_half));
         initAgreement();
         initLogin();
     }
@@ -82,6 +90,7 @@ public class AccountLoginActivity extends BaseActivity {
                 phoneNum = edtAccountLoginPhoneNumber.getText().toString();
                 sendOutPhone();
                 showDialog();
+                securityCodeDismiss();
                 break;
             case R.id.txt_account_login_login:
                 loginCheck(edtAccountLoginPhoneNumber.getText().toString().trim(), edtAccountLoginSecurityCode.getText().toString().trim());
@@ -92,13 +101,13 @@ public class AccountLoginActivity extends BaseActivity {
 
     private void initAgreement() {
         txtAccountLoginAgreementAndTerms.setMovementMethod(LinkMovementMethod.getInstance());
-        String text = "我已阅读并同意建讯之家《用户服务协议》和《隐私条款》";
+        String text = "我已阅读并同意建讯之家《用户服务协议》";
         SpannableString styledText = new SpannableString(text);
         styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_gray), 0, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_blue), 12, 18, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_gray), 18, 21, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_blue), 21, 25, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_gray), 25, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_gray), 18, 19, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_blue), 21, 25, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //styledText.setSpan(new TextAppearanceSpan(this, R.style.style_login_gray), 25, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         SpannableStringBuilder builder = new SpannableStringBuilder(styledText);
         builder.setSpan(new ClickableSpan() {
@@ -115,20 +124,6 @@ public class AccountLoginActivity extends BaseActivity {
                 ds.setUnderlineText(false);
             }
         }, 12, 18, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-        builder.setSpan(new ClickableSpan() {
-            @Override
-            public void onClick(View view) {
-                Log.i("agreement_text_view", "onClick: ");
-                Toast.makeText(AccountLoginActivity.this, "touch", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setColor(getResources().getColor(R.color.blue_line));
-                ds.setUnderlineText(false);
-            }
-        }, 21, 25, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         txtAccountLoginAgreementAndTerms.setText(builder, TextView.BufferType.SPANNABLE);
     }
 
@@ -148,16 +143,105 @@ public class AccountLoginActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (editable.toString().length() != 11) {
-                    txtAccountLoginGetSecurityCode.setTextColor(getResources().getColor(R.color.gray_word_hint));
-                    txtAccountLoginGetSecurityCode.setEnabled(false);
-                } else {
-                    txtAccountLoginGetSecurityCode.setTextColor(getResources().getColor(R.color.blue_word));
-                    txtAccountLoginGetSecurityCode.setEnabled(true);
-                }
+                phoneL = editable.toString().length();
+                checkSecurityCondition();
+                checkCondition();
+            }
+        });
+        edtAccountLoginSecurityCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                securityL = editable.toString().length();
+                checkCondition();
+            }
+        });
+        cbTxtAccountLoginAgreementAndTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                check = b;
+                checkCondition();
             }
         });
     }
+
+    public void checkCondition() {
+        if (securityL == 6 && phoneL == 11 && check) {
+            txtAccountLoginLogin.setBackground(getDrawable(R.drawable.round_radius_50_blue));
+            txtAccountLoginLogin.setEnabled(true);
+        } else {
+            txtAccountLoginLogin.setBackground(getDrawable(R.drawable.round_radius_50_blue_half));
+            txtAccountLoginLogin.setEnabled(false);
+        }
+    }
+
+    public void checkSecurityCondition() {
+        if (phoneL == 11 && security) {
+            txtAccountLoginGetSecurityCode.setTextColor(getResources().getColor(R.color.blue_word));
+            txtAccountLoginGetSecurityCode.setEnabled(true);
+        } else {
+            txtAccountLoginGetSecurityCode.setTextColor(getResources().getColor(R.color.gray_word_hint));
+            txtAccountLoginGetSecurityCode.setEnabled(false);
+        }
+    }
+
+    Timer timer;
+    int timeCount = 60;
+
+    public void securityCodeDismiss() {
+        security = false;
+        checkSecurityCondition();
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+        timer = new Timer();
+        timeCount = 60;
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timeCount--;
+                handler.sendEmptyMessage(0);
+            }
+        }, 1000, 1000);
+    }
+
+    private static class AccountHandler extends Handler {
+        WeakReference<AccountLoginActivity> mActivity;
+
+        AccountHandler(AccountLoginActivity activity) {
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            final AccountLoginActivity theActivity = mActivity.get();
+            switch (msg.what) {
+                case 0:
+                    if (theActivity.timeCount <= 0) {
+                        theActivity.timer.cancel();
+                        theActivity.timer.purge();
+                        theActivity.security = true;
+                        theActivity.checkSecurityCondition();
+                        theActivity.txtAccountLoginGetSecurityCode.setText("获取验证码");
+                    } else {
+                        theActivity.txtAccountLoginGetSecurityCode.setText(theActivity.timeCount + "秒");
+                    }
+                    break;
+            }
+        }
+    }
+
+    AccountHandler handler = new AccountHandler(this);
 
     /**
      * 发送验证码
@@ -184,6 +268,7 @@ public class AccountLoginActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        dialog.dismiss();
                         Toast.makeText(AccountLoginActivity.this, "验证码发送失败", Toast.LENGTH_SHORT).show();
                     }
 
@@ -192,24 +277,6 @@ public class AccountLoginActivity extends BaseActivity {
 
                     }
                 });
-        /*Call call = api.securityCodePostCall("13637897256");
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Log.i("retrofit_test", "发送验证码: " + response.body().string());
-                    Toast.makeText(AccountLoginActivity.this, "验证码已发出", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-            }
-        });*/
     }
 
     /**
